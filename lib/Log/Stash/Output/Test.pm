@@ -15,6 +15,18 @@ has messages => (
     lazy => 1,
 );
 
+has on_consume_cb => (
+    isa => 'CodeRef',
+    is => 'ro',
+    predicate => '_has_on_consume_cb',
+);
+
+after consume => sub {
+    my ($self, $msg) = @_;
+    $self->on_consume_cb->($msg)
+        if $self->_has_on_consume_cb;
+};
+
 with 'Log::Stash::Mixin::Output';
 
 __PACKAGE__->meta->make_immutable;
