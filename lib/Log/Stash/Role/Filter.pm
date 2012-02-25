@@ -1,9 +1,9 @@
-package Log::Stash::Mixin::Filter;
+package Log::Stash::Role::Filter;
 use Moose::Role;
 use namespace::autoclean;
 
-with 'Log::Stash::Mixin::Consumer';
-with 'Log::Stash::Mixin::Producer';
+with 'Log::Stash::Role::Input';
+with 'Log::Stash::Role::Output';
 
 requires 'filter';
 

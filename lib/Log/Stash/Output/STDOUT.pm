@@ -2,7 +2,7 @@ package Log::Stash::Output::STDOUT;
 use Moose;
 use namespace::autoclean;
 
-with 'Log::Stash::Mixin::Output';
+with 'Log::Stash::Role::Output';
 
 sub consume {
     my $self = shift;

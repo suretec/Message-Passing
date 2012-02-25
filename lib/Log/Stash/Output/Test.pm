@@ -27,7 +27,7 @@ after consume => sub {
         if $self->_has_on_consume_cb;
 };
 
-with 'Log::Stash::Mixin::Output';
+with 'Log::Stash::Role::Output';
 
 __PACKAGE__->meta->make_immutable;
 1;

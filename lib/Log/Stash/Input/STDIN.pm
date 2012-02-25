@@ -4,7 +4,7 @@ use AnyEvent;
 use Try::Tiny;
 use namespace::autoclean;
 
-with 'Log::Stash::Mixin::Input';
+with 'Log::Stash::Role::Input';
 
 sub BUILD {
     my $self = shift;

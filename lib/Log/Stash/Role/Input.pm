@@ -1,4 +1,4 @@
-package Log::Stash::Mixin::Input;
+package Log::Stash::Role::Input;
 use Moose::Role;
 use JSON qw/ from_json /;
 use namespace::autoclean;
