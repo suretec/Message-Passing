@@ -1,9 +1,14 @@
 package Log::Stash::Role::Output;
 use Moose::Role;
 use JSON qw/ to_json /;
+use Scalar::Util qw/ blessed /;
 use namespace::autoclean;
 
-sub encode { to_json( $_[1], { utf8  => 1 } ) }
+sub encode {
+    my ($self, $message) = @_;
+    $message = $message->pack if blessed($message) && $message->can('pack');
+    to_json( $message, { utf8  => 1 } )
+}
 
 requires 'consume';
 
