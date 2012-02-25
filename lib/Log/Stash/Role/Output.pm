@@ -16,7 +16,7 @@ requires 'consume';
 
 =head1 NAME
 
-Log::Stash::Mixin::Consumer - Consumers messages
+Log::Stash::Role::Output - Consumes messages
 
 =head1 DESCRIPTION
 
@@ -28,9 +28,31 @@ This is a role for classes which consumer messages (e.g. a Log::Stash output)
 
 Consume a message
 
-=HEAD1 AUTHOR, COPYRIGHT AND LICENSE
+=head1 SEE ALSO
 
-See L<Log::Stash> for details.
+L<Log::Stash>
+
+=head1 AUTHOR
+
+Tomas (t0m) Doran <bobtfish@bobtfish.net>
+
+=head1 SPONSORSHIP
+
+This module exists due to the wonderful people at
+L<Suretec Systems|http://www.suretecsystems.com/> who sponsored it's
+development.
+
+=head1 COPYRIGHT
+
+Copyright Suretec Systems 2012.
+
+Logstash (upon which many ideas for this project is based, but
+which we do not reuse any code from) is copyright 2010 Jorden Sissel.
+
+=head1 LICENSE
+
+XX - TODO
 
 =cut
+
 

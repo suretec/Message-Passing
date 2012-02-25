@@ -14,19 +14,35 @@ has output_to => (
 
 =head1 NAME
 
-Log::Stash::Mixin::Producer
+Log::Stash::Role::Input
 
 =head1 DESCRIPTION
 
 Produces messages.
 
-=head1 REQUIRED METHODS
+=head1 SEE ALSO
 
-=head2 produce
+L<Log::Stash>
 
-=HEAD1 AUTHOR, COPYRIGHT AND LICENSE
+=head1 AUTHOR
 
-See L<Log::Stash> for details.
+Tomas (t0m) Doran <bobtfish@bobtfish.net>
 
-=cut
+=head1 SPONSORSHIP
 
+This module exists due to the wonderful people at
+L<Suretec Systems|http://www.suretecsystems.com/> who sponsored it's
+development.
+
+=head1 COPYRIGHT
+
+Copyright Suretec Systems 2012.
+
+Logstash (upon which many ideas for this project is based, but
+which we do not reuse any code from) is copyright 2010 Jorden Sissel.
+
+=head1 LICENSE
+
+XX - TODO
+
+=cu

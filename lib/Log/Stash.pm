@@ -79,7 +79,7 @@ All of the below are coming real soon.
 
 =over
 
-=item L<Log::Stash::Input::STDIN> - For testing!
+=item L<Log::Stash::Input::STDIN>
 
 =item L<Log::Stash::Input::AMQP>
 
@@ -91,13 +91,17 @@ All of the below are coming real soon.
 
 =over
 
-=item L<Log::Stash::Output::STDOUT> - For testing!
+=item L<Log::Stash::Output::STDOUT>
 
 =item L<Log::Stash::Output::AMQP>
 
 =item L<Log::Stash::Output::ZeroMQ>
 
 =item L<Log::Stash::Output::WebHooks>
+
+=item L<Log::Stash::Output::ElasticSearch>
+
+=item L<Log::Stash::Output::Test>
 
 =back
 
