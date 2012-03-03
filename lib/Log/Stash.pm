@@ -86,6 +86,7 @@ foreach my $name (map { lc($_) . "_options"  } keys %things) {
         handles => {
             lc($name) => 'elements',
         },
+        coerce => 1,
     );
 }
 
