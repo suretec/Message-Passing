@@ -7,8 +7,7 @@ use AnyEvent;
 use Log::Stash;
 
 my $self = Log::Stash->new_with_options;
-my $out = $self->output->new;
-my $in = $self->input->new(output_to => $out);
+$self->start;
 
 AnyEvent->condvar->recv;
 

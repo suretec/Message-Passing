@@ -6,6 +6,7 @@ use MooseX::Types::LoadableClass qw/ LoadableClass /;
 use String::RewritePrefix;
 use AnyEvent;
 use JSON::XS;
+use Try::Tiny;
 use namespace::autoclean;
 use 5.8.4;
 
@@ -37,17 +38,54 @@ foreach my $name (keys %things ) {
         required => $things{$name},
         coerce => 1,
     );
+
+    has lc($name) . '_instance' => (
+        is => 'ro',
+        lazy => 1,
+        does => "Log::Stash::Role::$name",
+        builder => '_build_' . lc($name) . '_instance',
+    );
+}
+
+has '+filter' => (
+    default => 'Null',
+);
+
+sub _build_input_instance {
+    my $self = shift;
+    $self->input->new($self->input_options, output_to => $self->filter_instance);
+}
+
+sub _build_filter_instance {
+    my $self = shift;
+    $self->filter->new($self->filter_options, output_to => $self->output_instance);
+}
+
+sub _build_output_instance {
+    my $self = shift;
+    $self->output->new($self->output_options);
+}
+
+sub start {
+    my $self = shift;
+    $self->input_instance;
 }
 
 my $json_type = subtype
-  as "Str",
-  where { ref( eval { JSON::XS->new->relaxed->decode($_) } ) ne '' },
-  message { "Must be at least relaxed JSON" };
+  as "HashRef";
 
-foreach my $name (map { lc($_) . "_filter"  } keys %things) {
+coerce $json_type,
+  from NonEmptySimpleStr,
+  via { try { JSON::XS->new->relaxed->decode($_) } };
+
+foreach my $name (map { lc($_) . "_options"  } keys %things) {
     has $name => (
         isa => $json_type,
-        is => 'ro'
+        traits    => ['Hash'],
+        default => sub { {} },
+        handles => {
+            lc($name) => 'elements',
+        },
     );
 }
 

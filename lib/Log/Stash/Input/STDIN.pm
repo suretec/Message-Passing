@@ -9,7 +9,9 @@ with 'Log::Stash::Role::Input';
 sub BUILD {
     my $self = shift;
     my $r; $r = AnyEvent->io(fh => \*STDIN, poll => 'r', cb => sub {
-        chomp (my $input = <STDIN>);
+        my $input = <STDIN>;
+        return unless defined $input;
+        chomp($input);
         my $data = try { $self->decode($input) }
             catch { warn $_ };
         return unless $data;
