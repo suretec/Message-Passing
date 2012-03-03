@@ -6,6 +6,7 @@ use namespace::autoclean;
 sub decode { from_json( $_[1], { utf8  => 1 } ) }
 
 has output_to => (
+    does => 'Log::Stash::Role::Output',
     is => 'ro',
     required => 1,
 );
