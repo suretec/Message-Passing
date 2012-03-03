@@ -5,6 +5,7 @@ use Try::Tiny;
 
 use Log::Stash::Filter::Null;
 use Log::Stash::Output::Test;
+use Log::Stash::Filter::All;
 
 my $called = 0;
 
@@ -30,6 +31,20 @@ try { $test->clear_messages }
 
 is $test->messages_count, 0;
 is_deeply [$test->messages], [];
+
+$ob = try {
+    $test = Log::Stash::Output::Test->new(
+            on_consume_cb => sub { $called++ }
+    );
+    Log::Stash::Filter::All->new(output_to => $test)
+}
+catch { fail "Failed to construct $_" };
+ok $test;
+
+try { $ob->consume('message') }
+    catch { fail "Failed to consume message: $_" };
+
+is $test->messages_count, 0;
 
 done_testing;
 

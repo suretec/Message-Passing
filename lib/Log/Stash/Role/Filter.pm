@@ -7,7 +7,9 @@ with 'Log::Stash::Role::Output';
 
 sub consume {
     my ($self, $message) = @_;
-    $self->output_to->consume($self->filter($message));
+    my $new = $self->filter($message);
+    return unless $new;
+    $self->output_to->consume($new);
 }
 
 requires 'filter';
