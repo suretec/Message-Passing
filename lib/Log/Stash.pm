@@ -110,23 +110,86 @@ L<http://logstash.net>
 This implementation is currently a sketch, and as such should be considered
 pre alpha and subject to change at any point.
 
-=head1 SEE ALSO
+=head2 BASIC PREMIS
+
+You have data for discrete events, represented by a hash (and
+serialized as JSON).
+
+This could be a text log line, an audit record of an API
+event, a metric emitted from your application that you wish
+to aggregate and process - anything that can be a simple hash really..
+
+You want to be able to shove these events over the network easily,
+and aggregate them / munge them / split them into worker queues.
+
+This module is designed as a simple framework for writing components
+that let you do all of these things, in a simple and pluggable manor.
+
+For a practical example, You generate events from a source (e.g.
+ZeroMQ output of logs and performance metrics from your Catalyst FCGI
+or Starman workers) and run one script that will give you a centralised
+application log file, or push the logs into L<ElasticSearch>.
+
+There are a growing set of pre-written components you can plug together
+to make your logging solution.
+
+Getting started is really easy - you can just use the C<logstash>
+command installed by the distribution. If you have a common config
+that you want to repeat, or you want to write your own server
+which does something more flexible than the normal script allows,
+then see L<Log::Stash::DSL>.
+
+=head1 COMPONENTS
+
+Below is a non-exhaustive list of components available.
 
 =head2 INPUTS
 
-All of the below are coming real soon.
+Inputs receive data from a source (usually a network protocol).
+
+They are responsible for decoding the data into a hash before passing
+it onto the next stage.
+
+Inputs include:
 
 =over
 
 =item L<Log::Stash::Input::STDIN>
 
-=item L<Log::Stash::Input::AMQP>
-
 =item L<Log::Stash::Input::ZeroMQ>
+
+=item L<Log::Stash::Input::Test>
 
 =back
 
+You can easily write your own input, just use L<AnyEvent>, and
+consume L<Log::Stash::Role::Input>.
+
+=head2 FILTER
+
+Filters can transform a message in any way.
+
+Examples include:
+
+=over
+
+=item L<Log::Stash::Filter::Null> - Returns the input unchanged.
+
+=item L<Log::Stash::Filter::All> - Stops any messages it receives from being passed to the output. I.e. literally filters all input out.
+
+=item L<Log::Stash::Filter::T> - Splits the incoming message to multiple outputs.
+
+=back
+
+You can easily write your own filter, just consume
+L<Log::Stash::Role::Filter>.
+
+Note that filters can be chained, and a filter can return undef to
+stop a message being passed to the output.
+
 =head2 OUTPUTS
+
+Ouputs send data to somewhere, i.e. they consume messages.
 
 =over
 
@@ -141,6 +204,16 @@ All of the below are coming real soon.
 =item L<Log::Stash::Output::ElasticSearch>
 
 =item L<Log::Stash::Output::Test>
+
+=back
+
+=head1 SEE ALSO
+
+=over
+
+=item L<Log::Message::Structured> - For creating your log messages.
+
+=item L<Log::Dispatch::Log::Stash> - use Log::Stash outputs from L<Log::Dispatch>.
 
 =back
 
