@@ -14,6 +14,7 @@ requires 'JSON';
 requires 'JSON::XS';
 requires 'MooseX::Getopt';
 requires 'Try::Tiny';
+requires 'Task::Weaken';
 
 WriteAll;
 
