@@ -207,6 +207,25 @@ Ouputs send data to somewhere, i.e. they consume messages.
 
 =back
 
+=head1 THIS MODULE
+
+This is a simple L<MooseX::Getopt> script, with one input, one filter
+and one output.
+
+=head2 METHODS
+
+=head3 build_chain
+
+Builds and returns the configured chain of input => filter => output
+
+=head3 start
+
+Class method to call the run_log_server function with the results of
+having constructed an instance of this class, parsed command line options
+and constructed a chain.
+
+This is the entry point for the logstash script.
+
 =head1 AUTHOR
 
 Tomas (t0m) Doran <bobtfish@bobtfish.net>

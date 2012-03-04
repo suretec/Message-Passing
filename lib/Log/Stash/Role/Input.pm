@@ -21,6 +21,18 @@ Log::Stash::Role::Input
 
 Produces messages.
 
+=head1 ATTRIBUTES
+
+=head2 output_to
+
+Required, must perform the L<Log::Stash::Role::Output> role.
+
+=head1 METHODS
+
+=head2 decode
+
+JSON decodes a message supplied as a parameter.
+
 =head1 SEE ALSO
 
 L<Log::Stash>

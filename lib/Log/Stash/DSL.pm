@@ -119,5 +119,59 @@ method), then this will be called.
 You are expected to define one or more chains, and then call the run
 function.
 
+=head2 FUNCTIONS
+
+=head3 log_chain
+
+Constructs a log chain (i.e. a series of log objects feeding into each
+other), warns about any unused parts of the chain, and returns the
+chain head (i.e. the input class).
+
+Maintains a registry / factory for the log classes, which is used to
+allow the lookup by symbolic name in the output_to key.
+
+See example in the SYNOPSIS, and details on the other functions below.
+
+=head3 output
+
+Constructs a named output within a chain.
+
+    log_chain {
+        output foo => ( class => 'STDOUT' );
+        ....
+    };
+
+=head3 filter
+
+Constructs a named filter (which can act as both an output and an input)
+within a chain.
+
+    log_chain {
+        ...
+        filter bar => ( output_to => 'stdout', class => 'Null' );
+        ...
+    };
+
+=head3 input
+
+The last thing in a chain - produces data which gets consumed.
+
+    log_chain {
+        ...
+        input zmq => ( output_to => 'bar', class => 'ZeroMQ', bind => '...' );
+        ....
+    }
+
+=head3 run_log_server
+
+This enters the event loop and causes log events to be consumed and
+processed.
+
+Can be passed a log_chain to run, although this is entirely optional
+(as all log chains which are still in scope will run when the event
+loop is entered).
+
 =cut
+
+1;
 
