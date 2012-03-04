@@ -8,7 +8,7 @@ use Scalar::Util qw/weaken/;
 use AnyEvent;
 
 Moose::Exporter->setup_import_methods(
-    as_is     => [qw/ run chain input filter output /],
+    as_is     => [qw/ run_log_server log_chain input filter output /],
     also      => 'Moose',
 );
 
@@ -17,7 +17,7 @@ sub _check_factory {
     confess("Not inside a chain { block!!") unless $FACTORY;
 }
 
-sub chain (&) {
+sub log_chain (&) {
     my $code = shift;
     if ($FACTORY) {
         confess("Cannot chain witin a chain");
@@ -64,7 +64,7 @@ sub output {
     );
 }
 
-sub run {
+sub run_log_server {
     my $chain = shift;
     AnyEvent->condvar->recv;
 }
@@ -90,7 +90,7 @@ Log::Stash::DSL - An easy way to make chains of logstash objects.
 
     sub build_chain {
         my $self = shift;
-        chain {
+        log_chain {
             output console => (
                 class => 'STDOUT',
             );
@@ -102,7 +102,7 @@ Log::Stash::DSL - An easy way to make chains of logstash objects.
         };
     }
 
-    sub start { run __PACKAGE__->new_with_options->build_chain }
+    sub start { run_log_server __PACKAGE__->new_with_options->build_chain }
     __PACKAGE__->start unless caller;
 
 =head1 DESCRIPTION

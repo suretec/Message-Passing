@@ -4,7 +4,7 @@ use Test::More;
 
 use Log::Stash::DSL;
 
-my $c = chain {
+my $c = log_chain {
         output test => (
             class => 'Test',
         );
