@@ -16,5 +16,7 @@ requires 'MooseX::Getopt';
 requires 'Try::Tiny';
 requires 'Task::Weaken';
 
+install_script 'script/logstash';
+
 WriteAll;
 
