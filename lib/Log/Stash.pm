@@ -64,6 +64,10 @@ coerce $json_type,
   from NonEmptySimpleStr,
   via { try { JSON::XS->new->relaxed->decode($_) } };
 
+MooseX::Getopt::OptionTypeMap->add_option_type_to_map(
+    $json_type => '=s'
+);
+
 foreach my $name (map { "${_}_options"  } keys %things) {
     has $name => (
         isa => $json_type,
