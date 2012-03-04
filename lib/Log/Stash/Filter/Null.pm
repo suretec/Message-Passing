@@ -27,13 +27,15 @@ testing occasionally.
 
 =head2 filter
 
-returns the message passed to it.
+Returns the message passed to it.
 
 =head1 SPONSORSHIP
 
-This module exists due to the wonderful people at
-L<Suretec Systems|http://www.suretecsystems.com/> who sponsored it's
-development.
+This module exists due to the wonderful people at Suretec Systems Ltd.
+<http://www.suretecsystems.com/> who sponsored it's development for its
+VoIP division called SureVoIP <http://www.surevoip.co.uk/> for use with
+the SureVoIP API - 
+<http://www.surevoip.co.uk/support/wiki/api_documentation>
 
 =head1 AUTHOR, COPYRIGHT AND LICENSE
 
