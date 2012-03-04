@@ -128,7 +128,7 @@ other), warns about any unused parts of the chain, and returns the
 chain head (i.e. the input class).
 
 Maintains a registry / factory for the log classes, which is used to
-allow the lookup by symbolic name in the output_to key.
+allow the resolving of symbolic names in the output_to key to function.
 
 See example in the SYNOPSIS, and details on the other functions below.
 

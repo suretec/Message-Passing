@@ -94,13 +94,13 @@ Log::Stash - a perl subset of Logstash <http://logstash.net>
 
 =head1 DESCRIPTION
 
-A lightweight but interoperable interoperable subset of logstash
+A lightweight but inter-operable subset of logstash
 L<http://logstash.net>
 
-This implementation is currently a sketch, and as such should be considered
-pre alpha and subject to change at any point.
+This implementation is currently a prototype, and as such should be considered
+alpha and subject to change at any point.
 
-=head2 BASIC PREMIS
+=head2 BASIC PREMISE
 
 You have data for discrete events, represented by a hash (and
 serialized as JSON).
@@ -110,17 +110,18 @@ event, a metric emitted from your application that you wish
 to aggregate and process - anything that can be a simple hash really..
 
 You want to be able to shove these events over the network easily,
-and aggregate them / munge them / split them into worker queues.
+and aggregate them / filter and rewrite them / split them into worker queues.
 
 This module is designed as a simple framework for writing components
-that let you do all of these things, in a simple and pluggable manor.
+that let you do all of these things, in a simple and easily extensible
+manor.
 
 For a practical example, You generate events from a source (e.g.
 ZeroMQ output of logs and performance metrics from your Catalyst FCGI
-or Starman workers) and run one script that will give you a centralised
+or Starman workers) and run one script that will give you a central
 application log file, or push the logs into L<ElasticSearch>.
 
-There are a growing set of pre-written components you can plug together
+There are a growing set of components you can plug together
 to make your logging solution.
 
 Getting started is really easy - you can just use the C<logstash>
@@ -179,7 +180,7 @@ stop a message being passed to the output.
 
 =head2 OUTPUTS
 
-Ouputs send data to somewhere, i.e. they consume messages.
+Outputs send data to somewhere, i.e. they consume messages.
 
 =over
 
@@ -248,7 +249,7 @@ which we do not reuse any code from) is copyright 2010 Jorden Sissel.
 GNU Affero General Public License, Version 3
 
 If you feel this is too restrictive to be able to use this software,
-please talk to us as we'd be willing to consider relicensing under
+please talk to us as we'd be willing to consider re-licensing under
 less restrictive terms.
 
 =cut
