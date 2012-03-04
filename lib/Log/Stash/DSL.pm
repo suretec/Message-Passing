@@ -171,6 +171,16 @@ Can be passed a log_chain to run, although this is entirely optional
 (as all log chains which are still in scope will run when the event
 loop is entered).
 
+=head1 SPONSORSHIP
+
+This module exists due to the wonderful people at
+L<Suretec Systems|http://www.suretecsystems.com/> who sponsored it's
+development.
+
+=head1 AUTHOR, COPYRIGHT AND LICENSE
+
+See L<Log::Stash>.
+
 =cut
 
 1;

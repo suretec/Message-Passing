@@ -66,4 +66,23 @@ sub make {
 __PACKAGE__->meta->make_immutable;
 1;
 
+=head1 NAME
+
+Log::Stash::DSL::Factory - Build a set of logstash chains using symbolic names
+
+=head1 DESCRIPTION
+
+No user serviceable parts inside. See L<Log::Stash::DSL>.
+
+=head1 SPONSORSHIP
+
+This module exists due to the wonderful people at
+L<Suretec Systems|http://www.suretecsystems.com/> who sponsored it's
+development.
+
+=head1 AUTHOR, COPYRIGHT AND LICENSE
+
+See L<Log::Stash>.
+
+=cut
 
