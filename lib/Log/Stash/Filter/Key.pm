@@ -54,3 +54,46 @@ sub filter {
 __PACKAGE__->meta->make_immutable;
 1;
 
+=head1 NAME
+
+Log::Stash::Filter::Key - Filter a subset of messages out.
+
+=head1 DESCRIPTION
+
+This filter just removes messages which do not have a key matching a certain value.
+
+=head1 ATTRIBUTES
+
+=head2 key
+
+The name of the key. You may use a C< foo.bar > syntax to indicate variables below the top level
+of the hash (i.e. the example would look in C<< $msg->{foo}->{bar} >>.).
+
+=head2 match
+
+The value to match to determine if the message should be passed onto the next stage or filtered out.
+
+=head2 match_type
+
+The type of match to perform, valid values are 'regex' or 'eq', and the latter is the default.
+
+=head1 METHODS
+
+=head2 filter
+
+Does the actual filtering work.
+
+=head1 SPONSORSHIP
+
+This module exists due to the wonderful people at
+L<Suretec Systems|http://www.suretecsystems.com/> who sponsored it's
+development.
+
+=head1 AUTHOR, COPYRIGHT AND LICENSE
+
+See L<Log::Stash>.
+
+=cut
+
+1;
+

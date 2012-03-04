@@ -27,12 +27,26 @@ or permute the structure of messages.
 
 =head1 REQUIRED METHODS
 
-All the methods from L<Log::Stash::Mixin::Consumer> and
-L<Log::Stash::Mixin::Producer> are required, in addition to:
-
 =head2 filter
 
 Called to filter the message. Returns the mangled message.
+
+Note if you return undef then the message is not propagated further up the chain, which may be used
+for filtering out unwanted messages.
+
+=head1 REQUIRED ATTRIBUTES
+
+=head2 output_to
+
+From L<Log::Stash::Role::Input>.
+
+=head1 METHODS
+
+=head2 consume
+
+Consumers a message, calling the filter method provided by the user with the message.
+
+In the case where the filter returns a message, outputs the message to the next step in the chain.
 
 =head1 SEE ALSO
 

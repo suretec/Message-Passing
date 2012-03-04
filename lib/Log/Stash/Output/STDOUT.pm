@@ -24,13 +24,17 @@ Log::Stash::Output::STDOUT - STDOUT output
 
 =head1 DESCRIPTION
 
+Output messages to STDOUT
+
+=head1 METHODS
+
+=head2 consume
+
+Consumes a message by JSON encoding it and printing it, followed by \n
+
 =head1 SEE ALSO
 
 L<Log::Stash>
-
-=head1 AUTHOR
-
-Tomas (t0m) Doran <bobtfish@bobtfish.net>
 
 =head1 SPONSORSHIP
 
@@ -38,17 +42,9 @@ This module exists due to the wonderful people at
 L<Suretec Systems|http://www.suretecsystems.com/> who sponsored it's
 development.
 
-=head1 COPYRIGHT
+=head1 AUTHOR, COPYRIGHT AND LICENSE
 
-Copyright Suretec Systems 2012.
-
-Logstash (upon which many ideas for this project is based, but
-which we do not reuse any code from) is copyright 2010 Jorden Sissel.
-
-=head1 LICENSE
-
-XX - TODO
+See L<Log::Stash>.
 
 =cut
-
 
