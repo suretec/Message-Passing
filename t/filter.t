@@ -7,6 +7,7 @@ use Log::Stash::Filter::Null;
 use Log::Stash::Output::Test;
 use Log::Stash::Filter::All;
 use Log::Stash::Filter::T;
+use Log::Stash::Filter::Key;
 
 my $called = 0;
 
@@ -73,6 +74,50 @@ is $called, 1;
 is $test2->message_count, 1;
 is_deeply [$test2->messages], ['message'];
 is $called2, 1;
+
+$ob = try {
+    $test = Log::Stash::Output::Test->new(
+            on_consume_cb => sub { $called++ }
+    );
+    Log::Stash::Filter::Key->new(
+        output_to => $test,
+        key => 'foo',
+        match => 'bar',
+    );
+}
+catch { fail "Failed to construct $_" };
+ok $test;
+
+try { $ob->consume({foo => 'bar', baz => 'quux'}) }
+    catch { fail "Failed to consume message: $_" };
+try { $ob->consume({foo => 'blam', baz => 'quux'}) }
+    catch { fail "Failed to consume message: $_" };
+
+is_deeply [$test->messages], [{foo => 'bar', baz => 'quux'}];
+
+$ob = try {
+    $test = Log::Stash::Output::Test->new(
+            on_consume_cb => sub { $called++ }
+    );
+    Log::Stash::Filter::Key->new(
+        output_to => $test,
+        key => 'foo.inner.inner',
+        match => 'bar',
+    );
+}
+catch { fail "Failed to construct $_" };
+ok $test;
+
+try { $ob->consume({foo => 'bar', baz => 'quux'}) }
+    catch { fail "Failed to consume message: $_" };
+try { $ob->consume({foo => { inner => 'blam' }, baz => 'quux'}) }
+    catch { fail "Failed to consume message: $_" };
+try { $ob->consume({foo => { inner => { inner => 'blam' } }, baz => 'quux'}) }
+    catch { fail "Failed to consume message: $_" };
+try { $ob->consume({foo => { inner => { inner => 'bar' } }, baz => 'quux'}) }
+    catch { fail "Failed to consume message: $_" };
+
+is_deeply [$test->messages], [{foo => { inner => { inner => 'bar' } }, baz => 'quux'}];
 
 done_testing;
 
