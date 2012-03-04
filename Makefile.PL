@@ -29,5 +29,10 @@ author_requires 'Test::Spelling';
 
 author_tests 't/author';
 
+if ($Module::Install::AUTHOR) {
+    system("pod2text lib/Log/Stash.pm > README")
+        and die $!;
+}
+
 WriteAll;
 
