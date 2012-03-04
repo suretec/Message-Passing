@@ -36,7 +36,6 @@ sub chain (&) {
     if ($FACTORY) {
         confess("Cannot chain witin a chain");
     }
-    my $self;
     if ($caller->can('new_with_options')) {
         $caller->new_with_options;
     }
@@ -92,5 +91,29 @@ sub run {
 
 =head1 NAME
 
-Log::Stash::DSL
+Log::Stash::DSL - An easy way to make chains of logstash objects.
+
+=head1 SYNOPSIS
+
+    use Log::Stash::DSL;
+
+    with 'MooseX::GetOpt';
+
+    has socket_bind => (
+        is => 'ro',
+        isa => 'Str',
+        default => 'tcp://*:5558',
+    );
+
+    run chain {
+        my $self = shift;
+        output console => (
+            class => 'STDOUT',
+        );
+        input zmq => (
+            class => 'ZeroMQ',
+            output_to => 'console',
+            socket_bind => $self->socket_bind,
+        );
+    };
 

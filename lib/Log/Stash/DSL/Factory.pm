@@ -34,10 +34,27 @@ sub make {
     confess("We already have a thing named $name")
         if $self->registry_has($name);
     my $output_to = $opts{output_to};
-    if ($output_to && !ref($output_to)) {
-        my $proper_output_to = $self->registry_get($output_to)
-            || confess("Do not have a component named '$output_to'");
-        $opts{output_to} = $proper_output_to;
+    if ($output_to && !blessed($output_to)) {
+        # We have to deal with the ARRAY case here for Filter::T
+        if (ref($output_to) eq 'ARRAY') {
+            my @out;
+            foreach my $name_or_thing (@$output_to) {
+                if (blessed($name_or_thing)) {
+                    push(@out, $name_or_thing);
+                }
+                else {
+                    my $thing = $self->registry_get($name)
+                        || confess("Do not have a component named '$name'");
+                    push(@out, $thing);
+                }
+            }
+            $opts{output_to} = \@out;
+        }
+        else {
+            my $proper_output_to = $self->registry_get($output_to)
+                || confess("Do not have a component named '$output_to'");
+            $opts{output_to} = $proper_output_to;
+        }
     }
     $class = $self->expand_class_name($type, $class);
     Class::MOP::load_class($class);
