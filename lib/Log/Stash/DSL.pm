@@ -20,7 +20,7 @@ sub _check_factory {
 sub log_chain (&) {
     my $code = shift;
     if ($FACTORY) {
-        confess("Cannot chain witin a chain");
+        confess("Cannot chain within a chain");
     }
     local $FACTORY = Log::Stash::DSL::Factory->new;
     my $ret = $code->();
