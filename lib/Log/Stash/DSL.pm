@@ -95,6 +95,7 @@ Log::Stash::DSL - An easy way to make chains of logstash objects.
 
 =head1 SYNOPSIS
 
+    package mylogcollectorscript;
     use Log::Stash::DSL;
 
     with 'MooseX::GetOpt';
@@ -116,4 +117,20 @@ Log::Stash::DSL - An easy way to make chains of logstash objects.
             socket_bind => $self->socket_bind,
         );
     };
+
+=head1 DESCRIPTION
+
+This module provides a simple to use helper system for writing
+scripts which implement a L<Log::Stash> server, like
+the built in logstash script.
+
+Your script can just be a script, however if it's a class with a
+C<< ->new >> method, then the new method will be called, or
+if you're a L<MooseX::Getopt> user (i.e. you implement a new_with_optons
+method), then this will be called.
+
+You are expected to define one or more chains, and then call the run
+function.
+
+=cut
 
