@@ -37,7 +37,7 @@ has '+filter' => (
 
 sub build_chain {
     my $self = shift;
-        chain {
+        log_chain {
             output out => (
                 $self->output_options,
                 class => $self->output,
@@ -55,7 +55,7 @@ sub build_chain {
         };
 }
 
-sub start { run __PACKAGE__->new_with_options->build_chain }
+sub start { run_log_server __PACKAGE__->new_with_options->build_chain }
 
 my $json_type = subtype
   as "HashRef";

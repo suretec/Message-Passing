@@ -20,5 +20,14 @@ requires 'Task::Weaken';
 
 install_script 'script/logstash';
 
+author_requires 'Test::Pod' => '1.14';
+author_requires 'Test::NoTabs';
+author_requires 'Test::Pod::Coverage' => '1.04';
+author_requires 'Pod::Coverage' => '0.19';
+author_requires 'Pod::Coverage::TrustPod';
+author_requires 'Test::Spelling';
+
+author_tests 't/author/*.t';
+
 WriteAll;
 
