@@ -55,7 +55,10 @@ sub build_chain {
         };
 }
 
-sub start { run_log_server __PACKAGE__->new_with_options->build_chain }
+sub start {
+    my $class = shift;
+    run_log_server $class->new_with_options(@_)->build_chain;
+}
 
 my $json_type = subtype
   as "HashRef";
