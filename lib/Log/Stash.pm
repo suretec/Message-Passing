@@ -226,8 +226,13 @@ which we do not reuse any code from) is copyright 2010 Jorden Sissel.
 
 =head1 LICENSE
 
-XX - TODO
+GNU Affero General Public License, Version 3
+
+If you feel this is too restrictive to be able to use this software,
+please talk to us as we'd be willing to consider relicensing under
+less restrictive terms.
 
 =cut
 
+1;
 
