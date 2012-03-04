@@ -23,14 +23,14 @@ ok $test;
 try { $ob->consume('message') }
     catch { fail "Failed to consume message: $_" };
 
-is $test->messages_count, 1;
+is $test->message_count, 1;
 is_deeply [$test->messages], ['message'];
 is $called, 1;
 
 try { $test->clear_messages }
     catch { fail "Could not clear messages: $_" };
 
-is $test->messages_count, 0;
+is $test->message_count, 0;
 is_deeply [$test->messages], [];
 
 $ob = try {
@@ -45,7 +45,7 @@ ok $test;
 try { $ob->consume('message') }
     catch { fail "Failed to consume message: $_" };
 
-is $test->messages_count, 0;
+is $test->message_count, 0;
 
 $called = 0;
 my $called2 = 0;
@@ -66,11 +66,11 @@ ok $test;
 try { $ob->consume('message') }
     catch { fail "Failed to consume message: $_" };
 
-is $test->messages_count, 1;
+is $test->message_count, 1;
 is_deeply [$test->messages], ['message'];
 is $called, 1;
 
-is $test2->messages_count, 1;
+is $test2->message_count, 1;
 is_deeply [$test2->messages], ['message'];
 is $called2, 1;
 

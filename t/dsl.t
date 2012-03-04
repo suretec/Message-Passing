@@ -22,7 +22,7 @@ isa_ok $c->output_to, 'Log::Stash::Filter::Null';
 isa_ok $c->output_to->output_to, 'Log::Stash::Output::Test';
 $c->output_to->consume({foo => 'bar'});
 my $test = $c->output_to->output_to;
-is $test->messages_count, 1;
+is $test->message_count, 1;
 is_deeply [$test->messages], [{foo => 'bar'}];
 
 done_testing;

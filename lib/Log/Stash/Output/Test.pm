@@ -8,7 +8,7 @@ has messages => (
     traits => ['Array'],
     handles => {
         consume => 'push',
-        messages_count => 'count',
+        message_count => 'count',
         messages => 'elements',
     },
     clearer => 'clear_messages',
