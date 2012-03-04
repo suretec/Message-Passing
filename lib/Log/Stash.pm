@@ -10,40 +10,24 @@ use Try::Tiny;
 use namespace::autoclean;
 use 5.8.4;
 
+use Log::Stash::DSL;
+
 with 'MooseX::Getopt';
 
 our $VERSION = '0.001';
 $VERSION = eval $VERSION;
 
 my %things = (
-    Input  => 1,
-    Filter => 0,
-    Output => 1,
+    input  => 1,
+    filter => 0,
+    output => 1,
 );
 
 foreach my $name (keys %things ) {
-    my $class = subtype LoadableClass, where { 1 };
-    coerce $class,
-        from NonEmptySimpleStr,
-        via {
-            to_LoadableClass(String::RewritePrefix->rewrite({
-                '' => 'Log::Stash::' . $name . '::',
-                '+' => ''
-            }, $_));
-        };
-
-    has lc($name) => (
-        isa => $class,
+    has $name => (
+        isa => 'Str',
         is => 'ro',
         required => $things{$name},
-        coerce => 1,
-    );
-
-    has lc($name) . '_instance' => (
-        is => 'ro',
-        lazy => 1,
-        does => "Log::Stash::Role::$name",
-        builder => '_build_' . lc($name) . '_instance',
     );
 }
 
@@ -51,25 +35,27 @@ has '+filter' => (
     default => 'Null',
 );
 
-sub _build_input_instance {
+sub build_chain {
     my $self = shift;
-    $self->input->new($self->input_options, output_to => $self->filter_instance);
+        chain {
+            output out => (
+                $self->output_options,
+                class => $self->output,
+            );
+            filter fil => (
+                $self->filter_options,
+                class => $self->filter,
+                output_to => 'out',
+            );
+            input in => (
+                $self->input_options,
+                class => $self->input,
+                output_to => 'fil',
+            );
+        };
 }
 
-sub _build_filter_instance {
-    my $self = shift;
-    $self->filter->new($self->filter_options, output_to => $self->output_instance);
-}
-
-sub _build_output_instance {
-    my $self = shift;
-    $self->output->new($self->output_options);
-}
-
-sub start {
-    my $self = shift;
-    $self->input_instance;
-}
+sub start { run __PACKAGE__->new_with_options->build_chain }
 
 my $json_type = subtype
   as "HashRef";
@@ -78,13 +64,13 @@ coerce $json_type,
   from NonEmptySimpleStr,
   via { try { JSON::XS->new->relaxed->decode($_) } };
 
-foreach my $name (map { lc($_) . "_options"  } keys %things) {
+foreach my $name (map { "${_}_options"  } keys %things) {
     has $name => (
         isa => $json_type,
         traits    => ['Hash'],
         default => sub { {} },
         handles => {
-            lc($name) => 'elements',
+            $name => 'elements',
         },
         coerce => 1,
     );

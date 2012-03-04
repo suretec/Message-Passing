@@ -3,11 +3,7 @@ use FindBin qw/ $Bin /;
 use lib "$Bin/../lib"; # FIXME
 use strict;
 use warnings;
-use AnyEvent;
 use Log::Stash;
 
-my $self = Log::Stash->new_with_options;
-$self->start;
-
-AnyEvent->condvar->recv;
+Log::Stash->start;
 
