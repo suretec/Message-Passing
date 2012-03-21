@@ -83,6 +83,7 @@ foreach my $name (map { "${_}_options"  } keys %things) {
     );
 }
 
+__PACKAGE__->meta->make_immutable;
 1;
 
 =head1 NAME
