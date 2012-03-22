@@ -8,6 +8,7 @@ use Log::Stash::Output::Test;
 use Log::Stash::Filter::All;
 use Log::Stash::Filter::T;
 use Log::Stash::Filter::Key;
+use Log::Stash::Filter::Delay;
 
 my $called = 0;
 
@@ -118,6 +119,36 @@ try { $ob->consume({foo => { inner => { inner => 'bar' } }, baz => 'quux'}) }
     catch { fail "Failed to consume message: $_" };
 
 is_deeply [$test->messages], [{foo => { inner => { inner => 'bar' } }, baz => 'quux'}];
+
+$ob = try {
+    $test = Log::Stash::Output::Test->new();
+    Log::Stash::Filter::Delay->new(
+        delay_for => 0.1,
+        output_to => $test,
+    );
+}
+catch { fail "Failed to construct $_" };
+ok $test;
+
+$ob->consume({});
+is_deeply [$test->messages], [];
+my $cv = AnyEvent->condvar;
+my $idle; $idle = AnyEvent->idle(cb => sub {
+    $cv->send;
+    undef $idle;
+});
+$cv->recv;
+is_deeply [$test->messages], [];
+$cv = AnyEvent->condvar;
+my $timer; $timer = AnyEvent->timer(
+    after => 0.2,
+    cb => sub {
+        $cv->send;
+        undef $timer;
+    },
+);
+$cv->recv;
+is_deeply [$test->messages], [{}];
 
 done_testing;
 

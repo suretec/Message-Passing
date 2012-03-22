@@ -10,6 +10,7 @@ use_ok('Log::Stash::Output::Null');
 use_ok('Log::Stash::Output::Test');
 use_ok('Log::Stash::Filter::Null');
 use_ok('Log::Stash::Filter::All');
+use_ok('Log::Stash::Filter::Delay');
 
 done_testing;
 
