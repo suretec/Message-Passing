@@ -4,6 +4,8 @@ use Test::More;
 use Test::Spelling;
 
 add_stopwords(qw(
+    SureVoIP
+    VoIP
     Starman
     ZeroMQ
     API

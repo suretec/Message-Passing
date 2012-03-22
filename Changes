@@ -1,3 +1,5 @@
+    - Fix issue using Filter::T in the DSL
+
 0.001
     - Initial version.
 

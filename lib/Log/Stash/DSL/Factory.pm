@@ -43,8 +43,8 @@ sub make {
                     push(@out, $name_or_thing);
                 }
                 else {
-                    my $thing = $self->registry_get($name)
-                        || confess("Do not have a component named '$name'");
+                    my $thing = $self->registry_get($name_or_thing)
+                        || confess("Do not have a component named '$name_or_thing'");
                     push(@out, $thing);
                 }
             }
