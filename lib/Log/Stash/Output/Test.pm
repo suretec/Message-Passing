@@ -2,12 +2,18 @@ package Log::Stash::Output::Test;
 use Moose;
 use namespace::autoclean;
 
+extends 'Log::Stash::Output::Callback';
+
+has '+cb' => (
+    default => sub { sub {} },
+);
+
 has messages => (
     isa => 'ArrayRef',
     default => sub { [] },
     traits => ['Array'],
     handles => {
-        consume => 'push',
+        consume_test => 'push',
         message_count => 'count',
         messages => 'elements',
     },
@@ -15,19 +21,9 @@ has messages => (
     lazy => 1,
 );
 
-has on_consume_cb => (
-    isa => 'CodeRef',
-    is => 'ro',
-    predicate => '_has_on_consume_cb',
-);
-
 after consume => sub {
-    my ($self, $msg) = @_;
-    $self->on_consume_cb->($msg)
-        if $self->_has_on_consume_cb;
+    shift()->consume_test(@_);
 };
-
-with 'Log::Stash::Role::Output';
 
 __PACKAGE__->meta->make_immutable;
 1;

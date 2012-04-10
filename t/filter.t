@@ -15,7 +15,7 @@ my $called = 0;
 my $test;
 my $ob = try {
     $test = Log::Stash::Output::Test->new(
-            on_consume_cb => sub { $called++ }
+            cb => sub { $called++ }
     );
     Log::Stash::Filter::Null->new(output_to => $test)
 }
@@ -37,7 +37,7 @@ is_deeply [$test->messages], [];
 
 $ob = try {
     $test = Log::Stash::Output::Test->new(
-            on_consume_cb => sub { $called++ }
+            cb => sub { $called++ }
     );
     Log::Stash::Filter::All->new(output_to => $test)
 }
@@ -55,10 +55,10 @@ my $called2 = 0;
 my $test2;
 $ob = try {
     $test = Log::Stash::Output::Test->new(
-            on_consume_cb => sub { $called++ }
+            cb => sub { $called++ }
     );
     $test2 = Log::Stash::Output::Test->new(
-            on_consume_cb => sub { $called2++ }
+            cb => sub { $called2++ }
     );
     Log::Stash::Filter::T->new(output_to => [$test, $test2])
 }
@@ -78,7 +78,7 @@ is $called2, 1;
 
 $ob = try {
     $test = Log::Stash::Output::Test->new(
-            on_consume_cb => sub { $called++ }
+            cb => sub { $called++ }
     );
     Log::Stash::Filter::Key->new(
         output_to => $test,
@@ -98,7 +98,7 @@ is_deeply [$test->messages], [{foo => 'bar', baz => 'quux'}];
 
 $ob = try {
     $test = Log::Stash::Output::Test->new(
-            on_consume_cb => sub { $called++ }
+            cb => sub { $called++ }
     );
     Log::Stash::Filter::Key->new(
         output_to => $test,

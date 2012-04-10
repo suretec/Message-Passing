@@ -2,8 +2,12 @@ package Log::Stash::Role::Filter;
 use Moose::Role;
 use namespace::autoclean;
 
-with 'Log::Stash::Role::Input';
-with 'Log::Stash::Role::Output';
+requires 'filter';
+
+with qw/
+    Log::Stash::Role::Input
+    Log::Stash::Role::Output
+/;
 
 sub consume {
     my ($self, $message) = @_;
@@ -11,8 +15,6 @@ sub consume {
     return unless $new;
     $self->output_to->consume($new);
 }
-
-requires 'filter';
 
 1;
 

@@ -7,7 +7,7 @@ use Log::Stash::Output::Test;
 
 my $called = 0;
 
-my $test = try { Log::Stash::Output::Test->new(on_consume_cb => sub { $called++ }) }
+my $test = try { Log::Stash::Output::Test->new(cb => sub { $called++ }) }
     catch { fail "Failed to construct $_" };
 ok $test;
 
