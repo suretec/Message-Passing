@@ -1,4 +1,4 @@
-#!/usr/bin/env perl
+#!perl
 use FindBin qw/ $Bin /;
 use lib "$Bin/../lib"; # FIXME
 use strict;

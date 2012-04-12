@@ -1,3 +1,6 @@
+    - Change logstash script to use the perl interpreter it is
+      installed with, rather than the one in $PATH right now.
+
     - Fix issue using Filter::T in the DSL
 
 0.001
