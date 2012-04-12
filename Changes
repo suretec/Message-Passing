@@ -1,3 +1,5 @@
+    - Explicitly turn off output buffering in STDOUT output.
+
     - Change logstash script to use the perl interpreter it is
       installed with, rather than the one in $PATH right now.
 

@@ -6,6 +6,7 @@ with 'Log::Stash::Role::Output';
 
 sub consume {
     my $self = shift;
+    local $|=1;
     print $self->encode(shift()) . "\n";
 }
 
