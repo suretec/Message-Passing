@@ -42,7 +42,7 @@ sub build_chain {
                 $self->output_options,
                 class => $self->output,
             );
-            filter fil => (
+            filter filter => (
                 $self->filter_options,
                 class => $self->filter,
                 output_to => 'out',
@@ -50,7 +50,7 @@ sub build_chain {
             input in => (
                 $self->input_options,
                 class => $self->input,
-                output_to => 'fil',
+                output_to => 'filter',
             );
         };
 }
