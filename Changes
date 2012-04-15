@@ -1,3 +1,7 @@
+    - Support a --daemonize option in logstash scripts.
+
+    - Support a --pid_file option in logstash scripts.
+
     - Allow inputs to coerce a hash in output_to to an output,
       which is more verbose than the DSL, but also allows you
       to setup simple output chains from a simple data structure

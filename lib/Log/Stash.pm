@@ -66,6 +66,11 @@ has daemonize => (
 sub deamonize_if_needed {
     my ($self) = @_;
     my $daemon = $self->daemonize;
+    my $fh;
+    if ($self->_has_pid_file) {
+        open($fh, '>', $self->pid_file)
+            or confess("Could not open pid file '". $self->pid_file . "'");
+    }
     if ($daemon) {
         fork && exit;
         POSIX::setsid();
@@ -73,7 +78,17 @@ sub deamonize_if_needed {
         chdir '/';
         umask 0;
     }
+    if ($fh) {
+        print $fh $$ . "\n";
+        close($fh);
+    }
 }
+
+has pid_file => (
+    isa => 'Str',
+    is => 'ro',
+    predicate => '_has_pid_file',
+);
 
 sub start {
     my $class = shift;
