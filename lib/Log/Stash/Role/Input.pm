@@ -1,14 +1,26 @@
 package Log::Stash::Role::Input;
 use Moose::Role;
 use JSON qw/ from_json /;
+use Moose::Util::TypeConstraints;
 use namespace::autoclean;
 
 sub decode { from_json( $_[1], { utf8  => 1 } ) }
+
+role_type 'Log::Stash::Role::Output';
+coerce 'Log::Stash::Role::Output',
+    from 'HashRef',
+    via {
+        my %stuff = %$_;
+        my $class = delete($stuff{class});
+        Class::MOP::load_class($class);
+        $class->new(%stuff);
+    };
 
 has output_to => (
     does => 'Log::Stash::Role::Output',
     is => 'ro',
     required => 1,
+    coerce => 1,
 );
 
 1;
