@@ -1,4 +1,12 @@
+    - Allow inputs to coerce a hash in output_to to an output,
+      which is more verbose than the DSL, but also allows you
+      to setup simple output chains from a simple data structure
+      (such as you might read in from a config file).
+
     - Explicitly turn off output buffering in STDOUT output.
+      This means that piping the STDOUT output to a file (for
+      logging or debugging purposes) works as expected, without
+      batching writes.
 
     - Change logstash script to use the perl interpreter it is
       installed with, rather than the one in $PATH right now.
