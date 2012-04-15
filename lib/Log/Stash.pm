@@ -7,6 +7,8 @@ use String::RewritePrefix;
 use AnyEvent;
 use JSON::XS;
 use Try::Tiny;
+use Getopt::Long qw(:config pass_through);
+use POSIX;
 use namespace::autoclean;
 use 5.8.4;
 
@@ -55,9 +57,29 @@ sub build_chain {
         };
 }
 
+has daemonize => (
+    is => 'ro',
+    isa => 'Bool',
+    default => 0,
+);
+
+sub deamonize_if_needed {
+    my ($self) = @_;
+    my $daemon = $self->daemonize;
+    if ($daemon) {
+        fork && exit;
+        POSIX::setsid();
+        fork && exit;
+        chdir '/';
+        umask 0;
+    }
+}
+
 sub start {
     my $class = shift;
-    run_log_server $class->new_with_options(@_)->build_chain;
+    my $instance = $class->new_with_options(@_);
+    $instance->deamonize_if_needed;
+    run_log_server $instance->build_chain;
 }
 
 my $json_type = subtype
