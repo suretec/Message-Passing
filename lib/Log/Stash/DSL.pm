@@ -39,8 +39,8 @@ sub input {
     _check_factory();
     $FACTORY->make(
         %opts,
-        __name => $name,
-        __type => 'Input',
+        name => $name,
+        type => 'Input',
     );
 }
 
@@ -49,8 +49,8 @@ sub filter {
     _check_factory();
     $FACTORY->make(
         %opts,
-        __name => $name,
-        __type => 'Filter',
+        name => $name,
+        type => 'Filter',
     );
 }
 
@@ -59,8 +59,8 @@ sub output {
     _check_factory();
     $FACTORY->make(
         %opts,
-        __name => $name,
-        __type => 'Output',
+        name => $name,
+        type => 'Output',
     );
 }
 

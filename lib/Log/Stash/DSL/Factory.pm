@@ -29,8 +29,8 @@ sub make {
     my ($self, %opts) = @_;
     my $class = delete $opts{class}
         || confess("Class name needed");
-    my $name = delete $opts{__name};
-    my $type = delete $opts{__type};
+    my $name = delete $opts{name};
+    my $type = delete $opts{type};
     confess("We already have a thing named $name")
         if $self->registry_has($name);
     my $output_to = $opts{output_to};
