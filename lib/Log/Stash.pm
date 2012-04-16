@@ -8,7 +8,7 @@ use AnyEvent;
 use JSON::XS;
 use Try::Tiny;
 use Getopt::Long qw(:config pass_through);
-use POSIX;
+use POSIX qw(setuid setgid);
 use namespace::autoclean;
 use 5.8.4;
 
@@ -84,16 +84,36 @@ sub deamonize_if_needed {
     }
 }
 
-has pid_file => (
-    isa => 'Str',
-    is => 'ro',
-    predicate => '_has_pid_file',
-);
+sub change_uid_if_needed {
+    my $self = shift;
+    my ($uid, $gid);
+    if ($self->_has_user) {
+        my $user = $self->user;
+        $uid = getpwnam($user) ||
+            die("User '$user' does not exist, cannot become that user!\n");
+        (undef, undef, undef, $gid ) = getpwuid($uid);
+    }
+    if ($gid) {
+        setgid($gid) || die("Could not setgid to '$gid' are you root? : $!\n");
+    }
+    if ($uid) {
+        setuid($uid) || die("Could not setuid to '$uid' are you root? : $!\n");
+    }
+}
+
+foreach my $name (qw/ user pid_file /) {
+    has $name => (
+        isa => 'Str',
+        is => 'ro',
+        predicate => "_has_$name",
+    );
+}
 
 sub start {
     my $class = shift;
     my $instance = $class->new_with_options(@_);
     $instance->deamonize_if_needed;
+    $instance->change_uid_if_needed;
     run_log_server $instance->build_chain;
 }
 
