@@ -1,0 +1,12 @@
+Docs:
+  - Cookbook of example recipies
+  - docs for logstash script itself
+  - Writing components doc.
+
+Code:
+  - Proper (non-hacky!) async/sync support and preference
+    - All inputs/outputs/filters needed (global registry)
+    - Algorithm to resolve if you can block, or use the event
+      loop, or you can't work (e.g. multiple sync inputs)
+
+
