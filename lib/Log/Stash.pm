@@ -5,6 +5,8 @@ use MooseX::Types::Common::String qw/ NonEmptySimpleStr /;
 use MooseX::Types::LoadableClass qw/ LoadableClass /;
 use String::RewritePrefix;
 use AnyEvent;
+use AnyEvent::Log ();
+use JSON ();
 use JSON::XS;
 use Try::Tiny;
 use Getopt::Long qw(:config pass_through);
@@ -75,8 +77,12 @@ sub deamonize_if_needed {
         fork && exit;
         POSIX::setsid();
         fork && exit;
+        $self->do_chroot_if_needed;
         chdir '/';
         umask 0;
+    }
+    else {
+        $self->do_chroot_if_needed;
     }
     if ($fh) {
         print $fh $$ . "\n";
@@ -101,7 +107,15 @@ sub change_uid_if_needed {
     }
 }
 
-foreach my $name (qw/ user pid_file /) {
+sub do_chroot_if_needed {
+    my $self = shift;
+    return unless $self->_has_chroot;
+    die("'" . $self->chroot . "' is not a directory\n")
+        unless -d $self->chroot;
+    chroot($self->chroot) || die("Could not chroot to '" . $self->chroot . "'\n");
+}
+
+foreach my $name (qw/ user chroot pid_file /) {
     has $name => (
         isa => 'Str',
         is => 'ro',
