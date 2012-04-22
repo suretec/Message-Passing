@@ -2,6 +2,7 @@ package Log::Stash::Input::FileTail;
 use Moose;
 use AnyEvent;
 use Try::Tiny;
+use Scalar::Util qw/ weaken /;
 use namespace::autoclean;
 
 with 'Log::Stash::Role::Input';
@@ -26,6 +27,7 @@ has tailer_pid => (
 
 sub _build_tail_handle {
     my $self = shift;
+    weaken($self);
     my $r;
     my $child_pid = open($r, "-|", "tail", "-F", $self->filename)
        // die "can't fork: $!";
@@ -33,9 +35,8 @@ sub _build_tail_handle {
         fh => $r,
         poll => "r",
         cb => sub {
-            my $data = parse_from_line(scalar <$r>)
-                or return;
-            $self->on_read->($data);
+            my $input = scalar <$r>;
+            $self->output_to->consume($input);
         },
     );
 }
