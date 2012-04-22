@@ -18,7 +18,7 @@ with
     'MooseX::Getopt',
     'Log::Stash::Role::CLIComponent' => { name => 'input' },
     'Log::Stash::Role::CLIComponent' => { name => 'output' },
-    'Log::Stash::Role::CLIComponent' => { name => 'filter', default => 'Null' };
+    'Log::Stash::Role::CLIComponent' => { name => 'filter', default => 'Log::Stash::Filter::Null' };
 
 our $VERSION = '0.001';
 $VERSION = eval $VERSION;
