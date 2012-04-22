@@ -14,28 +14,14 @@ use 5.8.4;
 
 use Log::Stash::DSL;
 
-with 'MooseX::Getopt';
+with
+    'MooseX::Getopt',
+    'Log::Stash::Role::CLIComponent' => { name => 'input' },
+    'Log::Stash::Role::CLIComponent' => { name => 'output' },
+    'Log::Stash::Role::CLIComponent' => { name => 'filter', default => 'Null' };
 
 our $VERSION = '0.001';
 $VERSION = eval $VERSION;
-
-my %things = (
-    input  => 1,
-    filter => 0,
-    output => 1,
-);
-
-foreach my $name (keys %things ) {
-    has $name => (
-        isa => 'Str',
-        is => 'ro',
-        required => $things{$name},
-    );
-}
-
-has '+filter' => (
-    default => 'Null',
-);
 
 sub build_chain {
     my $self = shift;
@@ -115,29 +101,6 @@ sub start {
     $instance->deamonize_if_needed;
     $instance->change_uid_if_needed;
     run_log_server $instance->build_chain;
-}
-
-my $json_type = subtype
-  as "HashRef";
-
-coerce $json_type,
-  from NonEmptySimpleStr,
-  via { try { JSON::XS->new->relaxed->decode($_) } };
-
-MooseX::Getopt::OptionTypeMap->add_option_type_to_map(
-    $json_type => '=s'
-);
-
-foreach my $name (map { "${_}_options"  } keys %things) {
-    has $name => (
-        isa => $json_type,
-        traits    => ['Hash'],
-        default => sub { {} },
-        handles => {
-            $name => 'elements',
-        },
-        coerce => 1,
-    );
 }
 
 __PACKAGE__->meta->make_immutable;
