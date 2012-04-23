@@ -4,10 +4,16 @@ use JSON qw/ to_json /;
 use Scalar::Util qw/ blessed /;
 use namespace::autoclean;
 
+has pretty => (
+    isa => 'Bool',
+    default => 0,
+    is => 'ro',
+);
+
 sub encode {
     my ($self, $message) = @_;
     $message = $message->pack if blessed($message) && $message->can('pack');
-    to_json( $message, { utf8  => 1 } )
+    to_json( $message, { utf8  => 1, $self->pretty ? (pretty => 1) : () } )
 }
 
 requires 'consume';
