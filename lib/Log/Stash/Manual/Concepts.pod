@@ -1,0 +1,106 @@
+=head1 NAME
+
+Log::Stash::Manual::Concepts - The concepts behind the framework
+
+=head1 DESCRIPTION
+
+This framework tries to be a simplifying layer over message passing, allowing you to easily
+make the networking parts of message passing become just configuration, allowing you to concentrate
+on the hard parts (i.e. your application, not the message passing).
+
+=head1 COMPONENTS AND CHAINS
+
+There are only a few core concepts to grasp to use the framework, but lets start with the component types, and then
+move onto chains.. 
+
+There are only three types of components:
+
+=head2 OUTPUTS
+
+An output is simply a class with a C<consume> method. This will be called with the message
+as it's only parameter, like this:
+
+    $output->consume($message);
+    
+Outputs are expected to compose L<Log::Stash::Role::Output>. See the source code of
+
+=head2 INPUTS
+
+An input is simply a class with an C<output_to> attribute. Your code just calls the consume
+method on it's output, like this:
+
+    $self->output_to->consume($message);
+    
+Outputs are expected to compose L<Log::Stash::Role::Input> which provides this attribute, and
+use the C<BUILD> method from Moose to do any work needed to start listening for events.
+
+=head2 FILTER
+
+A filter is just a combination of an output and input. Some (or all) of the messages consumed
+by the input are sent on to the output.
+
+An optional L<Log::Stash::Role::Filter is supplied, allowing you to provide a simple filter
+method:
+
+    with 'Log::Stash::Role::Filter';
+    
+    sub filter {
+        my ($self, $message) = @_;
+        return $message; # Or return undef to drop it
+    }
+
+If you want to, you can however write a filter manually, as:
+
+    with qw/
+        Log::Stash::Role::Input
+        Log::Stash::Role::Output
+    /;
+
+    sub consume {
+        my ($self, $message) = @_;
+        # Do something to $message here
+        $self->output_to->consume($message);
+    }
+
+As you've hopefully guessed now, a C<chain> is just an input, outputting to zero or more filters, which output to
+an output.
+
+=head1 DSL
+
+So, this is all pretty easy, and you already know enough to pick up some components and use them! For example:
+
+    use Log::Stash::Input::FileTail;
+    use Log::Stash::Output::STDOUT;
+    
+    Log::Stash::Input::FileTail->new(
+        filename => $ARGV[0],
+        output_to => Log::Stash::Output::STDOUT->new,
+    );
+    AnyEvent->condvar->recv; # Enter event loop
+
+There you go - you're tailing a file to screen - however you could just as easily by sending it over
+the network with ZeroMQ or any other output.
+
+This is, however, a bit ugly! If you're building a chain of several filters, or
+you have several inputs being multiplexed into one output, then the code gets ugly fast.
+
+To make it easy to build chains of processing, and your own scripts, a simple DSL is provided.
+The example above becomes:
+
+    use Log::Stash::DSL;
+
+    run_log_server log_chain {
+        input file => (
+            class => 'FileTail',
+            output_to => 'stdout',
+        );
+        output stdout => (
+            class => 'STDOUT',
+        );
+    };
+
+=head1 Event loop
+
+L<AnyEvent> has been mentioned more than on
+
+=cut
