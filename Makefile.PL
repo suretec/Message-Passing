@@ -1,10 +1,14 @@
 use strict;
 use warnings;
 use inc::Module::Install;
+use Module::Install::AuthorRequires;
+use Module::Install::AuthorTests;
+use Module::Install::Authority;
 
 all_from 'lib/Log/Stash.pm';
 
 license 'AGPL_3';
+authority 'GHENRY';
 
 requires 'Moose';
 requires 'namespace::autoclean';
