@@ -6,6 +6,10 @@ Log::Stash::Manual - table of contents for Log::Stash documentation
 
 =over
 
+=item L<Log::Stash::Manual::Concepts>
+
+How (and why) logstash works.
+
 =item L<Log::Stash::Manual::Cookbook>
 
 Practical examplesof things you can do with the framework.

@@ -154,6 +154,11 @@ that you want to repeat, or you want to write your own server
 which does something more flexible than the normal script allows,
 then see L<Log::Stash::DSL>.
 
+To dive straight in, see the documentation for the command line utility
+L<logstash>, and see the examples in L<Log::Stash::Manual::Cookbook>.
+
+For more about how the system works, see L<Log::Stash::Manual::Concepts>.
+
 =head1 COMPONENTS
 
 Below is a non-exhaustive list of components available.

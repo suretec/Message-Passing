@@ -36,7 +36,13 @@ Consume a message
 
 =head1 SEE ALSO
 
-L<Log::Stash>
+=over
+
+=item L<Log::Stash>
+
+=item L<Log::Stash::Manual::Concepts>
+
+=back
 
 =head1 SPONSORSHIP
 
