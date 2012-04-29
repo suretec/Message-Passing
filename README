@@ -42,6 +42,11 @@ DESCRIPTION
     to repeat, or you want to write your own server which does something
     more flexible than the normal script allows, then see Log::Stash::DSL.
 
+    To dive straight in, see the documentation for the command line utility
+    logstash, and see the examples in Log::Stash::Manual::Cookbook.
+
+    For more about how the system works, see Log::Stash::Manual::Concepts.
+
 COMPONENTS
     Below is a non-exhaustive list of components available.
 
