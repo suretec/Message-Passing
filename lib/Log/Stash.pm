@@ -101,14 +101,14 @@ has io_priority => (
 );
 
 sub set_io_priority_if_needed {
-    my $self = shiftl
+    my $self = shift;
     return unless $self->_has_io_priority;
     require Linux::IO_Prio;
     my $sym = do {
         no strict 'refs';
         &{"Linux::IO_Prio::IOPRIO_CLASS_" . uc($self->io_priority)}();
     };
-    Linux::IO_Prio::ioprio_set(Linux::IO_Prio::IOPRIO_WHO_PROCESS, $$,
+    Linux::IO_Prio::ioprio_set(Linux::IO_Prio::IOPRIO_WHO_PROCESS(), $$,
         Linux::IO_Prio::IOPRIO_PRIO_VALUE($sym, 0)
     );
 }
