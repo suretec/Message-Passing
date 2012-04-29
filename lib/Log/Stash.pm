@@ -94,9 +94,29 @@ foreach my $name (qw/ user pid_file /) {
     );
 }
 
+has io_priority => (
+    isa => enum([qw[ none be rt idle ]]),
+    is => 'ro',
+    predicate => "_has_io_priority",
+);
+
+sub set_io_priority_if_needed {
+    my $self = shiftl
+    return unless $self->_has_io_priority;
+    require Linux::IO_Prio;
+    my $sym = do {
+        no strict 'refs';
+        &{"Linux::IO_Prio::IOPRIO_CLASS_" . uc($self->io_priority)}();
+    };
+    Linux::IO_Prio::ioprio_set(Linux::IO_Prio::IOPRIO_WHO_PROCESS, $$,
+        Linux::IO_Prio::IOPRIO_PRIO_VALUE($sym, 0)
+    );
+}
+
 sub start {
     my $class = shift;
     my $instance = $class->new_with_options(@_);
+    $instance->set_io_priority_if_needed;
     $instance->change_uid_if_needed;
     $instance->deamonize_if_needed;
     run_log_server $instance->build_chain;
