@@ -51,13 +51,12 @@ has daemonize => (
 
 sub deamonize_if_needed {
     my ($self) = @_;
-    my $daemon = $self->daemonize;
     my $fh;
     if ($self->_has_pid_file) {
         open($fh, '>', $self->pid_file)
-            or confess("Could not open pid file '". $self->pid_file . "'");
+            or confess("Could not open pid file '". $self->pid_file . "': $?");
     }
-    if ($daemon) {
+    if ($self->daemonize) {
         fork && exit;
         POSIX::setsid();
         fork && exit;
@@ -98,8 +97,8 @@ foreach my $name (qw/ user pid_file /) {
 sub start {
     my $class = shift;
     my $instance = $class->new_with_options(@_);
-    $instance->deamonize_if_needed;
     $instance->change_uid_if_needed;
+    $instance->deamonize_if_needed;
     run_log_server $instance->build_chain;
 }
 
