@@ -6,6 +6,7 @@ use Log::Stash::DSL::Factory;
 use Carp qw/ confess /;
 use Scalar::Util qw/weaken/;
 use AnyEvent;
+use Moose::Util qw/ does_role /;
 
 Moose::Exporter->setup_import_methods(
     as_is     => [qw/ run_log_server log_chain input filter output /],
@@ -25,7 +26,8 @@ sub log_chain (&) {
     my $ret = $code->();
     my %items = $FACTORY->registry;
     $FACTORY->clear_registry;
-    weaken($items{$_}) for keys %items;
+    weaken($items{$_}) for grep { does_role($_, 'Log::Stash::Role::Output') } keys %items;
+    #use Data::Dumper; warn Dumper(\%items);
     foreach my $name (keys %items) {
         next if $items{$name};
         warn "Unused output or filter $name in chain\n";

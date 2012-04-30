@@ -32,41 +32,15 @@ is_deeply [$test->messages], [{foo => 'bar'}];
 
 $c = log_chain {
             output logcollector_central => (
-                class => 'ZeroMQ',
-                connect => "tcp://127.0.0.1:5223",
+                class => 'STDOUT',
             );
-            output webhook_distributor => (
-                class => 'ZeroMQ',
-                connect => "tcp://127.0.0.1:5227",
+            input null_in => (
+                class => 'Null',
+                output_to => 'logcollector_central',
             );
-            filter webhook_distributor_filter => (
-                class => 'All', # FIXME
-                output_to => 'webhook_distributor',
-            );
-            output esl_incoming_fanout => (
-                class => 'ZeroMQ',
-                connect => "tcp://127.0.0.1:5225",
-            );
-            filter esl_incoming_fanout_filter => (
-                class => 'All', # FIXME
-                output_to => 'esl_incoming_fanout',
-            );
-            filter t => (
-                class => 'T',
-                output_to => [qw/
-                    logcollector_central
-                    webhook_distributor_filter
-                    esl_incoming_fanout_filter
-                /],
-            );
-            input zmq_in => (
-                class => 'ZeroMQ',
-                socket_bind => 'tcp://127.0.0.1:5222',
-                output_to => 't',
-            );
-            input syslog_in => (
-                class => 'Syslog',
-                output_to => 't',
+            input test_in => (
+                class => 'STDIN',
+                output_to => 'logcollector_central',
             );
         };
 
