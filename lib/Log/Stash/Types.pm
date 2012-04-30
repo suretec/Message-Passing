@@ -7,14 +7,11 @@ use MooseX::Getopt;
 use Try::Tiny;
 use namespace::autoclean;
 
-role_type $_ for map { "Log::Stash::Role::$_" }
-    qw/
-        Input
-        Filter
-        Output
-    /;
+role_type 'Log::Stash::Types::Input', { role => 'Log::Stash::Role::Input' };
+role_type 'Log::Stash::Types::Output', { role => 'Log::Stash::Role::Output' };
+role_type 'Log::Stash::Types::Filter', { role => 'Log::Stash::Role::Filter' };
 
-coerce 'Log::Stash::Role::Output',
+coerce 'Log::Stash::Types::Output',
     from 'HashRef',
     via {
         my %stuff = %$_;
