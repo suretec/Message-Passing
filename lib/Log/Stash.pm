@@ -1,14 +1,7 @@
 package Log::Stash;
 use Moose;
-use Moose::Util::TypeConstraints;
-use MooseX::Types::Common::String qw/ NonEmptySimpleStr /;
-use MooseX::Types::LoadableClass qw/ LoadableClass /;
-use String::RewritePrefix;
-use AnyEvent;
 use JSON::XS;
-use Try::Tiny;
 use Getopt::Long qw(:config pass_through);
-use POSIX qw(setuid setgid);
 use namespace::autoclean;
 use 5.8.4;
 
@@ -18,7 +11,8 @@ with
     'MooseX::Getopt',
     'Log::Stash::Role::CLIComponent' => { name => 'input' },
     'Log::Stash::Role::CLIComponent' => { name => 'output' },
-    'Log::Stash::Role::CLIComponent' => { name => 'filter', default => 'Null' };
+    'Log::Stash::Role::CLIComponent' => { name => 'filter', default => 'Null' },
+    'Log::Stash::Role::Script';
 
 our $VERSION = '0.001';
 $VERSION = eval $VERSION;
@@ -41,85 +35,6 @@ sub build_chain {
                 output_to => 'filter',
             );
         };
-}
-
-has daemonize => (
-    is => 'ro',
-    isa => 'Bool',
-    default => 0,
-);
-
-sub deamonize_if_needed {
-    my ($self) = @_;
-    my $fh;
-    if ($self->_has_pid_file) {
-        open($fh, '>', $self->pid_file)
-            or confess("Could not open pid file '". $self->pid_file . "': $?");
-    }
-    if ($self->daemonize) {
-        fork && exit;
-        POSIX::setsid();
-        fork && exit;
-        chdir '/';
-        umask 0;
-    }
-    if ($fh) {
-        print $fh $$ . "\n";
-        close($fh);
-    }
-}
-
-sub change_uid_if_needed {
-    my $self = shift;
-    my ($uid, $gid);
-    if ($self->_has_user) {
-        my $user = $self->user;
-        $uid = getpwnam($user) ||
-            die("User '$user' does not exist, cannot become that user!\n");
-        (undef, undef, undef, $gid ) = getpwuid($uid);
-    }
-    if ($gid) {
-        setgid($gid) || die("Could not setgid to '$gid' are you root? : $!\n");
-    }
-    if ($uid) {
-        setuid($uid) || die("Could not setuid to '$uid' are you root? : $!\n");
-    }
-}
-
-foreach my $name (qw/ user pid_file /) {
-    has $name => (
-        isa => 'Str',
-        is => 'ro',
-        predicate => "_has_$name",
-    );
-}
-
-has io_priority => (
-    isa => enum([qw[ none be rt idle ]]),
-    is => 'ro',
-    predicate => "_has_io_priority",
-);
-
-sub set_io_priority_if_needed {
-    my $self = shift;
-    return unless $self->_has_io_priority;
-    require Linux::IO_Prio;
-    my $sym = do {
-        no strict 'refs';
-        &{"Linux::IO_Prio::IOPRIO_CLASS_" . uc($self->io_priority)}();
-    };
-    Linux::IO_Prio::ioprio_set(Linux::IO_Prio::IOPRIO_WHO_PROCESS(), $$,
-        Linux::IO_Prio::IOPRIO_PRIO_VALUE($sym, 0)
-    );
-}
-
-sub start {
-    my $class = shift;
-    my $instance = $class->new_with_options(@_);
-    $instance->set_io_priority_if_needed;
-    $instance->change_uid_if_needed;
-    $instance->deamonize_if_needed;
-    run_log_server $instance->build_chain;
 }
 
 __PACKAGE__->meta->make_immutable;
