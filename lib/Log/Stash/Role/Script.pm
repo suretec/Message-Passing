@@ -3,6 +3,7 @@ use Moose::Role;
 use Getopt::Long qw(:config pass_through);
 use POSIX qw(setuid setgid);
 use Moose::Util::TypeConstraints;
+use Log::Stash::DSL;
 use namespace::autoclean;
 
 requires 'build_chain';
