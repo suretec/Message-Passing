@@ -9,7 +9,6 @@ use AnyEvent;
 
 Moose::Exporter->setup_import_methods(
     as_is     => [qw/ run_log_server log_chain input filter output /],
-    also      => 'Moose',
 );
 
 our $FACTORY;
