@@ -21,12 +21,12 @@ my $c = log_chain {
             output_to => 'null',
         );
 };
-isa_ok $c, 'Log::Stash::Input::STDIN';
-isa_ok $c->output_to, 'Log::Stash::Filter::Null';
-isa_ok $c->output_to->output_to, 'Log::Stash::Filter::T';
-isa_ok $c->output_to->output_to->output_to->[0], 'Log::Stash::Output::Test';
-$c->output_to->consume({foo => 'bar'});
-my $test = $c->output_to->output_to->output_to->[0];
+isa_ok $c->[0], 'Log::Stash::Input::STDIN';
+isa_ok $c->[0]->output_to, 'Log::Stash::Filter::Null';
+isa_ok $c->[0]->output_to->output_to, 'Log::Stash::Filter::T';
+isa_ok $c->[0]->output_to->output_to->output_to->[0], 'Log::Stash::Output::Test';
+$c->[0]->output_to->consume({foo => 'bar'});
+my $test = $c->[0]->output_to->output_to->output_to->[0];
 is $test->message_count, 1;
 is_deeply [$test->messages], [{foo => 'bar'}];
 
@@ -43,6 +43,14 @@ $c = log_chain {
                 output_to => 'logcollector_central',
             );
         };
+
+is ref($c), 'ARRAY';
+is scalar(@$c), 2;
+isa_ok $c->[0], 'Log::Stash::Input::Null';
+isa_ok $c->[1], 'Log::Stash::Input::STDIN';
+isa_ok $c->[0]->output_to, 'Log::Stash::Output::STDOUT';
+isa_ok $c->[1]->output_to, 'Log::Stash::Output::STDOUT';
+is $c->[0]->output_to, $c->[1]->output_to;
 
 done_testing;
 

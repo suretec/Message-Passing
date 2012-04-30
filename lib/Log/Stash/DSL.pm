@@ -23,16 +23,21 @@ sub log_chain (&) {
         confess("Cannot chain within a chain");
     }
     local $FACTORY = Log::Stash::DSL::Factory->new;
-    my $ret = $code->();
+    $code->();
     my %items = $FACTORY->registry;
     $FACTORY->clear_registry;
-    weaken($items{$_}) for grep { does_role($_, 'Log::Stash::Role::Output') } keys %items;
-    #use Data::Dumper; warn Dumper(\%items);
+    weaken($items{$_}) for
+        grep { does_role($items{$_}, 'Log::Stash::Role::Output') }
+        keys %items;
     foreach my $name (keys %items) {
         next if $items{$name};
         warn "Unused output or filter $name in chain\n";
     }
-    return $ret;
+    return [
+        grep { !does_role($_, 'Log::Stash::Role::Output') }
+        grep { does_role($_, 'Log::Stash::Role::Input') }
+        values %items
+    ];
 }
 
 sub input {
