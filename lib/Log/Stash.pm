@@ -14,7 +14,7 @@ with
     'Log::Stash::Role::CLIComponent' => { name => 'filter', default => 'Null' },
     'Log::Stash::Role::Script';
 
-our $VERSION = '0.001';
+our $VERSION = '0.002';
 $VERSION = eval $VERSION;
 
 sub build_chain {
