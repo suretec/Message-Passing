@@ -1,3 +1,4 @@
+0.002
     - Support a --daemonize option in logstash scripts.
 
     - Support a --pid_file option in logstash scripts.
@@ -16,6 +17,8 @@
       installed with, rather than the one in $PATH right now.
 
     - Fix issue using Filter::T in the DSL
+
+    - Fix multiple inputs going to the same output.
 
 0.001
     - Initial version.
