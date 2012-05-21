@@ -62,3 +62,51 @@ after _set_connected => sub {
 };
 
 1;
+
+=head1 NAME
+
+Log::Stash::Role::ConnectionManager - A simple manager for inputs and outputs that need to make network connections.
+
+=head1 DESCRIPTION
+
+This role is for components which make network connections, and need to handle the connection not starting,
+timeouts, disconnects etc.
+
+It provides a simple abstraction for multiple other classes to be able to use the same connection manager, and
+a notifies
+
+=head1 REQUIRED METHODS
+
+=head2 _build_connection
+
+Build and return the underlieing connection, start the connection process and return it.
+
+Your connection should use the API as documented below to achieve notification of connect and disconnect events.
+
+=head1 API FOR CONNECTIONS
+
+=head2 _set_connected (1)
+
+Notify clients that the connection is now ready for use.
+
+=head2 _set_connected (0)
+
+Notify clients that the connection is no longer ready for use.
+
+Will cause the connection to be terminated and retried.
+
+=head1 API FOR CLIENTS
+
+To use a connection manager, you should register yourself like this:
+
+    $manager->subscribe_to_connect($self);
+
+The manager will call C<< $self->connected($connection) >> and C<< $self->disconnected() >> when appropriate.
+
+If the manager is already connected when you subscribe, it will immediately call back into your
+C<< connected >> method, if it is not already connected then this will happen at a later point
+once the connection is established.
+
+See L<Log::Stash::Role::HasAConnection> for a role to help with dealing with a connection manager.
+
+=cut
