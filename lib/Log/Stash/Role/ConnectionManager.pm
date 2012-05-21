@@ -24,7 +24,7 @@ has connection => (
     clearer => '_clear_connection'
 );
 
-has connect_subscribers => (
+has _connect_subscribers => (
     isa => 'ArrayRef',
     is => 'ro',
     default => sub { [] },
@@ -33,7 +33,7 @@ has connect_subscribers => (
 
 sub __clean_subs {
     my $self = shift;
-    my $subs = [ grep { defined $_ } @{$self->connect_subscribers} ];
+    my $subs = [ grep { defined $_ } @{$self->_connect_subscribers} ];
     $self->_set_connect_subscribers($subs);
 }
 
@@ -42,7 +42,7 @@ sub subscribe_to_connect {
     confess "Subscriber '$subscriber' is not blessed" unless blessed $subscriber;
     confess "Subscriber '$subscriber' does not have a ->connected method" unless $subscriber->can('connected');
     $self->__clean_subs;
-    my $subs = $self->connect_subscribers;
+    my $subs = $self->_connect_subscribers;
     push(@$subs, $subscriber);
     weaken(@{$subs}[-1]);
     if ($self->connected) {
@@ -55,7 +55,7 @@ after _set_connected => sub {
     my ($self, $connected) = @_;
     $self->__clean_subs;
     my $method = $connected ? 'connected' : 'disconnected';
-    foreach my $sub (@{$self->connect_subscribers}) {
+    foreach my $sub (@{$self->_connect_subscribers}) {
         $sub->$method($self->connection) if $sub->can($method);
     }
     $self->_clear_connection unless $connected;
@@ -108,5 +108,16 @@ C<< connected >> method, if it is not already connected then this will happen at
 once the connection is established.
 
 See L<Log::Stash::Role::HasAConnection> for a role to help with dealing with a connection manager.
+
+=head1 ATTRIBUTES
+
+=head2 connected
+
+A Boolean indicating if the connection is currently considered fully connected
+
+=head2 connection
+
+The underlieing connection object (if we are connected, or connecting currently) - can
+be undefined if we are during a reconnect timeout.
 
 =cut
