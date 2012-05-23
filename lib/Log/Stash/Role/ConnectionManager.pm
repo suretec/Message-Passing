@@ -33,7 +33,7 @@ has _connect_subscribers => (
 
 sub __clean_subs {
     my $self = shift;
-    my $subs = [ grep { defined $_ } @{$self->_connect_subscribers} ];
+    my $subs = [ grep { weaken($_); defined $_ } @{$self->_connect_subscribers} ];
     $self->_set_connect_subscribers($subs);
 }
 
@@ -44,10 +44,8 @@ sub subscribe_to_connect {
     $self->__clean_subs;
     my $subs = $self->_connect_subscribers;
     push(@$subs, $subscriber);
-    weaken(@{$subs}[-1]);
     if ($self->connected) {
-        warn "Already connected";
-        $subscriber->connect($self->connection);
+        $subscriber->connected($self->connection);
     }
 }
 
