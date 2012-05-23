@@ -16,7 +16,7 @@ requires 'AnyEvent';
 requires 'MooseX::Types::Common';
 requires 'MooseX::Types::LoadableClass';
 requires 'String::RewritePrefix';
-requires 'JSON';
+requires 'JSON' => '2.0';
 requires 'MooseX::Getopt';
 requires 'Try::Tiny';
 requires 'Task::Weaken';
