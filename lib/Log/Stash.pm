@@ -1,6 +1,5 @@
 package Log::Stash;
 use Moose;
-use JSON::XS;
 use Getopt::Long qw(:config pass_through);
 use namespace::autoclean;
 use 5.8.4;

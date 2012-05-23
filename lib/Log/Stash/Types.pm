@@ -1,7 +1,7 @@
 package Log::Stash::Types;
 use MooseX::Types ();
 use Moose::Util::TypeConstraints;
-use JSON::XS ();
+use JSON ();
 use MooseX::Types::Common::String qw/ NonEmptySimpleStr /;
 use MooseX::Getopt;
 use Try::Tiny;
@@ -25,7 +25,7 @@ subtype 'Log::Stash::Types::FromJSON',
 
 coerce 'Log::Stash::Types::FromJSON',
   from NonEmptySimpleStr,
-  via { try { JSON::XS->new->relaxed->decode($_) } };
+  via { try { JSON->new->relaxed->decode($_) } };
 
 MooseX::Getopt::OptionTypeMap->add_option_type_to_map(
     'Log::Stash::Types::FromJSON' => '=s'
