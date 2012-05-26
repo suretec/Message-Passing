@@ -3,21 +3,21 @@ use warnings;
 use Test::More;
 use Try::Tiny;
 
-use Log::Stash::Filter::Null;
-use Log::Stash::Output::Test;
-use Log::Stash::Filter::All;
-use Log::Stash::Filter::T;
-use Log::Stash::Filter::Key;
-use Log::Stash::Filter::Delay;
+use Message::Passing::Filter::Null;
+use Message::Passing::Output::Test;
+use Message::Passing::Filter::All;
+use Message::Passing::Filter::T;
+use Message::Passing::Filter::Key;
+use Message::Passing::Filter::Delay;
 
 my $called = 0;
 
 my $test;
 my $ob = try {
-    $test = Log::Stash::Output::Test->new(
+    $test = Message::Passing::Output::Test->new(
             cb => sub { $called++ }
     );
-    Log::Stash::Filter::Null->new(output_to => $test)
+    Message::Passing::Filter::Null->new(output_to => $test)
 }
 catch { fail "Failed to construct $_" };
 ok $test;
@@ -36,10 +36,10 @@ is $test->message_count, 0;
 is_deeply [$test->messages], [];
 
 $ob = try {
-    $test = Log::Stash::Output::Test->new(
+    $test = Message::Passing::Output::Test->new(
             cb => sub { $called++ }
     );
-    Log::Stash::Filter::All->new(output_to => $test)
+    Message::Passing::Filter::All->new(output_to => $test)
 }
 catch { fail "Failed to construct $_" };
 ok $test;
@@ -54,13 +54,13 @@ my $called2 = 0;
 
 my $test2;
 $ob = try {
-    $test = Log::Stash::Output::Test->new(
+    $test = Message::Passing::Output::Test->new(
             cb => sub { $called++ }
     );
-    $test2 = Log::Stash::Output::Test->new(
+    $test2 = Message::Passing::Output::Test->new(
             cb => sub { $called2++ }
     );
-    Log::Stash::Filter::T->new(output_to => [$test, $test2])
+    Message::Passing::Filter::T->new(output_to => [$test, $test2])
 }
 catch { fail "Failed to construct $_" };
 ok $test;
@@ -77,10 +77,10 @@ is_deeply [$test2->messages], ['message'];
 is $called2, 1;
 
 $ob = try {
-    $test = Log::Stash::Output::Test->new(
+    $test = Message::Passing::Output::Test->new(
             cb => sub { $called++ }
     );
-    Log::Stash::Filter::Key->new(
+    Message::Passing::Filter::Key->new(
         output_to => $test,
         key => 'foo',
         match => 'bar',
@@ -97,10 +97,10 @@ try { $ob->consume({foo => 'blam', baz => 'quux'}) }
 is_deeply [$test->messages], [{foo => 'bar', baz => 'quux'}];
 
 $ob = try {
-    $test = Log::Stash::Output::Test->new(
+    $test = Message::Passing::Output::Test->new(
             cb => sub { $called++ }
     );
-    Log::Stash::Filter::Key->new(
+    Message::Passing::Filter::Key->new(
         output_to => $test,
         key => 'foo.inner.inner',
         match => 'bar',
@@ -121,8 +121,8 @@ try { $ob->consume({foo => { inner => { inner => 'bar' } }, baz => 'quux'}) }
 is_deeply [$test->messages], [{foo => { inner => { inner => 'bar' } }, baz => 'quux'}];
 
 $ob = try {
-    $test = Log::Stash::Output::Test->new();
-    Log::Stash::Filter::Delay->new(
+    $test = Message::Passing::Output::Test->new();
+    Message::Passing::Filter::Delay->new(
         delay_for => 0.1,
         output_to => $test,
     );

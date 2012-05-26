@@ -3,9 +3,9 @@ use warnings;
 use Test::More;
 use Try::Tiny;
 
-use Log::Stash::Output::Null;
+use Message::Passing::Output::Null;
 
-my $test = try { Log::Stash::Output::Null->new() }
+my $test = try { Message::Passing::Output::Null->new() }
     catch { fail "Failed to construct $_" };
 ok $test;
 

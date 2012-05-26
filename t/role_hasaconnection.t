@@ -3,7 +3,7 @@ use warnings;
 use Test::More;
 
 BEGIN {
-    use_ok('Log::Stash::Role::HasAConnection');
+    use_ok('Message::Passing::Role::HasAConnection');
 }
 
 {
@@ -23,7 +23,7 @@ BEGIN {
     use Moose;
     use namespace::clean -except => 'meta';
 
-    with 'Log::Stash::Role::HasAConnection';
+    with 'Message::Passing::Role::HasAConnection';
 
     sub connected {} # Callback API
 

@@ -30,7 +30,7 @@ use Test::More;
     use Scalar::Util qw/ weaken /;
     use namespace::clean -except => 'meta';
 
-    with 'Log::Stash::Role::ConnectionManager';
+    with 'Message::Passing::Role::ConnectionManager';
 
     sub _build_connection {
         my $self = shift;

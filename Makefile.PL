@@ -5,7 +5,7 @@ use Module::Install::AuthorRequires;
 use Module::Install::AuthorTests;
 use Module::Install::Authority;
 
-all_from 'lib/Log/Stash.pm';
+all_from 'lib/Message/Passing.pm';
 
 license 'AGPL_3';
 authority 'GHENRY';
@@ -33,7 +33,7 @@ author_requires 'Test::Spelling';
 author_tests 't/author';
 
 if ($Module::Install::AUTHOR) {
-    system("pod2text lib/Log/Stash.pm > README")
+    system("pod2text lib/Message/Passing.pm > README")
         and die $!;
 }
 

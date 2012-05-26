@@ -1,0 +1,28 @@
+=head1 NAME
+
+Message::Passing::Manual - table of contents for Message::Passing documentation
+
+=head1 CONTENTS
+
+=over
+
+=item L<Message::Passing::Manual::Concepts>
+
+How (and why) logstash works.
+
+=item L<Message::Passing::Manual::Cookbook>
+
+Practical examplesof things you can do with the framework.
+
+=item L<Message::Passing::Manual::Components>
+
+Writing your own inputs, filters and outputs.
+
+=back
+
+=head1 AUTHOR & COPYRIGHT
+
+See L<Message::Passing>.
+
+=cut
+

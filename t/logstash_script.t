@@ -2,9 +2,9 @@ use strict;
 use warnings;
 use Test::More;
 
-use_ok 'Log::Stash';
+use_ok 'Message::Passing';
 
-my $i = Log::Stash->new(
+my $i = Message::Passing->new(
     input => 'STDIN',
     input_options => '{"foo":"bar"}',
     filter_options => '{"baz":"quux"}',

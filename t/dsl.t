@@ -2,7 +2,7 @@ use strict;
 use warnings;
 use Test::More;
 
-use Log::Stash::DSL;
+use Message::Passing::DSL;
 
 my $c = log_chain {
         output test => (
@@ -21,10 +21,10 @@ my $c = log_chain {
             output_to => 'null',
         );
 };
-isa_ok $c->[0], 'Log::Stash::Input::STDIN';
-isa_ok $c->[0]->output_to, 'Log::Stash::Filter::Null';
-isa_ok $c->[0]->output_to->output_to, 'Log::Stash::Filter::T';
-isa_ok $c->[0]->output_to->output_to->output_to->[0], 'Log::Stash::Output::Test';
+isa_ok $c->[0], 'Message::Passing::Input::STDIN';
+isa_ok $c->[0]->output_to, 'Message::Passing::Filter::Null';
+isa_ok $c->[0]->output_to->output_to, 'Message::Passing::Filter::T';
+isa_ok $c->[0]->output_to->output_to->output_to->[0], 'Message::Passing::Output::Test';
 $c->[0]->output_to->consume({foo => 'bar'});
 my $test = $c->[0]->output_to->output_to->output_to->[0];
 is $test->message_count, 1;
@@ -46,10 +46,10 @@ $c = log_chain {
 
 is ref($c), 'ARRAY';
 is scalar(@$c), 2;
-isa_ok $c->[0], 'Log::Stash::Input::Null';
-isa_ok $c->[1], 'Log::Stash::Input::STDIN';
-isa_ok $c->[0]->output_to, 'Log::Stash::Output::STDOUT';
-isa_ok $c->[1]->output_to, 'Log::Stash::Output::STDOUT';
+isa_ok $c->[0], 'Message::Passing::Input::Null';
+isa_ok $c->[1], 'Message::Passing::Input::STDIN';
+isa_ok $c->[0]->output_to, 'Message::Passing::Output::STDOUT';
+isa_ok $c->[1]->output_to, 'Message::Passing::Output::STDOUT';
 is $c->[0]->output_to, $c->[1]->output_to;
 
 done_testing;

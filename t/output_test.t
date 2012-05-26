@@ -3,11 +3,11 @@ use warnings;
 use Test::More;
 use Try::Tiny;
 
-use Log::Stash::Output::Test;
+use Message::Passing::Output::Test;
 
 my $called = 0;
 
-my $test = try { Log::Stash::Output::Test->new(cb => sub { $called++ }) }
+my $test = try { Message::Passing::Output::Test->new(cb => sub { $called++ }) }
     catch { fail "Failed to construct $_" };
 ok $test;
 

@@ -1,5 +1,5 @@
 NAME
-    Log::Stash - a perl subset of Logstash <http://logstash.net>
+    Message::Passing - a perl subset of Logstash <http://logstash.net>
 
 SYNOPSIS
         logstash --input STDIN --output STDOUT
@@ -40,12 +40,14 @@ DESCRIPTION
     Getting started is really easy - you can just use the "logstash" command
     installed by the distribution. If you have a common config that you want
     to repeat, or you want to write your own server which does something
-    more flexible than the normal script allows, then see Log::Stash::DSL.
+    more flexible than the normal script allows, then see
+    Message::Passing::DSL.
 
     To dive straight in, see the documentation for the command line utility
-    logstash, and see the examples in Log::Stash::Manual::Cookbook.
+    logstash, and see the examples in Message::Passing::Manual::Cookbook.
 
-    For more about how the system works, see Log::Stash::Manual::Concepts.
+    For more about how the system works, see
+    Message::Passing::Manual::Concepts.
 
 COMPONENTS
     Below is a non-exhaustive list of components available.
@@ -58,25 +60,26 @@ COMPONENTS
 
     Inputs include:
 
-    Log::Stash::Input::STDIN
-    Log::Stash::Input::ZeroMQ
-    Log::Stash::Input::Test
+    Message::Passing::Input::STDIN
+    Message::Passing::Input::ZeroMQ
+    Message::Passing::Input::Test
 
     You can easily write your own input, just use AnyEvent, and consume
-    Log::Stash::Role::Input.
+    Message::Passing::Role::Input.
 
   FILTER
     Filters can transform a message in any way.
 
     Examples include:
 
-    Log::Stash::Filter::Null - Returns the input unchanged.
-    Log::Stash::Filter::All - Stops any messages it receives from being
-    passed to the output. I.e. literally filters all input out.
-    Log::Stash::Filter::T - Splits the incoming message to multiple outputs.
+    Message::Passing::Filter::Null - Returns the input unchanged.
+    Message::Passing::Filter::All - Stops any messages it receives from
+    being passed to the output. I.e. literally filters all input out.
+    Message::Passing::Filter::T - Splits the incoming message to multiple
+    outputs.
 
     You can easily write your own filter, just consume
-    Log::Stash::Role::Filter.
+    Message::Passing::Role::Filter.
 
     Note that filters can be chained, and a filter can return undef to stop
     a message being passed to the output.
@@ -84,16 +87,17 @@ COMPONENTS
   OUTPUTS
     Outputs send data to somewhere, i.e. they consume messages.
 
-    Log::Stash::Output::STDOUT
-    Log::Stash::Output::AMQP
-    Log::Stash::Output::ZeroMQ
-    Log::Stash::Output::WebHooks
-    Log::Stash::Output::ElasticSearch
-    Log::Stash::Output::Test
+    Message::Passing::Output::STDOUT
+    Message::Passing::Output::AMQP
+    Message::Passing::Output::ZeroMQ
+    Message::Passing::Output::WebHooks
+    Message::Passing::Output::ElasticSearch
+    Message::Passing::Output::Test
 
 SEE ALSO
     Log::Message::Structured - For creating your log messages.
-    Log::Dispatch::Log::Stash - use Log::Stash outputs from Log::Dispatch.
+    Log::Dispatch::Message::Passing - use Message::Passing outputs from
+    Log::Dispatch.
 
 THIS MODULE
     This is a simple MooseX::Getopt script, with one input, one filter and

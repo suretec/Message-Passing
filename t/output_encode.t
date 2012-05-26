@@ -11,9 +11,9 @@ use Try::Tiny;
     sub pack { { foo => "bar" } }
 }
 
-use Log::Stash::Output::Test;
+use Message::Passing::Output::Test;
 
-my $test = Log::Stash::Output::Test->new();
+my $test = Message::Passing::Output::Test->new();
 my $packed = $test->encode(bless {}, 'Message');
 
 is $packed, '{"foo":"bar"}';
