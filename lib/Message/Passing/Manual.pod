@@ -12,7 +12,7 @@ How (and why) logstash works.
 
 =item L<Message::Passing::Manual::Cookbook>
 
-Practical examplesof things you can do with the framework.
+Practical examples of things you can do with the framework.
 
 =item L<Message::Passing::Manual::Components>
 

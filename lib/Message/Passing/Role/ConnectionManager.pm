@@ -77,7 +77,8 @@ a notifies
 
 =head2 _build_connection
 
-Build and return the underlieing connection, start the connection process and return it.
+Build and return the connection we're managing, start the connection
+process.
 
 Your connection should use the API as documented below to achieve notification of connect and disconnect events.
 
@@ -117,5 +118,11 @@ A Boolean indicating if the connection is currently considered fully connected
 
 The underlieing connection object (if we are connected, or connecting currently) - can
 be undefined if we are during a reconnect timeout.
+
+=head1 METHODS
+
+=head2 subscribe_to_connect
+
+
 
 =cut

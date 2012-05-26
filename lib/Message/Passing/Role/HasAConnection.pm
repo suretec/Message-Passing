@@ -49,7 +49,7 @@ Usually used to do things like subscribe to queues..
 
 =head2 disconnected ($client)
 
-The client recieved an error or otherwise disconnected.
+The client received an error or otherwise disconnected.
 
 =head1 ATTRIBUTES
 
@@ -62,3 +62,4 @@ The client recieved an error or otherwise disconnected.
 Is wrapped to build the connection manager object.
 
 =cut
+

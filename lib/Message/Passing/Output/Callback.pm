@@ -29,6 +29,12 @@ Message::Passing::Output::Callback - Output to call back into your code
         },
     );
 
+=head1 METHODS
+
+=head2 consume ($msg)
+
+Calls the callback with the message as it's first parameter
+
 =head1 SEE ALSO
 
 L<Message::Passing>

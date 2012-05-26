@@ -91,7 +91,93 @@ sub start {
 
 =head1 NAME
 
-Message::Passing:Role::Script - Handy role for scripts.
+Message::Passing:Role::Script - Handy role for building messaging scripts.
+
+=head1 SYNOPSIS
+
+    # my_message_passer.pl
+    package My::Message::Passer;
+    use Moose;
+    use Message::Passing::DSL;
+
+    with 'Message::Passing::Role::Script';
+    with 'MooseX::Getopt';
+
+    has foo => (
+        is => 'ro',
+        isa => 'Bool',
+    );
+
+    sub build_chain {
+        my $self = shift;
+        log_chain {
+            input example => ( output_to => 'test_out', .... );
+            output test_out => ( foo => $self->foo, ... );
+        };
+    }
+
+    __PACKAGE__->start unless caller;
+    1;
+
+=head1 DESCRIPTION
+
+This role can be used to make simple message passing scripts.
+
+The user implements a L<MooseX::Getopt> type script class, with a
+C<build_chain> method, that builds one or more
+L<Message::Passing> chains and returns them.
+
+    __PACKAGE__->start unless caller;
+
+is then used before the end of the script.
+
+This means that when the code is run as a script, it'll parse
+the command line options, and start a message passing server..
+
+=head1 REQUIRED METHODS
+
+=head1 build_chain
+
+Return a chain of message processors, or an array reference with
+multiple chains of message processors.
+
+=head1 METHODS
+
+=head2 start
+
+Called as a class method, it will build the current class as a
+command line script (parsing ARGV), setup the daemonization options,
+call the ->build_chain method supplied by the user to build the
+chains needed for this application.
+
+Then enters the event loop and never returns.
+
+=head2 change_uid_if_needed
+
+Tries to change uid if the --user option has been supplied
+
+=head2 deamonize_if_needed
+
+Tires to daemonize if the --daemonize option has been supplied
+
+=head2 set_io_priority_if_needed
+
+Tries to set the process' IO priority if the --io_priority option
+has been supplied.
+
+Valid values for the IO priority are:
+
+=over
+
+=item none
+
+=item be
+
+=item rt
+
+=item idle
+
+=back
 
 =head1 AUTHOR
 
