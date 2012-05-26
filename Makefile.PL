@@ -24,7 +24,7 @@ requires 'MooseX::Getopt';
 requires 'Try::Tiny';
 requires 'Task::Weaken';
 
-install_script 'script/logstash';
+install_script 'script/message-pass';
 
 author_requires(
     'Test::Pod' => '1.14',
