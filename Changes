@@ -1,3 +1,6 @@
+   - Rename to Message::Passing, as it's a better description
+     of what we do, and will cause less confusion with other projects.
+
 0.002
     - Support a --daemonize option in logstash scripts.
 
