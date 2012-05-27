@@ -1,3 +1,7 @@
+0.002_01
+   - Add more core roles for use by extensions which need to make
+     a connection.
+
    - Rename to Message::Passing, as it's a better description
      of what we do, and will cause less confusion with other projects.
 
