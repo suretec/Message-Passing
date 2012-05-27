@@ -116,7 +116,7 @@ A Boolean indicating if the connection is currently considered fully connected
 
 =head2 connection
 
-The underlieing connection object (if we are connected, or connecting currently) - can
+The connection object (if we are connected, or connecting currently) - can
 be undefined if we are during a reconnect timeout.
 
 =head1 METHODS

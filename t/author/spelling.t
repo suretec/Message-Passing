@@ -4,6 +4,12 @@ use Test::More;
 use Test::Spelling;
 
 add_stopwords(qw(
+    privileged
+    conf
+    daemonize
+    ARGV
+    Recipies
+    recipies
     multi
     rsyslogd
     syslogd

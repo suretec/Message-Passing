@@ -40,7 +40,7 @@ And you've now got a multi-host log aggregation system for your application!
 
 Assuming that you've got a regular syslogd setup and working, then you probably want to keep that.
 Having B<some of> the log files on individual hosts can be very useful. Also, we'd like to avoid
-logstash being a privilidged user (which would be needed to get the standard port).
+logstash being a privileged user (which would be needed to get the standard port).
 
 Therefore, we'll run a syslog listener on a high port (5140), and get the regular syslogd to ship
 messages to it. The listener will then forward from each host to a central aggregate logger
