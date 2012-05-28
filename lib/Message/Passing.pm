@@ -193,6 +193,22 @@ This is the entry point for the script.
 
 Tomas (t0m) Doran <bobtfish@bobtfish.net>
 
+=head1 SUPPORT
+
+=head2 Bugs
+
+Please log bugs at L<rt.cpan.org>. Each distribution has a bugtracker
+link in it's L<metacpan.org> page.
+
+=head2 Discussion
+
+L<#message-passing> on L<irc.perl.org>.
+
+=head2 Source code
+
+Source code for all modules is available at L<http://github.com/suretec>
+and forks / patches are very welcome.
+
 =head1 SPONSORSHIP
 
 This module exists due to the wonderful people at Suretec Systems Ltd.
