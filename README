@@ -1,17 +1,18 @@
 NAME
-    Message::Passing - a perl subset of Logstash <http://logstash.net>
+    Message::Passing - a simple way of doing messaging.
 
 SYNOPSIS
-        logstash --input STDIN --output STDOUT
+        message-passing --input STDIN --output STDOUT
         {"foo": "bar"}
         {"foo":"bar"}
 
 DESCRIPTION
-    A lightweight but inter-operable subset of logstash
-    <http://logstash.net>
-
     This implementation is currently a prototype, and as such should be
     considered alpha and subject to change at any point.
+
+    A library for building high performance, loosely coupled and
+    reliable/reseliant applications, structured as small services which
+    communicate over the network by passing messages.
 
   BASIC PREMISE
     You have data for discrete events, represented by a hash (and serialized
@@ -35,16 +36,17 @@ DESCRIPTION
     application log file, or push the logs into ElasticSearch.
 
     There are a growing set of components you can plug together to make your
-    logging solution.
+    solution.
 
-    Getting started is really easy - you can just use the "logstash" command
-    installed by the distribution. If you have a common config that you want
-    to repeat, or you want to write your own server which does something
-    more flexible than the normal script allows, then see
+    Getting started is really easy - you can just use the "message-passing"
+    command installed by the distribution. If you have a common config that
+    you want to repeat, or you want to write your own server which does
+    something more flexible than the normal script allows, then see
     Message::Passing::DSL.
 
     To dive straight in, see the documentation for the command line utility
-    logstash, and see the examples in Message::Passing::Manual::Cookbook.
+    message-passing, and see the examples in
+    Message::Passing::Manual::Cookbook.
 
     For more about how the system works, see
     Message::Passing::Manual::Concepts.
@@ -88,10 +90,12 @@ COMPONENTS
     Outputs send data to somewhere, i.e. they consume messages.
 
     Message::Passing::Output::STDOUT
-    Message::Passing::Output::AMQP
+    Message::Passing::Output::AMQP - COMING SOON
+    (<https://github.com/suretec/Message-Passing-AMQP>)
     Message::Passing::Output::ZeroMQ
     Message::Passing::Output::WebHooks
-    Message::Passing::Output::ElasticSearch
+    Message::Passing::Output::ElasticSearch - COMING SOON
+    (<https://github.com/suretec/Message-Passing-Output-ElasticSearch>)
     Message::Passing::Output::Test
 
 SEE ALSO
@@ -112,7 +116,7 @@ THIS MODULE
     having constructed an instance of this class, parsed command line
     options and constructed a chain.
 
-    This is the entry point for the logstash script.
+    This is the entry point for the script.
 
 AUTHOR
     Tomas (t0m) Doran <bobtfish@bobtfish.net>
