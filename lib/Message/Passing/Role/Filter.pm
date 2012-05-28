@@ -20,7 +20,7 @@ sub consume {
 
 =head1 NAME
 
-Message::Passing::Mixin::Filter
+Message::Passing::Role::Filter
 
 =head1 DESCRIPTION
 
