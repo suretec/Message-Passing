@@ -15,7 +15,8 @@ Message::Passing::Input::Null - Null input
 
 =head1 SYNOPSIS
 
-    logstash --input Null --output STDOUT
+    message-passing --input Null --output STDOUT
+    # Nothing ever happens..
 
 =head1 DESCRIPTION
 
@@ -25,10 +26,6 @@ Does nothing (for testing).
 
 L<Message::Passing>
 
-=head1 AUTHOR
-
-Tomas (t0m) Doran <bobtfish@bobtfish.net>
-
 =head1 SPONSORSHIP
 
 This module exists due to the wonderful people at Suretec Systems Ltd.
@@ -37,15 +34,9 @@ VoIP division called SureVoIP <http://www.surevoip.co.uk/> for use with
 the SureVoIP API - 
 <http://www.surevoip.co.uk/support/wiki/api_documentation>
 
-=head1 COPYRIGHT
+=head1 AUTHOR, COPYRIGHT AND LICENSE
 
-Copyright Suretec Systems 2012.
-
-Logstash (upon which many ideas for this project is based, but
-which we do not reuse any code from) is copyright 2010 Jorden Sissel.
-
-=head1 LICENSE
-
-XX - TODO
+See L<Message::Passing>.
 
 =cut
+

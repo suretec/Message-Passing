@@ -79,14 +79,15 @@ sub run_log_server {
 
 =head1 NAME
 
-Message::Passing::DSL - An easy way to make chains of logstash objects.
+Message::Passing::DSL - An easy way to make chains of Message::Passing components.
 
 =head1 SYNOPSIS
 
     package mylogcollectorscript;
     use Message::Passing::DSL;
 
-    with 'MooseX::GetOpt';
+    with 'MooseX::GetOpt',
+        'Message::Passing::Role::Script';
 
     has socket_bind => (
         is => 'ro',
@@ -108,22 +109,14 @@ Message::Passing::DSL - An easy way to make chains of logstash objects.
         };
     }
 
-    sub start { run_log_server __PACKAGE__->new_with_options->build_chain }
     __PACKAGE__->start unless caller;
+    1;
 
 =head1 DESCRIPTION
 
 This module provides a simple to use helper system for writing
 scripts which implement a L<Message::Passing> server, like
-the built in logstash script.
-
-Your script can just be a script, however if it's a class with a
-C<< ->new >> method, then the new method will be called, or
-if you're a L<MooseX::Getopt> user (i.e. you implement a new_with_optons
-method), then this will be called.
-
-You are expected to define one or more chains, and then call the run
-function.
+the built in message-passing script.
 
 =head2 FUNCTIONS
 

@@ -1,3 +1,7 @@
+   - Updates and fixes to documentation.
+
+   - Unify license/author/copyright to main file.
+
 0.002_01
    - Add more core roles for use by extensions which need to make
      a connection.

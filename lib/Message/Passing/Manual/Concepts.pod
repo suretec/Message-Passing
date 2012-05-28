@@ -101,17 +101,17 @@ The example above becomes:
 
 =head1 Event loop
 
-L<AnyEvent> has been mentioned, and it's expected that logstash scripts will use a supported event
-loop. This implies that your logstash code is asynchronous, which is generally fine - however it should
+L<AnyEvent> has been mentioned, and it's expected that scripts will use a supported event
+loop. This implies that your code is asynchronous, which is generally fine - however it should
 be noted that doing any long operation (non trivial database queries) will block the entire server - meaning
 no events will be processed. 
 
 In cases such as these, running a pool of worker processes to distribute the blocking jobs is more appropriate,
-and easy to wire up (on one or more hosts). This is documented more fully in L<Message::Passing::Manual::Workers>.
+and easy to wire up (on one or more hosts). This is documented more fully in L<Message::Passing::Manual::Workers> XXX FIXME TODO.
 
 =head1 ZeroMQ
 
-L<ZeroMQ> is the recommended transport for logstash messages, and L<Message::Passing::Output::ZeroMQ> is designed to work
+L<ZeroMQ> is the recommended transport for messages, and L<Message::Passing::Output::ZeroMQ> is designed to work
 inside a traditional synchronous application. This means that you can emit messages into ZeroMQ without blocking your
 application, or having to use or run the AnyEvent event loop.
 
@@ -121,4 +121,9 @@ application, or having to use or run the AnyEvent event loop.
 
 Recipies for achieving common tasks
 
+=head1 AUTHOR, COPYRIGHT & LICENSE
+
+See L<Message::Passing>.
+
 =cut
+

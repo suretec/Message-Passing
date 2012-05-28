@@ -11,11 +11,11 @@ __PACKAGE__->meta->make_immutable;
 
 =head1 NAME
 
-Message::Passing::Output::Null - /dev/null for logstash messages
+Message::Passing::Output::Null - /dev/null for messages
 
 =head1 SYNOPSIS
 
-    logstash --input STDIN --output Null
+    message-passing --input STDIN --output Null
     {"foo": "bar"}
 
     # Note noting is printed...

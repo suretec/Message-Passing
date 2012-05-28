@@ -54,7 +54,7 @@ Message::Passing::Output::File - File output
 
 =head1 SYNOPSIS
 
-    logstash --input STDIN --output File
+    message-passing --input STDIN --output File --output_options '{"filename": "/tmp/my.log"}'
     {"foo": "bar"}
     {"foo":"bar"}
 

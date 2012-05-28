@@ -68,7 +68,7 @@ __PACKAGE__->meta->make_immutable;
 
 =head1 NAME
 
-Message::Passing::DSL::Factory - Build a set of logstash chains using symbolic names
+Message::Passing::DSL::Factory - Build a set of chains using symbolic names
 
 =head1 DESCRIPTION
 

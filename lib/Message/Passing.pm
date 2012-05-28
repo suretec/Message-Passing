@@ -41,21 +41,21 @@ __PACKAGE__->meta->make_immutable;
 
 =head1 NAME
 
-Message::Passing - a perl subset of Logstash <http://logstash.net>
+Message::Passing - a simple way of doing messaging.
 
 =head1 SYNOPSIS
 
-    logstash --input STDIN --output STDOUT
+    message-passing --input STDIN --output STDOUT
     {"foo": "bar"}
     {"foo":"bar"}
 
 =head1 DESCRIPTION
 
-A lightweight but inter-operable subset of logstash
-L<http://logstash.net>
-
 This implementation is currently a prototype, and as such should be considered
 alpha and subject to change at any point.
+
+A library for building high performance, loosely coupled and reliable/reseliant applications,
+structured as small services which communicate over the network by passing messages.
 
 =head2 BASIC PREMISE
 
@@ -74,21 +74,21 @@ that let you do all of these things, in a simple and easily extensible
 manor.
 
 For a practical example, You generate events from a source (e.g.
-ZeroMQ output of logs and performance metrics from your Catalyst FCGI
-or Starman workers) and run one script that will give you a central
+L<ZeroMQ> output of logs and performance metrics from your L<Catalyst> FCGI
+or L<Starman> workers) and run one script that will give you a central
 application log file, or push the logs into L<ElasticSearch>.
 
 There are a growing set of components you can plug together
-to make your logging solution.
+to make your solution.
 
-Getting started is really easy - you can just use the C<logstash>
+Getting started is really easy - you can just use the C<message-passing>
 command installed by the distribution. If you have a common config
 that you want to repeat, or you want to write your own server
 which does something more flexible than the normal script allows,
 then see L<Message::Passing::DSL>.
 
 To dive straight in, see the documentation for the command line utility
-L<logstash>, and see the examples in L<Message::Passing::Manual::Cookbook>.
+L<message-passing>, and see the examples in L<Message::Passing::Manual::Cookbook>.
 
 For more about how the system works, see L<Message::Passing::Manual::Concepts>.
 
@@ -148,13 +148,13 @@ Outputs send data to somewhere, i.e. they consume messages.
 
 =item L<Message::Passing::Output::STDOUT>
 
-=item L<Message::Passing::Output::AMQP>
+=item L<Message::Passing::Output::AMQP> - COMING SOON (L<https://github.com/suretec/Message-Passing-AMQP>)
 
 =item L<Message::Passing::Output::ZeroMQ>
 
 =item L<Message::Passing::Output::WebHooks>
 
-=item L<Message::Passing::Output::ElasticSearch>
+=item L<Message::Passing::Output::ElasticSearch> - COMING SOON (L<https://github.com/suretec/Message-Passing-Output-ElasticSearch>)
 
 =item L<Message::Passing::Output::Test>
 
@@ -187,7 +187,7 @@ Class method to call the run_log_server function with the results of
 having constructed an instance of this class, parsed command line options
 and constructed a chain.
 
-This is the entry point for the logstash script.
+This is the entry point for the script.
 
 =head1 AUTHOR
 

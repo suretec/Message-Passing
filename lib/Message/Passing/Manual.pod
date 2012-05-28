@@ -8,7 +8,7 @@ Message::Passing::Manual - table of contents for Message::Passing documentation
 
 =item L<Message::Passing::Manual::Concepts>
 
-How (and why) logstash works.
+How (and why) the message passing library works.
 
 =item L<Message::Passing::Manual::Cookbook>
 
@@ -20,7 +20,7 @@ Writing your own inputs, filters and outputs.
 
 =back
 
-=head1 AUTHOR & COPYRIGHT
+=head1 AUTHOR, COPYRIGHT & LICENSE
 
 See L<Message::Passing>.
 

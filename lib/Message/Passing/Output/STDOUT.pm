@@ -19,7 +19,7 @@ Message::Passing::Output::STDOUT - STDOUT output
 
 =head1 SYNOPSIS
 
-    logstash --input STDIN --output STDOUT
+    message-passing --input STDIN --output STDOUT
     {"foo": "bar"}
     {"foo":"bar"}
 

@@ -32,4 +32,3 @@ MooseX::Getopt::OptionTypeMap->add_option_type_to_map(
 );
 
 1;
-
