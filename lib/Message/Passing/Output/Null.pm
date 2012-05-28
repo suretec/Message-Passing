@@ -15,7 +15,7 @@ Message::Passing::Output::Null - /dev/null for messages
 
 =head1 SYNOPSIS
 
-    message-passing --input STDIN --output Null
+    message-pass --input STDIN --output Null
     {"foo": "bar"}
 
     # Note noting is printed...

@@ -116,7 +116,7 @@ Message::Passing::DSL - An easy way to make chains of Message::Passing component
 
 This module provides a simple to use helper system for writing
 scripts which implement a L<Message::Passing> server, like
-the built in message-passing script.
+the built in message-pass script.
 
 =head2 FUNCTIONS
 

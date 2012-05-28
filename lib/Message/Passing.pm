@@ -45,7 +45,7 @@ Message::Passing - a simple way of doing messaging.
 
 =head1 SYNOPSIS
 
-    message-passing --input STDIN --output STDOUT
+    message-pass --input STDIN --output STDOUT
     {"foo": "bar"}
     {"foo":"bar"}
 

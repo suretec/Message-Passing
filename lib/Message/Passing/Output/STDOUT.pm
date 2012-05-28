@@ -19,7 +19,7 @@ Message::Passing::Output::STDOUT - STDOUT output
 
 =head1 SYNOPSIS
 
-    message-passing --input STDIN --output STDOUT
+    message-pass --input STDIN --output STDOUT
     {"foo": "bar"}
     {"foo":"bar"}
 

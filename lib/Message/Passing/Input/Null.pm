@@ -15,7 +15,7 @@ Message::Passing::Input::Null - Null input
 
 =head1 SYNOPSIS
 
-    message-passing --input Null --output STDOUT
+    message-pass --input Null --output STDOUT
     # Nothing ever happens..
 
 =head1 DESCRIPTION

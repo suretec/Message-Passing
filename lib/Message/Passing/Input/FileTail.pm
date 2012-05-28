@@ -55,7 +55,7 @@ Message::Passing::Input::FileTail - File tailing input
 
 =head1 SYNOPSIS
 
-    message-passing --input FileTail --input_options '{"filename": "/var/log/foo.log"} --output STDOUT
+    message-pass --input FileTail --input_options '{"filename": "/var/log/foo.log"} --output STDOUT
     {"foo":"bar"}
 
 =head1 DESCRIPTION
