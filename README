@@ -2,7 +2,7 @@ NAME
     Message::Passing - a simple way of doing messaging.
 
 SYNOPSIS
-        message-passing --input STDIN --output STDOUT
+        message-pass --input STDIN --output STDOUT
         {"foo": "bar"}
         {"foo":"bar"}
 
@@ -120,6 +120,18 @@ THIS MODULE
 
 AUTHOR
     Tomas (t0m) Doran <bobtfish@bobtfish.net>
+
+SUPPORT
+  Bugs
+    Please log bugs at rt.cpan.org. Each distribution has a bugtracker link
+    in it's metacpan.org page.
+
+  Discussion
+    #message-passing on irc.perl.org.
+
+  Source code
+    Source code for all modules is available at <http://github.com/suretec>
+    and forks / patches are very welcome.
 
 SPONSORSHIP
     This module exists due to the wonderful people at Suretec Systems Ltd.
