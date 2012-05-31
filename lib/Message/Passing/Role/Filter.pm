@@ -63,7 +63,7 @@ In the case where the filter returns a message, outputs the message to the next 
 =head1 SPONSORSHIP
 
 This module exists due to the wonderful people at Suretec Systems Ltd.
-<http://www.suretecsystems.com/> who sponsored it's development for its
+<http://www.suretecsystems.com/> who sponsored its development for its
 VoIP division called SureVoIP <http://www.surevoip.co.uk/> for use with
 the SureVoIP API - 
 <http://www.surevoip.co.uk/support/wiki/api_documentation>
