@@ -148,7 +148,9 @@ Outputs send data to somewhere, i.e. they consume messages.
 
 =item L<Message::Passing::Output::STDOUT>
 
-=item L<Message::Passing::Output::AMQP> - COMING SOON (L<https://github.com/suretec/Message-Passing-AMQP>)
+=item L<Message::Passing::Output::AMQP>
+
+=item L<Message::Passing::Output::STOMP>
 
 =item L<Message::Passing::Output::ZeroMQ>
 

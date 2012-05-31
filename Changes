@@ -1,3 +1,7 @@
+   - AMQP module is on CPAN
+
+   - Note STOMP module exists.
+
 0.004
    - Fix script name
 
