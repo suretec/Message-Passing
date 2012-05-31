@@ -10,6 +10,16 @@ sub BUILD {
     $self->connection;
 }
 
+has timeout => (
+    isa => 'Int',
+    is => 'ro',
+    default => sub { 30 },
+);
+
+has _timeout_timer => (
+    is => 'rw',
+);
+
 has connected => (
     is => 'ro',
     isa => 'Bool',
@@ -23,6 +33,17 @@ has connection => (
     builder => '_build_connection',
     clearer => '_clear_connection'
 );
+
+after _build_connection => sub {
+    my $self = shift;
+    weaken($self);
+    $self->_timeout_timer(AnyEvent->timer(
+        after => $self->timeout,
+        cb => sub {
+            $self->_set_connected(0);
+        },
+    ));
+};
 
 has _connect_subscribers => (
     isa => 'ArrayRef',
