@@ -1,6 +1,8 @@
-   - AMQP module is on CPAN
+   - Add link to syslog input
 
-   - Note STOMP module exists.
+   - AMQP input/output is on CPAN
+
+   - Add link to STOMP input/output.
 
 0.004
    - Fix script name

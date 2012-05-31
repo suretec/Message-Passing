@@ -111,6 +111,12 @@ Inputs include:
 
 =item L<Message::Passing::Input::ZeroMQ>
 
+=item L<Message::Passing::Input::STOMP>
+
+=item L<Message::Passing::Input::AMQP>
+
+=item L<Message::Passing::Input::Syslog>
+
 =item L<Message::Passing::Input::Test>
 
 =back
