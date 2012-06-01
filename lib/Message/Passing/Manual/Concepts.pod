@@ -107,7 +107,7 @@ be noted that doing any long operation (non trivial database queries) will block
 no events will be processed. 
 
 In cases such as these, running a pool of worker processes to distribute the blocking jobs is more appropriate,
-and easy to wire up (on one or more hosts). This is documented more fully in L<Message::Passing::Manual::Workers> XXX FIXME TODO.
+and easy to wire up (on one or more hosts). This is documented more fully in L<Message::Passing::Manual::Workers> XXX 
 
 =head1 ZeroMQ
 

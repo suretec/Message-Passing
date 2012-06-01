@@ -205,7 +205,7 @@ Tomas (t0m) Doran <bobtfish@bobtfish.net>
 
 =head2 Bugs
 
-Please log bugs at L<rt.cpan.org>. Each distribution has a bugtracker
+Please log bugs at L<rt.cpan.org>. Each distribution has a bug tracker
 link in it's L<metacpan.org> page.
 
 =head2 Discussion
