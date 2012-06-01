@@ -13,7 +13,7 @@ with
     'Message::Passing::Role::CLIComponent' => { name => 'filter', default => 'Null' },
     'Message::Passing::Role::Script';
 
-our $VERSION = '0.004';
+our $VERSION = '0.005';
 $VERSION = eval $VERSION;
 
 sub build_chain {

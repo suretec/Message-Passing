@@ -1,3 +1,4 @@
+0.005
    - Get connection timeouts and connection reconnects
      working in the generic ConnectionManager role.
 
