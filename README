@@ -64,6 +64,9 @@ COMPONENTS
 
     Message::Passing::Input::STDIN
     Message::Passing::Input::ZeroMQ
+    Message::Passing::Input::STOMP
+    Message::Passing::Input::AMQP
+    Message::Passing::Input::Syslog
     Message::Passing::Input::Test
 
     You can easily write your own input, just use AnyEvent, and consume
@@ -90,8 +93,8 @@ COMPONENTS
     Outputs send data to somewhere, i.e. they consume messages.
 
     Message::Passing::Output::STDOUT
-    Message::Passing::Output::AMQP - COMING SOON
-    (<https://github.com/suretec/Message-Passing-AMQP>)
+    Message::Passing::Output::AMQP
+    Message::Passing::Output::STOMP
     Message::Passing::Output::ZeroMQ
     Message::Passing::Output::WebHooks
     Message::Passing::Output::ElasticSearch - COMING SOON

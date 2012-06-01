@@ -11,9 +11,15 @@ sub BUILD {
 }
 
 has timeout => (
-    isa => 'Int',
+    isa => 'Num',
     is => 'ro',
     default => sub { 30 },
+);
+
+has reconnect_after => (
+    isa => 'Num',
+    is => 'ro',
+    default => sub { 2 },
 );
 
 has _timeout_timer => (
@@ -30,19 +36,48 @@ has connected => (
 has connection => (
     is => 'ro',
     lazy => 1,
+    predicate => '_has_connection',
     builder => '_build_connection',
-    clearer => '_clear_connection'
+    clearer => '_clear_connection',
 );
 
 after _build_connection => sub {
     my $self = shift;
     weaken($self);
-    $self->_timeout_timer(AnyEvent->timer(
+    $self->_timeout_timer($self->_build_timeout_timer);
+};
+
+sub _build_timeout_timer {
+    my $self = shift;
+    weaken($self);
+    AnyEvent->timer(
         after => $self->timeout,
         cb => sub {
-            $self->_set_connected(0);
+            $self->_timeout_timer(undef);
+            warn "TIMEOUT";
+            $self->_set_connected(0); # Use public API, causing reconnect timer to be built
         },
-    ));
+    );
+}
+
+sub _build_reconnect_timer {
+    my $self = shift;
+    weaken($self);
+    warn "Build reconnect timer";
+    AnyEvent->timer(
+        after => $self->reconnect_after,
+        cb => sub {
+            warn "Am reconnecting";
+            $self->_timeout_timer(undef);
+            $self->connection; # Just rebuild the connection object
+        },
+    );
+}
+
+before _clear_connection => sub {
+    my $self = shift;
+    return unless $self->_has_connection;
+    $self->_timeout_timer($self->_build_reconnect_timer);
 };
 
 has _connect_subscribers => (
@@ -77,6 +112,7 @@ after _set_connected => sub {
     foreach my $sub (@{$self->_connect_subscribers}) {
         $sub->$method($self->connection) if $sub->can($method);
     }
+    $self->_timeout_timer(undef) if $connected;
     $self->_clear_connection unless $connected;
 };
 

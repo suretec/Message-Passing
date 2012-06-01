@@ -34,7 +34,11 @@ use AnyEvent;
     with 'Message::Passing::Role::ConnectionManager';
 
     has '+timeout' => (
-        default => sub { 0 },
+        default => sub { 0.1 },
+    );
+
+    has '+reconnect_after' => (
+        default => sub { 0.1 },
     );
 
     sub _build_connection {
@@ -73,15 +77,37 @@ ok $sub2->{am_connected};
 is_deeply $i->_connect_subscribers, [$sub2];
 ok !$sub;
 
+# Test connectiomn timeout
 $i = My::Connection::Wrapper->new;
 my $cv = AnyEvent->condvar;
 my $t; $t = AnyEvent->timer(
-    after => 0.1,
+    after => 0.11,
     cb => sub { $cv->send },
 );
 ok $i->{connection};
 $cv->recv;
 ok !$i->{connection};
+
+# Test reconnect
+$cv = AnyEvent->condvar;
+$t; $t = AnyEvent->timer(
+    after => 0.11,
+    cb => sub { $cv->send },
+);
+$cv->recv;
+$i->_set_connected(1);
+ok $i->{connection};
+my ($c, $d) = (0,0);
+My::Connection::Wrapper->meta->add_before_method_modifier('_build_timeout_timer', sub { $c++ });
+My::Connection::Wrapper->meta->add_before_method_modifier('_build_reconnect_timer', sub { $d++ });
+$cv = AnyEvent->condvar;
+my $t; $t = AnyEvent->timer(
+    after => 0.5,
+    cb => sub { $cv->send },
+);
+$cv->recv;
+is $c, 0;
+is $d, 0;
 
 done_testing;
 
