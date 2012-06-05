@@ -1,7 +1,9 @@
 package Message::Passing::Role::CLIComponent;
 use MooseX::Role::Parameterized;
 use Moose::Util::TypeConstraints;
-use Message::Passing::Types;
+use Message::Passing::Types qw/
+    Hash_from_JSON
+/;
 use namespace::autoclean;
 
 parameter name => (
@@ -29,7 +31,7 @@ role {
     );
 
     has "${name}_options" => (
-        isa => "Message::Passing::Types::FromJSON",
+        isa => Hash_from_JSON,
         traits    => ['Hash'],
         default => sub { {} },
         handles => {

@@ -80,20 +80,24 @@ ok !$sub;
 # Test connectiomn timeout
 $i = My::Connection::Wrapper->new;
 my $cv = AnyEvent->condvar;
-my $t; $t = AnyEvent->timer(
-    after => 0.11,
-    cb => sub { $cv->send },
-);
+{
+    my $t; $t = AnyEvent->timer(
+        after => 0.11,
+        cb => sub { undef $t; $cv->send },
+    );
+}
 ok $i->{connection};
 $cv->recv;
 ok !$i->{connection};
 
 # Test reconnect
 $cv = AnyEvent->condvar;
-$t; $t = AnyEvent->timer(
-    after => 0.11,
-    cb => sub { $cv->send },
-);
+{
+    my $t; $t = AnyEvent->timer(
+        after => 0.11,
+        cb => sub { undef $t; $cv->send },
+    );
+}
 $cv->recv;
 $i->_set_connected(1);
 ok $i->{connection};
@@ -101,10 +105,12 @@ my ($c, $d) = (0,0);
 My::Connection::Wrapper->meta->add_before_method_modifier('_build_timeout_timer', sub { $c++ });
 My::Connection::Wrapper->meta->add_before_method_modifier('_build_reconnect_timer', sub { $d++ });
 $cv = AnyEvent->condvar;
-my $t; $t = AnyEvent->timer(
-    after => 0.5,
-    cb => sub { $cv->send },
-);
+{
+    my $t; $t = AnyEvent->timer(
+        after => 0.5,
+        cb => sub { undef $t; $cv->send },
+    );
+}
 $cv->recv;
 is $c, 0;
 is $d, 0;

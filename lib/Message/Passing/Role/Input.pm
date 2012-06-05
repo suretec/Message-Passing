@@ -1,13 +1,15 @@
 package Message::Passing::Role::Input;
 use Moose::Role;
 use JSON qw/ from_json /;
-use Message::Passing::Types;
+use Message::Passing::Types qw/
+    Output_Type
+/;
 use namespace::autoclean;
 
 sub decode { from_json( $_[1], { utf8  => 1 } ) }
 
 has output_to => (
-    isa => 'Message::Passing::Types::Output',
+    isa => Output_Type,
     is => 'ro',
     required => 1,
     coerce => 1,

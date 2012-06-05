@@ -1,5 +1,6 @@
 package Message::Passing::Role::HasAConnection;
 use Moose::Role;
+use Moose::Util::TypeConstraints;
 use namespace::autoclean;
 
 requires '_build_connection_manager', 'connected';
@@ -7,7 +8,7 @@ requires '_build_connection_manager', 'connected';
 has connection_manager => (
     is => 'ro',
     lazy => 1,
-    #isa => ->can('subscribe_to_connect')
+    isa => duck_type([qw/subscribe_to_connect/]),
     builder => '_build_connection_manager',
 );
 
