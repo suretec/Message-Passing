@@ -9,7 +9,7 @@ use AnyEvent;
 use Moose::Util qw/ does_role /;
 
 Moose::Exporter->setup_import_methods(
-    as_is     => [qw/ run_log_server log_chain input filter output /],
+    as_is     => [qw/ run_log_server log_chain input filter output decoder encoder /],
 );
 
 our $FACTORY;
@@ -67,6 +67,26 @@ sub output {
         %opts,
         name => $name,
         type => 'Output',
+    );
+}
+
+sub decoder {
+     my ($name, %opts) = @_;
+    _check_factory();
+    $FACTORY->make(
+        %opts,
+        name => $name,
+        type => 'Filter::Decoder',
+    );
+}
+
+sub encoder {
+     my ($name, %opts) = @_;
+    _check_factory();
+    $FACTORY->make(
+        %opts,
+        name => $name,
+        type => 'Filter::Encoder',
     );
 }
 
@@ -140,6 +160,21 @@ Constructs a named output within a chain.
         ....
     };
 
+Class names will be assumed to prefixed with 'Log::Stash::Output::',
+unless you prefix the class with + e.g. C<< +My::Own::Output::Class >>
+
+=head3 encoder
+
+Constructs a named encoder within a chain.
+
+    log_chain {
+        encoder fooenc => ( output_to => 'out', class => 'JSON' );
+        ....
+    };
+
+Class names will be assumed to prefixed with 'Log::Stash::Filter::Encoder::',
+unless you prefix the class with + e.g. C<< +My::Own::Encoder::Class >>
+
 =head3 filter
 
 Constructs a named filter (which can act as both an output and an input)
@@ -147,9 +182,25 @@ within a chain.
 
     log_chain {
         ...
-        filter bar => ( output_to => 'stdout', class => 'Null' );
+        filter bar => ( output_to => 'fooenc', class => 'Null' );
         ...
     };
+
+Class names will be assumed to prefixed with 'Log::Stash::Filter::',
+unless you prefix the class with + e.g. C<< +My::Own::Filter::Class >>
+
+=head3 decoder
+
+Constructs a named decoder within a chain.
+
+    log_chain {
+        decoder zmq_decode => ( output_to => 'filter', class => 'JSON' );
+        ....
+    };
+
+Class names will be assumed to prefixed with 'Log::Stash::Filter::Decoder::',
+unless you prefix the class with + e.g. C<< +My::Own::Encoder::Class >>
+
 
 =head3 input
 
@@ -157,9 +208,12 @@ The last thing in a chain - produces data which gets consumed.
 
     log_chain {
         ...
-        input zmq => ( output_to => 'bar', class => 'ZeroMQ', bind => '...' );
+        input zmq => ( output_to => 'zmq_decode', class => 'ZeroMQ', bind => '...' );
         ....
     }
+
+Class names will be assumed to prefixed with 'Log::Stash::Output::',
+unless you prefix the class with + e.g. C<< +My::Own::Output::Class >>
 
 =head3 run_log_server
 

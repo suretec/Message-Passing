@@ -6,8 +6,6 @@ use Message::Passing::Types qw/
 /;
 use namespace::autoclean;
 
-sub decode { from_json( $_[1], { utf8  => 1 } ) }
-
 has output_to => (
     isa => Output_Type,
     is => 'ro',

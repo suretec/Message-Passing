@@ -10,12 +10,6 @@ has pretty => (
     is => 'ro',
 );
 
-sub encode {
-    my ($self, $message) = @_;
-    $message = $message->pack if blessed($message) && $message->can('pack');
-    to_json( $message, { utf8  => 1, $self->pretty ? (pretty => 1) : () } )
-}
-
 requires 'consume';
 
 1;

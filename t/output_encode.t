@@ -12,9 +12,13 @@ use Try::Tiny;
 }
 
 use Message::Passing::Output::Test;
+use Message::Passing::Filter::Encoder::JSON;
 
-my $test = Message::Passing::Output::Test->new();
-my $packed = $test->encode(bless {}, 'Message');
+my $packed;
+my $test = Message::Passing::Output::Test->new(cb => sub { $packed = shift });
+my $encoder = Message::Passing::Filter::Encoder::JSON->new(output_to => $test);
+
+$encoder->consume(bless {}, 'Message');
 
 is $packed, '{"foo":"bar"}';
 

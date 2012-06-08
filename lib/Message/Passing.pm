@@ -11,6 +11,8 @@ with
     'Message::Passing::Role::CLIComponent' => { name => 'input' },
     'Message::Passing::Role::CLIComponent' => { name => 'output' },
     'Message::Passing::Role::CLIComponent' => { name => 'filter', default => 'Null' },
+    'Message::Passing::Role::CLIComponent' => { name => 'decoder', default => 'JSON' },
+    'Message::Passing::Role::CLIComponent' => { name => 'encoder', default => 'JSON' },
     'Message::Passing::Role::Script';
 
 our $VERSION = '0.005';
@@ -19,19 +21,29 @@ $VERSION = eval $VERSION;
 sub build_chain {
     my $self = shift;
         log_chain {
-            output out => (
+            output output => (
                 $self->output_options,
                 class => $self->output,
+            );
+            encoder("encoder",
+                $self->encoder_options,
+                class => $self->encoder,
+                output_to => 'output',
             );
             filter filter => (
                 $self->filter_options,
                 class => $self->filter,
-                output_to => 'out',
+                output_to => 'encoder',
             );
-            input in => (
+            decoder("decoder",
+                $self->decoder_options,
+                class => $self->decoder,
+                output_to => 'filter',
+            );
+            input input => (
                 $self->input_options,
                 class => $self->input,
-                output_to => 'filter',
+                output_to => 'decoder',
             );
         };
 }

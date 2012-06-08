@@ -1,3 +1,8 @@
+  - Rip JSON encoders and decoders out of inputs and
+    outputs, making them optional and/or replaceable.
+    *NOTE* Current Input / Output code will need updating
+    for this change!!
+
 0.005
    - Get connection timeouts and connection reconnects
      working in the generic ConnectionManager role.

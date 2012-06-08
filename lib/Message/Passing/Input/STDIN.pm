@@ -12,10 +12,8 @@ sub BUILD {
         my $input = <STDIN>;
         return unless defined $input;
         chomp($input);
-        my $data = try { $self->decode($input) }
-            catch { warn $_ };
-        return unless $data;
-        $self->output_to->consume($data);
+        return unless length $input;
+        $self->output_to->consume($input);
         $r;
     });
 }

@@ -40,7 +40,7 @@ sub consume {
     my $self = shift;
     my $saved = select($self->fh);
     local $|=1;
-    print $self->encode(shift()) . "\n";
+    print shift() . "\n";
     select($saved);
     return 1;
 }

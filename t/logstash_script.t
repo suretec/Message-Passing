@@ -17,10 +17,14 @@ is_deeply {$i->filter_options}, {"baz" => "quux"};
 is_deeply {$i->output_options}, {"x" => "m"};
 
 my $chain = $i->build_chain;
-my $output = $chain->[0]->output_to;
-$output->consume({ foo => "bar" });
+my $input = $chain->[0];
+my $decoder = $input->output_to;
+my $filter = $decoder->output_to;
+my $encoder = $filter->output_to;
+my $output = $encoder->output_to;
+$filter->consume({ foo => "bar" });
 
-is_deeply [$output->output_to->messages], [{ foo => "bar" }];
+is_deeply [$output->messages], ['{"foo":"bar"}'];
 
 done_testing;
 

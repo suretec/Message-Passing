@@ -7,7 +7,7 @@ with 'Message::Passing::Role::Output';
 sub consume {
     my $self = shift;
     local $|=1;
-    print $self->encode(shift()) . "\n";
+    print shift() . "\n";
 }
 
 __PACKAGE__->meta->make_immutable;
