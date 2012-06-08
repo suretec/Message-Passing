@@ -15,7 +15,7 @@ with
     'Message::Passing::Role::CLIComponent' => { name => 'encoder', default => 'JSON' },
     'Message::Passing::Role::Script';
 
-our $VERSION = '0.006';
+our $VERSION = '0.005';
 $VERSION = eval $VERSION;
 
 sub build_chain {
