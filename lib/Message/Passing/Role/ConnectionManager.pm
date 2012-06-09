@@ -54,7 +54,6 @@ sub _build_timeout_timer {
         after => $self->timeout,
         cb => sub {
             $self->_timeout_timer(undef);
-            warn "TIMEOUT";
             $self->_set_connected(0); # Use public API, causing reconnect timer to be built
         },
     );
@@ -63,11 +62,9 @@ sub _build_timeout_timer {
 sub _build_reconnect_timer {
     my $self = shift;
     weaken($self);
-    warn "Build reconnect timer";
     AnyEvent->timer(
         after => $self->reconnect_after,
         cb => sub {
-            warn "Am reconnecting";
             $self->_timeout_timer(undef);
             $self->connection; # Just rebuild the connection object
         },

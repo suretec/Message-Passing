@@ -1,3 +1,5 @@
+  - Remove spurious warnings from reconnect code.
+
 0.006
   - Rip JSON encoders and decoders out of inputs and
     outputs, making them optional and/or replaceable.
