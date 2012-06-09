@@ -1,12 +1,76 @@
-Docs:
-  - Cookbook of example recipies
-  - docs for logstash script itself
-  - Writing components doc.
+Code core/general:
+    - Global registry and DSL support for connection managers
+    - Connection code cleanup
+    - Connection sharing
+    - Connect error handling
+    - Connect timeout strategies
+    - Global error logging
+    - Logstash compatibility filter
+    - Generic blessed object serialize filter
+    - Getopt JSON mess fix
+    - Unify hostname and port parsing between adaptors
 
-Code:
-  - Proper (non-hacky!) async/sync support and preference
-    - All inputs/outputs/filters needed (global registry)
-    - Algorithm to resolve if you can block, or use the event
-      loop, or you can't work (e.g. multiple sync inputs)
+Specific adaptors
+    - AMQP needs a lot of work
+    - ZeroMQ needs queue size configuration + docs
+    - ZeroMQ needs linger config and docs
+    - ZeroMQ needs subscribe options
+    - PSGI tests
+    - PSGI POST
+    - PSGI auto apply bufferedstreaming
+    - PSGI middleware as seperate step
+    - PSGI docs
+    - STOMP multiple subscriptions
+
+Docs:
+
+ message-passing
+ - Pod for the script
+
+ Message::Passing::Manual::Scripts:
+ - Write me!
+ - encoders / decoders
+ - How to write / override scripts
+
+ Message::Passing::Manual::Concepts:
+ - Proper script writing (after DSL example)
+ - Other links.. in ::Concepts?
+
+ Message::Passing::Manual::Workers:
+ - Write
+
+ Message::Passing::Manual::Cookbook:
+ - Logging from an application
+   - Fix examples
+   - Example without Log::Dispatch
+   - Explain why ZMQ (this is in ::Concepts currently?)
+
+ - Aggregating this log
+   - Link to building own script
+   - Note other script options
+
+ - Syslog
+   - On host collector
+     - Explain what this is
+   - Explain central aggregation, again
+
+ - Aggregating everything
+   - Finish
+
+ - Filtering messages
+
+ - Writing your own
+   - Input
+   - Output
+   - Scripts - link to scripts docs
+
+ - Putting it all together - log processor with filtering etc.
+
+ - HTTP POST notifications
+
+ - Worker pools for jobs
+
+ - Async notification with Web::Hippie
+   - Updating monitoringJS not until Moo!
 
 
