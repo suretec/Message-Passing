@@ -129,6 +129,8 @@ Inputs include:
 
 =item L<Message::Passing::Input::Syslog>
 
+=item L<Message::Passing::Input::Redis>
+
 =item L<Message::Passing::Input::Test>
 
 =back
@@ -175,6 +177,8 @@ Outputs send data to somewhere, i.e. they consume messages.
 =item L<Message::Passing::Output::WebHooks>
 
 =item L<Message::Passing::Output::ElasticSearch> - COMING SOON (L<https://github.com/suretec/Message-Passing-Output-ElasticSearch>)
+
+=item L<Message::Passing::Output::Redis>
 
 =item L<Message::Passing::Output::Test>
 
