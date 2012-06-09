@@ -5,7 +5,7 @@ use namespace::autoclean;
 
 with 'Message::Passing::Role::Filter';
 
-sub filter { from_json( $_[1], { utf8  => 1 } ) }
+sub filter { ref($_[1]) ? $_[1] : from_json( $_[1], { utf8  => 1 } ) }
 
 __PACKAGE__->meta->make_immutable;
 1;

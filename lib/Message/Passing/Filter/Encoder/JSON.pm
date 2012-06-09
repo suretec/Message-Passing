@@ -14,6 +14,7 @@ has pretty => (
 
 sub filter {
     my ($self, $message) = @_;
+    return $message unless ref($message);
     if (blessed $message) { # FIXME - This should be moved out of here!
         if ($message->can('pack')) {
             $message = $message->pack;
