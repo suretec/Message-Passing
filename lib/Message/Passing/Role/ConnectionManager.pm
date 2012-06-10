@@ -175,8 +175,17 @@ be undefined if we are during a reconnect timeout.
 
 =head1 METHODS
 
-=head2 subscribe_to_connect
+=head2 subscribe_to_connect ($subscriber)
 
+This is called by your Input or Output, as C<< $self->connection_manager->subscribe_to_connect($self) >>.
 
+This is done for you by L<Message::Passing::Role::HasAConnection> usually..
+
+This arranges to store a weak reference to your component, allowing the conenction manager to call the C<< ->connect >>
+or C<< ->disconnect >> methods for any components registered when a connection is established or destroyed.
+
+Note that if the connection manager is already connected, it will B<immediately> call the C<< ->connect >> method.
+
+=head1 TIMEOUTS AND RECONNECTS
 
 =cut

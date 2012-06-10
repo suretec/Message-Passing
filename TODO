@@ -16,7 +16,7 @@ Specific adaptors
 
 Docs:
  Role::ConnectionManager
- - Fix docs
+ - Fix timeouts and reconnects doc
  
  Role::HasAconnection
  - Fix docs
