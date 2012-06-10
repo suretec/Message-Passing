@@ -218,7 +218,7 @@ Builds and returns the configured chain of input => filter => output
 
 =head3 start
 
-Class method to call the run_log_server function with the results of
+Class method to call the run_message_server function with the results of
 having constructed an instance of this class, parsed command line options
 and constructed a chain.
 

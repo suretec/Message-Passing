@@ -84,7 +84,7 @@ sub start {
     $instance->set_io_priority_if_needed;
     $instance->change_uid_if_needed;
     $instance->deamonize_if_needed;
-    run_log_server $instance->build_chain;
+    run_message_server $instance->build_chain;
 }
 
 1;

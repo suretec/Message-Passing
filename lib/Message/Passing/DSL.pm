@@ -9,7 +9,7 @@ use AnyEvent;
 use Moose::Util qw/ does_role /;
 
 Moose::Exporter->setup_import_methods(
-    as_is     => [qw/ run_log_server message_chain input filter output decoder encoder /],
+    as_is     => [qw/ run_message_server message_chain input filter output decoder encoder /],
 );
 
 our $FACTORY;
@@ -90,7 +90,7 @@ sub encoder {
     );
 }
 
-sub run_log_server {
+sub run_message_server {
     my $chain = shift;
     AnyEvent->condvar->recv;
 }
@@ -215,7 +215,7 @@ The last thing in a chain - produces data which gets consumed.
 Class names will be assumed to prefixed with 'Log::Stash::Output::',
 unless you prefix the class with + e.g. C<< +My::Own::Output::Class >>
 
-=head3 run_log_server
+=head3 run_message_server
 
 This enters the event loop and causes log events to be consumed and
 processed.
