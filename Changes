@@ -1,3 +1,5 @@
+  - Add STDERR output.
+
   - Rename the log_chain function to message_chain and run_log_server
     function to run_message_server, in Message::Passing::DSL
     to follow the general rename, as we're not just about logs.
