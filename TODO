@@ -7,25 +7,14 @@ Code core/general:
     - Global error logging
     - Logstash compatibility filter
     - Generic blessed object serialize filter
-    - Getopt JSON mess fix
     - Unify hostname and port parsing between adaptors
 
 Specific adaptors
     - AMQP needs a lot of work
-    - ZeroMQ needs queue size configuration + docs
-    - ZeroMQ needs linger config and docs
     - ZeroMQ needs subscribe options
-    - PSGI tests
-    - PSGI POST
-    - PSGI auto apply bufferedstreaming
-    - PSGI middleware as seperate step
-    - PSGI docs
     - STOMP multiple subscriptions
 
 Docs:
-
- message-passing
- - Pod for the script
 
  Message::Passing::Manual::Scripts:
  - Write me!

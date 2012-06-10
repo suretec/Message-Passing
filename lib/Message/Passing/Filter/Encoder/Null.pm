@@ -2,9 +2,7 @@ package Message::Passing::Filter::Encoder::Null;
 use Moose;
 use namespace::autoclean;
 
-with 'Message::Passing::Role::Filter';
-
-sub filter { $_[1] }
+extends 'Message::Passing::Filter::Null';
 
 __PACKAGE__->meta->make_immutable;
 1;
@@ -28,6 +26,8 @@ Returns message it's passed, verbatim
 =head1 SEE ALSO
 
 =over
+
+=item L<Message::Passing::Filter::Null>
 
 =item L<Message::Passing>
 

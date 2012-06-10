@@ -7,7 +7,7 @@ with 'Message::Passing::Role::Output';
 sub consume {
     my $self = shift;
     local $|=1;
-    print shift() . "\n";
+    print STDOUT shift() . "\n";
 }
 
 __PACKAGE__->meta->make_immutable;
@@ -31,7 +31,7 @@ Output messages to STDOUT
 
 =head2 consume
 
-Consumes a message by JSON encoding it and printing it, followed by \n
+Consumes a message by printing it, followed by \n
 
 =head1 SEE ALSO
 
