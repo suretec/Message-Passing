@@ -160,7 +160,7 @@ Constructs a named output within a chain.
         ....
     };
 
-Class names will be assumed to prefixed with 'Log::Stash::Output::',
+Class names will be assumed to prefixed with 'Message::Passing::Output::',
 unless you prefix the class with + e.g. C<< +My::Own::Output::Class >>
 
 =head3 encoder
@@ -172,7 +172,7 @@ Constructs a named encoder within a chain.
         ....
     };
 
-Class names will be assumed to prefixed with 'Log::Stash::Filter::Encoder::',
+Class names will be assumed to prefixed with 'Message::Passing::Filter::Encoder::',
 unless you prefix the class with + e.g. C<< +My::Own::Encoder::Class >>
 
 =head3 filter
@@ -186,7 +186,7 @@ within a chain.
         ...
     };
 
-Class names will be assumed to prefixed with 'Log::Stash::Filter::',
+Class names will be assumed to prefixed with 'Message::Passing::Filter::',
 unless you prefix the class with + e.g. C<< +My::Own::Filter::Class >>
 
 =head3 decoder
@@ -198,7 +198,7 @@ Constructs a named decoder within a chain.
         ....
     };
 
-Class names will be assumed to prefixed with 'Log::Stash::Filter::Decoder::',
+Class names will be assumed to prefixed with 'Message::Passing::Filter::Decoder::',
 unless you prefix the class with + e.g. C<< +My::Own::Encoder::Class >>
 
 
@@ -212,7 +212,7 @@ The last thing in a chain - produces data which gets consumed.
         ....
     }
 
-Class names will be assumed to prefixed with 'Log::Stash::Output::',
+Class names will be assumed to prefixed with 'Message::Passing::Output::',
 unless you prefix the class with + e.g. C<< +My::Own::Output::Class >>
 
 =head3 run_message_server
