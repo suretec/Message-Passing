@@ -173,6 +173,19 @@ A Boolean indicating if the connection is currently considered fully connected
 The connection object (if we are connected, or connecting currently) - can
 be undefined if we are during a reconnect timeout.
 
+=head2 timeout
+
+Connections will be timed out and aborted after this time if they haven't sucessfully connected.
+
+Defaults to 30s
+
+=head2 reconnect_after
+
+The number of seconds to wait before starting a reconnect after a connection has timed out
+or been aborted.
+
+Defaults to 2s
+
 =head1 METHODS
 
 =head2 subscribe_to_connect ($subscriber)
@@ -186,6 +199,32 @@ or C<< ->disconnect >> methods for any components registered when a connection i
 
 Note that if the connection manager is already connected, it will B<immediately> call the C<< ->connect >> method.
 
-=head1 TIMEOUTS AND RECONNECTS
+=head1 AUTHOR
+
+Tomas (t0m) Doran <bobtfish@bobtfish.net>
+
+=head1 SPONSORSHIP
+
+This module exists due to the wonderful people at Suretec Systems Ltd.
+<http://www.suretecsystems.com/> who sponsored its development for its
+VoIP division called SureVoIP <http://www.surevoip.co.uk/> for use with
+the SureVoIP API - 
+<http://www.surevoip.co.uk/support/wiki/api_documentation>
+
+=head1 COPYRIGHT
+
+Copyright Suretec Systems Ltd. 2012.
+
+Logstash (upon which many ideas for this project is based, but
+which we do not reuse any code from) is copyright 2010 Jorden Sissel.
+
+=head1 LICENSE
+
+GNU Affero General Public License, Version 3
+
+If you feel this is too restrictive to be able to use this software,
+please talk to us as we'd be willing to consider re-licensing under
+less restrictive terms.
 
 =cut
+

@@ -15,9 +15,6 @@ Specific adaptors
     - STOMP multiple subscriptions
 
 Docs:
- Role::ConnectionManager
- - Fix timeouts and reconnects doc
- 
  Role::HasAconnection
  - Fix docs
 
