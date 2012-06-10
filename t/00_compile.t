@@ -23,6 +23,7 @@ use_ok('Message::Passing::Filter::Encoder::JSON');
 use_ok('Message::Passing::Filter::Encoder::Null');
 use_ok('Message::Passing::Filter::Decoder::JSON');
 use_ok('Message::Passing::Filter::Decoder::Null');
+use_ok('Message::Passing::Role::HasHostnameAndPort');
 
 done_testing;
 
