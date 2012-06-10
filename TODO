@@ -16,6 +16,15 @@ Specific adaptors
 
 Docs:
 
+ Message::Passing::Role::CLIComponent:
+ - Write docs!
+ 
+ Role::ConnectionManager
+ - Fix docs
+ 
+ Role::HasAconnection
+ - Fix docs
+
  Message::Passing::Manual::Scripts:
  - Write me!
  - encoders / decoders

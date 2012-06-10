@@ -14,6 +14,20 @@ has daemonize => (
     default => 0,
 );
 
+has io_priority => (
+    isa => enum([qw[ none be rt idle ]]),
+    is => 'ro',
+    predicate => "_has_io_priority",
+);
+
+foreach my $name (qw/ user pid_file /) {
+    has $name => (
+        isa => 'Str',
+        is => 'ro',
+        predicate => "_has_$name",
+    );
+}
+
 sub deamonize_if_needed {
     my ($self) = @_;
     my $fh;
@@ -51,20 +65,6 @@ sub change_uid_if_needed {
     }
 }
 
-foreach my $name (qw/ user pid_file /) {
-    has $name => (
-        isa => 'Str',
-        is => 'ro',
-        predicate => "_has_$name",
-    );
-}
-
-has io_priority => (
-    isa => enum([qw[ none be rt idle ]]),
-    is => 'ro',
-    predicate => "_has_io_priority",
-);
-
 sub set_io_priority_if_needed {
     my $self = shift;
     return unless $self->_has_io_priority;
@@ -100,8 +100,10 @@ Message::Passing:Role::Script - Handy role for building messaging scripts.
     use Moose;
     use Message::Passing::DSL;
 
-    with 'Message::Passing::Role::Script';
-    with 'MooseX::Getopt';
+    with qw/
+        Message::Passing::Role::Script
+        MooseX::Getopt
+    /;
 
     has foo => (
         is => 'ro',
@@ -141,6 +143,40 @@ the command line options, and start a message passing server..
 Return a chain of message processors, or an array reference with
 multiple chains of message processors.
 
+=head1 ATTRIBUTES
+
+=head2 daemonize
+
+Do a double fork and lose controlling terminal.
+
+Used to run scripts in the background.
+
+=head2 io_priority
+
+The IO priority to run the script at..
+
+Valid values for the IO priority are:
+
+=over
+
+=item none
+
+=item be
+
+=item rt
+
+=item idle
+
+=back
+
+=head2 user
+
+Changes the user the script is running as. You probably need to run the script as root for this option to work.
+
+=head2 pid_file
+
+Write a pid file out. Useful for running Message::Passing scripts as daemons and/or from init scripts.
+
 =head1 METHODS
 
 =head2 start
@@ -164,20 +200,6 @@ Tires to daemonize if the --daemonize option has been supplied
 
 Tries to set the process' IO priority if the --io_priority option
 has been supplied.
-
-Valid values for the IO priority are:
-
-=over
-
-=item none
-
-=item be
-
-=item rt
-
-=item idle
-
-=back
 
 =head1 AUTHOR
 

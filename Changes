@@ -1,3 +1,5 @@
+  - Document the attributes in Message::Passing::Role::Script
+
   - Add STDERR output.
 
   - Rename the log_chain function to message_chain and run_log_server

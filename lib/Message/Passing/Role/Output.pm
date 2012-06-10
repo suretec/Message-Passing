@@ -4,12 +4,6 @@ use JSON qw/ to_json /;
 use Scalar::Util qw/ blessed /;
 use namespace::autoclean;
 
-has pretty => (
-    isa => 'Bool',
-    default => 0,
-    is => 'ro',
-);
-
 requires 'consume';
 
 1;

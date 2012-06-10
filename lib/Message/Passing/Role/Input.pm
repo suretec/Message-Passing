@@ -29,12 +29,6 @@ Produces messages.
 
 Required, must perform the L<Message::Passing::Role::Output> role.
 
-=head1 METHODS
-
-=head2 decode
-
-JSON decodes a message supplied as a parameter.
-
 =head1 SEE ALSO
 
 =over
