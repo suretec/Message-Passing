@@ -2,7 +2,7 @@
     Message::Passing::Role::HasHostnameAndPort
     Message::Passing::Role::HasUsernameAndPassword
 
-  - Document the attributes in Message::Passing::Role::Script
+  - Lots of additional documentation.
 
   - Add STDERR output.
 
