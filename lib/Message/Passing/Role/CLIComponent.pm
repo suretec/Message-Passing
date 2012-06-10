@@ -43,3 +43,74 @@ role {
 
 1;
 
+=head1 NAME
+
+Message::Passing::Role::CLIComponent - Role providing 'foo' and 'foo_options' attributes
+
+=head1 SYNOPSIS
+
+    package My::Message::Passing::Script;
+    use Moose;
+
+    with
+        'Message::Passing::Role::CLIComponent' => { name => 'input', default => 'STDIN' },
+        qw/
+            Message::Passing::Role::Script
+            MooseX::Getopt
+        /;
+    
+    sub build_chain {
+        my $self = shift;
+        message_chain {
+            input example => ( %{ $self->input_options }, output_to => 'test_out', class => $self->input, );
+            output test_out => ( ... );
+        };
+    }
+
+    __PACKAGE__->start unless caller;
+    1;
+
+=head1 DESCRIPTION
+
+A L<MooseX::Role::Parameterized> role, which is used to provide a pair of attributes for name/options
+as per the L<message-pass> script.
+
+=head1 ROLE PARAMETERS
+
+=head2 name
+
+The name of the main attribute. An additional attribute called "${name}_options" will also be added,
+which coerces a hashref from JSON.
+
+=head2 default
+
+A default value for the main attribute. If this is not supplied, than the attribute will be required.
+
+=head1 AUTHOR
+
+Tomas (t0m) Doran <bobtfish@bobtfish.net>
+
+=head1 SPONSORSHIP
+
+This module exists due to the wonderful people at Suretec Systems Ltd.
+<http://www.suretecsystems.com/> who sponsored its development for its
+VoIP division called SureVoIP <http://www.surevoip.co.uk/> for use with
+the SureVoIP API - 
+<http://www.surevoip.co.uk/support/wiki/api_documentation>
+
+=head1 COPYRIGHT
+
+Copyright Suretec Systems Ltd. 2012.
+
+Logstash (upon which many ideas for this project is based, but
+which we do not reuse any code from) is copyright 2010 Jorden Sissel.
+
+=head1 LICENSE
+
+GNU Affero General Public License, Version 3
+
+If you feel this is too restrictive to be able to use this software,
+please talk to us as we'd be willing to consider re-licensing under
+less restrictive terms.
+
+=cut
