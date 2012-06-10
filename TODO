@@ -1,17 +1,17 @@
 Need upload:
-
     - Message::Passing
+    - Message::Passing::Redis
 
 Code core/general:
-    - Global registry and DSL support for connection managers
     - Connection code cleanup
-    - Connection sharing
+    - Unify hostname and port parsing between adaptors - remove server..
     - Connect error handling
-    - Connect timeout strategies
     - Global error logging
-    - Logstash compatibility filter
     - Generic blessed object serialize filter
-    - Unify hostname and port parsing between adaptors
+    - Logstash compatibility filter
+    - Global registry and DSL support for connection managers
+    - Connection sharing
+    - Connect timeout strategies
 
 Specific adaptors
     - AMQP needs a lot of work
