@@ -2,7 +2,7 @@ package Message::Passing::Types;
 use MooseX::Types ();
 use Moose::Util::TypeConstraints;
 use JSON ();
-use MooseX::Types::Moose qw/ Str HashRef /;
+use MooseX::Types::Moose qw/ Str HashRef ArrayRef /;
 use MooseX::Types::Common::String qw/ NonEmptySimpleStr /;
 use MooseX::Getopt;
 use Try::Tiny;
@@ -15,6 +15,7 @@ use MooseX::Types -declare => [qw{
     Codec_Type
     Hash_from_JSON
     JSON_from_Hash
+    ArrayOfStr
 }];
 
 role_type Input_Type, { role => 'Message::Passing::Role::Input' };
@@ -40,5 +41,12 @@ coerce Hash_from_JSON,
 MooseX::Getopt::OptionTypeMap->add_option_type_to_map(
     Hash_from_JSON, '=s'
 );
+
+subtype ArrayOfStr,
+    as ArrayRef[Str];
+
+coerce ArrayOfStr,
+    from Str,
+    via { [ $_ ] };
 
 1;
