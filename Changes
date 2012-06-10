@@ -1,3 +1,4 @@
+0.008
   - Add standard roles to unify the names of connection attributes:
     Message::Passing::Role::HasHostnameAndPort
     Message::Passing::Role::HasUsernameAndPassword

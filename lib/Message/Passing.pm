@@ -17,7 +17,7 @@ with
     'Message::Passing::Role::CLIComponent' => { name => 'encoder', default => 'JSON' },
     'Message::Passing::Role::Script';
 
-our $VERSION = '0.007';
+our $VERSION = '0.008';
 $VERSION = eval $VERSION;
 
 sub get_config_from_file {
