@@ -1,3 +1,7 @@
+Need upload:
+
+    - Message::Passing
+
 Code core/general:
     - Global registry and DSL support for connection managers
     - Connection code cleanup
@@ -11,8 +15,6 @@ Code core/general:
 
 Specific adaptors
     - AMQP needs a lot of work
-    - ZeroMQ needs subscribe options
-    - STOMP multiple subscriptions
 
 Docs:
  Message::Passing::Manual::Scripts:
