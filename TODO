@@ -1,14 +1,9 @@
 Need upload:
-    - Message::Passing
-    - Message::Passing::Redis *
-    - Message::Passing::Input::FreeSWITCH *
-    
     - Message::Passing::STOMP
     - Message::Passing::AMQP
 
 Code core/general:
     - Connection code cleanup
-    - Unify hostname and port parsing between adaptors - remove server..
     - Connect error handling
     - Global error logging
     - Generic blessed object serialize filter

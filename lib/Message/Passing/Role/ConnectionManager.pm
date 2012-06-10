@@ -10,17 +10,7 @@ sub BUILD {
     $self->connection;
 }
 
-has timeout => (
-    isa => 'Num',
-    is => 'ro',
-    default => sub { 30 },
-);
-
-has reconnect_after => (
-    isa => 'Num',
-    is => 'ro',
-    default => sub { 2 },
-);
+with 'Message::Passing::Role::HasTimeoutAndReconnectAfter';
 
 has _timeout_timer => (
     is => 'rw',
