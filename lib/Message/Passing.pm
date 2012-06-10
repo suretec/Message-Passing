@@ -31,7 +31,7 @@ sub get_config_from_file {
 
 sub build_chain {
     my $self = shift;
-        log_chain {
+        message_chain {
             output output => (
                 $self->output_options,
                 class => $self->output,

@@ -4,7 +4,7 @@ use Test::More;
 
 use Message::Passing::DSL;
 
-my $c = log_chain {
+my $c = message_chain {
         output test => (
             class => 'Test',
         );
@@ -30,7 +30,7 @@ my $test = $c->[0]->output_to->output_to->output_to->[0];
 is $test->message_count, 1;
 is_deeply [$test->messages], [{foo => 'bar'}];
 
-$c = log_chain {
+$c = message_chain {
             output logcollector_central => (
                 class => 'STDOUT',
             );

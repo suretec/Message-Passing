@@ -89,7 +89,7 @@ The example above becomes:
 
     use Message::Passing::DSL;
 
-    run_log_server log_chain {
+    run_log_server message_chain {
         input file => (
             class => 'FileTail',
             output_to => 'stdout',

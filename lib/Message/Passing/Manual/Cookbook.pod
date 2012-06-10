@@ -10,19 +10,19 @@ You can use L<Log::Dispatch>, or any log system which will output into L<Log::Di
 
     use Log::Dispatch;
     use Log::Dispatch::Message::Passing;
-    use Message::Passing::DSL;
+    use Message::Passing::Filter::Encoder::JSON;
+    use Message::Passing::Output::ZeroMQ;
 
     my $log = Log::Dispatch->new;
 
     $log->add(Log::Dispatch::Message::Passing->new(
         name      => 'myapp_aggregate_log',
         min_level => 'debug',
-        output    => log_chain {
-            output zmq => (
-                class => 'ZeroMQ',
+        output    => Message::Passing::Filter::Encoder::JSON->new(
+            output_to => Message::Passing::Output::ZeroMQ->new(
                 connect => 'tcp://192.168.0.1:5558',
-            );
-        },
+            ),
+        ),
     ));
 
     $log->warn($_) for qw/ foo bar baz /;

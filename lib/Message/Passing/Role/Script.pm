@@ -110,7 +110,7 @@ Message::Passing:Role::Script - Handy role for building messaging scripts.
 
     sub build_chain {
         my $self = shift;
-        log_chain {
+        message_chain {
             input example => ( output_to => 'test_out', .... );
             output test_out => ( foo => $self->foo, ... );
         };
