@@ -1,6 +1,7 @@
 package Message::Passing;
 use Moose;
 use Getopt::Long qw(:config pass_through);
+use Config::Any;
 use namespace::autoclean;
 use 5.8.4;
 
@@ -8,6 +9,7 @@ use Message::Passing::DSL;
 
 with
     'MooseX::Getopt',
+    'MooseX::ConfigFromFile',
     'Message::Passing::Role::CLIComponent' => { name => 'input' },
     'Message::Passing::Role::CLIComponent' => { name => 'output' },
     'Message::Passing::Role::CLIComponent' => { name => 'filter', default => 'Null' },
@@ -17,6 +19,15 @@ with
 
 our $VERSION = '0.006';
 $VERSION = eval $VERSION;
+
+sub get_config_from_file {
+    my ($class, $filename) = @_;
+    my ($fn, $cfg) = %{ Config::Any->load_files({
+        files => [$filename],
+        use_ext => 1,
+    })->[0] };
+    return $cfg;
+}
 
 sub build_chain {
     my $self = shift;

@@ -1,3 +1,9 @@
+  - Documentation in the message-pass script
+
+  - Add --configfile option to default script, allowing
+    you to load config from a file, rather than supplying
+    it on command line.
+
   - Make JSON encoder pass non refs straight through,
     so that if a previous filter generates a scalar,
     then this gets sent as-is.

@@ -67,6 +67,7 @@ COMPONENTS
     Message::Passing::Input::STOMP
     Message::Passing::Input::AMQP
     Message::Passing::Input::Syslog
+    Message::Passing::Input::Redis
     Message::Passing::Input::Test
 
     You can easily write your own input, just use AnyEvent, and consume
@@ -99,6 +100,7 @@ COMPONENTS
     Message::Passing::Output::WebHooks
     Message::Passing::Output::ElasticSearch - COMING SOON
     (<https://github.com/suretec/Message-Passing-Output-ElasticSearch>)
+    Message::Passing::Output::Redis
     Message::Passing::Output::Test
 
 SEE ALSO

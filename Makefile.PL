@@ -16,6 +16,8 @@ resources(
 requires 'Moose';
 requires 'namespace::autoclean';
 requires 'AnyEvent';
+requires 'MooseX::ConfigFromFile';
+requires 'Config::Any';
 requires 'MooseX::Types';
 requires 'MooseX::Types::Common';
 requires 'MooseX::Types::LoadableClass';
