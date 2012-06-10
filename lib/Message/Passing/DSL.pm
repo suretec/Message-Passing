@@ -138,18 +138,24 @@ This module provides a simple to use helper system for writing
 scripts which implement a L<Message::Passing> server, like
 the built in L<message-pass> script.
 
+Rather than having to pass instances of an output to each input in the
+C<output_to> attribute, and full class names, you can use short names
+for component classes, and strings for the C<output_to> attribute,
+the DSL resolves these and deals with instance construction for you.
+
+See example in the SYNOPSIS, and details for the exported sugar
+functions below.
+
 =head2 FUNCTIONS
 
 =head3 message_chain
 
-Constructs a log chain (i.e. a series of log objects feeding into each
-other), warns about any unused parts of the chain, and returns the
-chain head (i.e. the input class).
+Constructs a message chain (i.e. a series of Message::Passing objects
+feeding into each other), warns about any unused parts of the chain,
+and returns an array ref to the heads of the chain (i.e. the input class(es)).
 
 Maintains a registry / factory for the log classes, which is used to
 allow the resolving of symbolic names in the output_to key to function.
-
-See example in the SYNOPSIS, and details on the other functions below.
 
 =head3 output
 
