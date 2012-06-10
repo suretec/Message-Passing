@@ -175,7 +175,8 @@ be undefined if we are during a reconnect timeout.
 
 =head2 timeout
 
-Connections will be timed out and aborted after this time if they haven't sucessfully connected.
+Connections will be timed out and aborted after this time if they haven't
+successfully connected.
 
 Defaults to 30s
 
@@ -194,7 +195,8 @@ This is called by your Input or Output, as C<< $self->connection_manager->subscr
 
 This is done for you by L<Message::Passing::Role::HasAConnection> usually..
 
-This arranges to store a weak reference to your component, allowing the conenction manager to call the C<< ->connect >>
+This arranges to store a weak reference to your component, allowing the 
+connection manager to call the C<< ->connect >>
 or C<< ->disconnect >> methods for any components registered when a connection is established or destroyed.
 
 Note that if the connection manager is already connected, it will B<immediately> call the C<< ->connect >> method.

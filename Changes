@@ -1,3 +1,7 @@
+  - Add standard roles to unify the names of connection attributes:
+    Message::Passing::Role::HasHostnameAndPort
+    Message::Passing::Role::HasUsernameAndPassword
+
   - Document the attributes in Message::Passing::Role::Script
 
   - Add STDERR output.

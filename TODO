@@ -1,6 +1,10 @@
 Need upload:
     - Message::Passing
-    - Message::Passing::Redis
+    - Message::Passing::Redis *
+    - Message::Passing::Input::FreeSWITCH *
+    
+    - Message::Passing::STOMP
+    - Message::Passing::AMQP
 
 Code core/general:
     - Connection code cleanup

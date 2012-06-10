@@ -175,7 +175,7 @@ Changes the user the script is running as. You probably need to run the script a
 
 =head2 pid_file
 
-Write a pid file out. Useful for running Message::Passing scripts as daemons and/or from init scripts.
+Write a pid file out. Useful for running Message::Passing scripts as daemons and/or from init.d scripts.
 
 =head1 METHODS
 
