@@ -201,10 +201,6 @@ Tires to daemonize if the --daemonize option has been supplied
 Tries to set the process' IO priority if the --io_priority option
 has been supplied.
 
-=head1 AUTHOR
-
-Tomas (t0m) Doran <bobtfish@bobtfish.net>
-
 =head1 SPONSORSHIP
 
 This module exists due to the wonderful people at Suretec Systems Ltd.
@@ -213,20 +209,9 @@ VoIP division called SureVoIP <http://www.surevoip.co.uk/> for use with
 the SureVoIP API - 
 <http://www.surevoip.co.uk/support/wiki/api_documentation>
 
-=head1 COPYRIGHT
+=head1 AUTHOR, COPYRIGHT AND LICENSE
 
-Copyright Suretec Systems Ltd. 2012.
-
-Logstash (upon which many ideas for this project is based, but
-which we do not reuse any code from) is copyright 2010 Jorden Sissel.
-
-=head1 LICENSE
-
-GNU Affero General Public License, Version 3
-
-If you feel this is too restrictive to be able to use this software,
-please talk to us as we'd be willing to consider re-licensing under
-less restrictive terms.
+See L<Message::Passing>.
 
 =cut
 
