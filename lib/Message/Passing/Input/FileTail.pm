@@ -1,7 +1,6 @@
 package Message::Passing::Input::FileTail;
 use Moose;
 use AnyEvent;
-use Try::Tiny;
 use Scalar::Util qw/ weaken /;
 use namespace::autoclean;
 
@@ -28,10 +27,10 @@ has tailer_pid => (
 sub _build_tail_handle {
     my $self = shift;
     weaken($self);
-    my $r;
-    my $child_pid = open($r, "-|", "tail", "-F", $self->filename)
-       // die "can't fork: $!";
-    AnyEvent->io (
+    die("Cannot open filename '" . $self->filename . "'") unless -r $self->filename;
+    my $child_pid = open(my $r, "-|", "tail", "-F", $self->filename)
+       || die "can't fork: $!";
+    AnyEvent->io(
         fh => $r,
         poll => "r",
         cb => sub {
