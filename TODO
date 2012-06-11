@@ -3,9 +3,6 @@ Need upload:
     - Message::Passing::AMQP
 
 Code core/general:
-    - Connection code cleanup
-    - Connect error handling
-    - Global error logging
     - Generic blessed object serialize filter
     - Logstash compatibility filter
     - Global registry and DSL support for connection managers
