@@ -10,7 +10,10 @@ sub BUILD {
     $self->connection;
 }
 
-with 'Message::Passing::Role::HasTimeoutAndReconnectAfter';
+with qw/
+    Message::Passing::Role::HasTimeoutAndReconnectAfter
+    Message::Passing::Role::HasErrorChain
+/;
 
 has _timeout_timer => (
     is => 'rw',
@@ -43,6 +46,7 @@ sub _build_timeout_timer {
     AnyEvent->timer(
         after => $self->timeout,
         cb => sub {
+            $self->error->consume("Connection timed out to ...");
             $self->_timeout_timer(undef);
             $self->_set_connected(0); # Use public API, causing reconnect timer to be built
         },
@@ -55,6 +59,7 @@ sub _build_reconnect_timer {
     AnyEvent->timer(
         after => $self->reconnect_after,
         cb => sub {
+            $self->error->consume("Reconnecting to ...");
             $self->_timeout_timer(undef);
             $self->connection; # Just rebuild the connection object
         },
@@ -100,7 +105,10 @@ after _set_connected => sub {
         $sub->$method($self->connection) if $sub->can($method);
     }
     $self->_timeout_timer(undef) if $connected;
-    $self->_clear_connection unless $connected;
+    if (!$connected && $self->_has_connection) {
+        $self->error->consume("Connection disconnected to ...");
+        $self->_clear_connection;
+    }
 };
 
 1;
