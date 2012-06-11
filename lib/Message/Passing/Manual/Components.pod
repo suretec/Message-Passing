@@ -1,0 +1,64 @@
+=head1 NAME
+
+Message::Passing::Manual::Components - Writing inputs, outputs and filters
+
+=head1 Writing your own scripts
+
+The supplied L<message-pass> script is useful for testing, and is also fine
+for production use in simple cases, however, for less simple cases (for example
+scripts with multiple inputs or outputs), then the default script isn't suitable.
+
+=head2 Like the message-pass script
+
+If you just want to override some of the behavior of the message-pass script,
+to provide different details etc, then this is easy to do by subclassing
+the script.
+
+An example of doing this is:
+
+    package Message::Passing::Script::WebHooks;
+    use Moose;
+    use namespace::autoclean;
+
+    extends 'Message::Passing';
+
+    has '+encoder' => (
+        init_arg => undef,
+        default => '+Message::Passing::Filter::Encoder::Null',
+        traits => ['NoGetopt'],
+    );
+
+    has '+output' => (
+        traits => ['NoGetopt'],
+    );
+
+    __PACKAGE__->start( output => 'WebHooks' ) unless caller;
+
+This shows overriding the default command line options, as this script is
+dedicated to L<Message::Passing::Output::WebHooks>..
+
+=head2 Different scripts
+
+If you want a more complex example, rather than just overriding some of the functionality from
+the default script, then you're better off writing your own script.
+
+See L<Message::Passing:Role::Script>, for a basic role you are likely to want to use to do this.
+You'll also want to use L<Message::Passing::DSL>, as shown in the example documentation for
+the scrpt role..
+
+If you are writing your own script, want some components to be completely configurable
+(as per the default script), then see L<Message::Passing::Role::CLIComponent>, which
+implements attributes to help you do this in the same way as the normal script (i.e.
+C<thing>, and C<thing_options>).
+
+=head1 Writing Filters
+
+=head1 Writing Outputs
+
+=head1 Writing inputs
+
+=head1 AUTHOR, COPYRIGHT & LICENSE
+
+See L<Message::Passing>.
+
+=cut

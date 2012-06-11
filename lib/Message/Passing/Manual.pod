@@ -2,7 +2,9 @@
 
 Message::Passing::Manual - table of contents for Message::Passing documentation
 
-=head1 CONTENTS
+=head1 SEE ALSO
+
+Some links to documentation written so far:
 
 =over
 
@@ -17,6 +19,10 @@ Practical examples of things you can do with the framework.
 =item L<Message::Passing::Manual::Components>
 
 Writing your own inputs, filters and outputs.
+
+=item L<Message::Passing::Manual::Workers>
+
+Running jobs using the framework.
 
 =back
 
