@@ -1,3 +1,25 @@
+  - Additional documentation in L<Message::Passing::Manual>.
+
+  - Refactor building connection managers so less duplicate code
+    is needed in components.
+
+  - Make STDIN input saner.
+
+  - Add an 'error chain' concept, allowing components to have a
+    way of reporting connection (or other) issues out of band
+    with the message stream.
+    This defaults to STDERR, however can be overridden per component,
+    or for a whole chain.
+
+  - Add error_log() function to the DSL for setting the error chain up
+    for a whole chain.
+
+  - Use the error chain in Message::Passing::Role::ConnectionManager
+    to output errors when connections disconnect / timeout / reconnect.
+
+  - Cleanups to Message::Passing::Input::FileTail to not leak processes
+    and file handles if the instance of the Input class is destroyed.
+
 0.008
   - Add standard roles to unify the names of connection attributes:
     Message::Passing::Role::HasHostnameAndPort
