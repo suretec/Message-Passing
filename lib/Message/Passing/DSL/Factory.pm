@@ -1,6 +1,7 @@
 package Message::Passing::DSL::Factory;
 use Moose;
 use String::RewritePrefix;
+use Message::Passing::Output::STDERR;
 use namespace::autoclean;
 
 sub expand_class_name {
@@ -23,6 +24,23 @@ has registry => (
     },
     lazy => 1,
     clearer => 'clear_registry',
+);
+
+sub set_error {
+    my ($self, %opts) = @_;
+    my $class = delete $opts{class}
+        || confess("Class name needed");
+    $class = $self->expand_class_name('Output', $class);
+    Class::MOP::load_class($class);
+    $self->_set_error($class->new(%opts));
+}
+
+has error => (
+    is => 'ro',
+    writer => '_set_error',
+    default => sub {
+        Message::Passing::Output::STDERR->new;
+    }
 );
 
 sub make {
@@ -55,6 +73,9 @@ sub make {
                 || confess("Do not have a component named '$output_to'");
             $opts{output_to} = $proper_output_to;
         }
+    }
+    if (!exists($opts{error})) {
+        $opts{error} = $self->error;
     }
     $class = $self->expand_class_name($type, $class);
     Class::MOP::load_class($class);

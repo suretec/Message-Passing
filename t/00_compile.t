@@ -25,6 +25,7 @@ use_ok('Message::Passing::Filter::Decoder::JSON');
 use_ok('Message::Passing::Filter::Decoder::Null');
 use_ok('Message::Passing::Role::HasHostnameAndPort');
 use_ok('Message::Passing::Role::HasUsernameAndPassword');
+use_ok('Message::Passing::Role::HasErrorChain');
 
 done_testing;
 

@@ -15,6 +15,7 @@ with
     'Message::Passing::Role::CLIComponent' => { name => 'filter', default => 'Null' },
     'Message::Passing::Role::CLIComponent' => { name => 'decoder', default => 'JSON' },
     'Message::Passing::Role::CLIComponent' => { name => 'encoder', default => 'JSON' },
+    'Message::Passing::Role::CLIComponent' => { name => 'error', default => 'STDERR' },
     'Message::Passing::Role::Script';
 
 our $VERSION = '0.008';
@@ -32,6 +33,10 @@ sub get_config_from_file {
 sub build_chain {
     my $self = shift;
         message_chain {
+            error_log(
+                $self->error_options,
+                class => $self->error,
+            );
             output output => (
                 $self->output_options,
                 class => $self->output,
