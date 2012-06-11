@@ -36,6 +36,40 @@ As simple as using the command line interface:
 
 And you've now got a multi-host log aggregation system for your application!
 
+=head2 Doing it manually
+
+You don't have to do any of the above, if you don't want to - you can easily reuse the ZeroMQ
+output yourself:
+
+    my $log = essage::Passing::Output::ZeroMQ->new(
+        connect => 'tcp://192.168.0.1:5558',
+    );
+    $log->consume("A log message");
+
+=head2 A note about outputs
+
+Outputting messages from within your application using L<Message::Passing> outputs B<except>
+the ZeroMQ output is disrecommended. This is as ZeroMQ uses a different (POSIX) thread with which to send
+messages - meaning that it transports messages independntly of your perl code.
+
+This is B<not> the case for other message outputs, and therefore they are unlikely to work
+well, or at all, unless your application is already asynchronous and using an L<AnyEvent> supported event
+library.
+
+=head2 A note about ZeroMQ
+
+By default L<Message::Passing::ZeroMQ> will use PUB/SUB sockets for logging, with a finite 'high water mark'.
+
+This means that if your application logs significantly more data than you can fit down the network, you
+B<will drop logs>.
+
+If your application needs to do this, you can either increase this high water mark, or disable it
+(so ZeroMQ will buffer an infinite number of messages at the sending client - potentially using infinite RAM).
+
+The default setting is for the output to buffer up to 10000 messages on the output side, which should be
+enough to manage short term peaks, but is low enough to be reasonably safe in terms of memory consumption
+for buffering
+
 =head1 Aggregating syslog
 
 Assuming that you've got a regular syslogd setup and working, then you probably want to keep that.

@@ -1,6 +1,11 @@
 Need upload:
     - Message::Passing::STOMP
     - Message::Passing::AMQP
+    - Message::Passing
+
+Slides:
+   - Moar demos
+   - More diagrams
 
 Code core/general:
     - Generic blessed object serialize filter
@@ -26,11 +31,6 @@ Docs:
  - Write
 
  Message::Passing::Manual::Cookbook:
- - Logging from an application
-   - Fix examples
-   - Example without Log::Dispatch
-   - Explain why ZMQ (this is in ::Concepts currently?)
-
  - Aggregating this log
    - Link to building own script
    - Note other script options
