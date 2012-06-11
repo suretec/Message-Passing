@@ -2,20 +2,32 @@ package Message::Passing::Input::STDIN;
 use Moose;
 use AnyEvent;
 use Try::Tiny;
+use Scalar::Util qw/ weaken /;
 use namespace::autoclean;
 
-with 'Message::Passing::Role::Input';
+with qw/
+    Message::Passing::Role::Input
+/;
+
+has reader => (
+    is => 'ro',
+    lazy => 1,
+    default => sub {
+        my $self = shift;
+        weaken($self);
+        AnyEvent->io(fh => \*STDIN, poll => 'r', cb => sub {
+            my $input = <STDIN>;
+            return unless defined $input;
+            chomp($input);
+            return unless length $input;
+            $self->output_to->consume($input);
+        });
+    },
+);
 
 sub BUILD {
     my $self = shift;
-    my $r; $r = AnyEvent->io(fh => \*STDIN, poll => 'r', cb => sub {
-        my $input = <STDIN>;
-        return unless defined $input;
-        chomp($input);
-        return unless length $input;
-        $self->output_to->consume($input);
-        $r;
-    });
+    $self->reader;
 }
 
 __PACKAGE__->meta->make_immutable;
