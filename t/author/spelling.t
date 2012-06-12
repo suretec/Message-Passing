@@ -4,6 +4,7 @@ use Test::More;
 use Test::Spelling;
 
 add_stopwords(qw(
+    POSIX
     init
     fh
     privileged

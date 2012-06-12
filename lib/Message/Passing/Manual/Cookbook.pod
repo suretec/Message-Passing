@@ -49,8 +49,9 @@ output yourself:
 =head2 A note about outputs
 
 Outputting messages from within your application using L<Message::Passing> outputs B<except>
-the ZeroMQ output is disrecommended. This is as ZeroMQ uses a different (POSIX) thread with which to send
-messages - meaning that it transports messages independntly of your perl code.
+the ZeroMQ output is not recommended. This is as ZeroMQ uses a different (POSIX) thread with which to send
+messages - meaning that it transports messages independently to whatever
+your perl code is doing.
 
 This is B<not> the case for other message outputs, and therefore they are unlikely to work
 well, or at all, unless your application is already asynchronous and using an L<AnyEvent> supported event
