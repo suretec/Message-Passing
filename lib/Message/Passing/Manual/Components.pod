@@ -64,6 +64,13 @@ More complex filters can compose the input and output roles themselves, and
 consume / emit messages as they choose. For a simple example of this type
 of filter, see L<Message::Passing::Filter::Delay>.
 
+=head2 Encoders and Decoders
+
+Encoders and Decoders are just implemented the same as standard filters.
+
+The only difference is the default namespace supplied by the DSL, which
+appends C<Encoder::> or C<Decoder::> to the standard filter prefix.
+
 =head1 Writing Inputs and Outputs
 
 The interface for both inputs and outputs is conceptually very simple, however there are
