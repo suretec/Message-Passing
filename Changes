@@ -1,4 +1,8 @@
-  - Additional documentation in L<Message::Passing::Manual>.
+  - Add Message::Passing::Manual::Components.
+
+  - Add SYNOPSIS to Message::Passing::Role::Filter.
+
+  - Additional documentation in Message::Passing::Manual.
 
   - Refactor building connection managers so less duplicate code
     is needed in components.

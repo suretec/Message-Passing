@@ -53,9 +53,67 @@ C<thing>, and C<thing_options>).
 
 =head1 Writing Filters
 
-=head1 Writing Outputs
+A filter is just a class which consumes both L<Message::Passing::Role::Input> and
+L<Message::Passing::Role::Output>.
 
-=head1 Writing inputs
+Simple filters can just consume L<Log::Stash::Role::Filter>, and implement
+a C<filter> method. Please see the documentation for that Role for more
+information.
+
+More complex filters can compose the input and output roles themselves, and
+consume / emit messages as they choose. For a simple example of this type
+of filter, see L<Message::Passing::Filter::Delay>.
+
+=head1 Writing Inputs and Outputs
+
+The interface for both inputs and outputs is conceptually very simple, however there are
+some gotchas to watch out for which are decribed below.
+
+=heas2 Use common attributes.
+
+Please try to keep the names of your component's attributes in keeping with the other
+inputs and outputs in the framework.
+
+To help with this, a number of simple roles with attributes you may want are included in
+the distribution:
+
+=over
+
+=item L<Message::Passing::Role::HasHostnameAndPort>
+
+=item L<Message::Passing::Role::HasUsernameAndPassword>
+
+=back
+
+=head2 MUST by asynchronous.
+
+Your input or output B<MUST NOT> block in the course of it's normal operation. You should use L<AnyEvent>
+to make your input or output asynchronous.
+
+If you are trying to convert a synchronous module into being an input, then you can often make it
+'asynchronous enough' by grabbing the file descriptor and setting up an IO watcher on it.
+L<Message::Passing::Input::Freeswitch> is an example of an input implemented like this.
+
+=head2 Connecting to a server.
+
+If your input or output connects to a server, you should be using the connection manager role
+supplied to manage this connection, rather than trying to manage it in your component directly.
+
+This is so that users can have multiple inputs and outputs which share the same connection,
+which is both possible and desirable with a number of protocols.
+
+Roles are provided to help component authors with this, please see the documentation in:
+
+=over
+
+=item L<Message::Passing::Role::HasAConnection> - for your component
+
+=item L<Message::Passing::Role::ConnectionManager> - to implement your connection manager.
+
+=back
+
+For example code using these roles, see L<Message::Passing::STOMP>, which implements a simple
+example.
 
 =head1 AUTHOR, COPYRIGHT & LICENSE
 

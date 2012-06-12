@@ -45,11 +45,6 @@ Docs:
 
  - Filtering messages
 
- - Writing your own
-   - Input
-   - Output
-   - Scripts - link to scripts docs
-
  - Putting it all together - log processor with filtering etc.
 
  - HTTP POST notifications

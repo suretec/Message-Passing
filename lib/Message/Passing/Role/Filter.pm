@@ -20,7 +20,23 @@ sub consume {
 
 =head1 NAME
 
-Message::Passing::Role::Filter
+Message::Passing::Role::Filter - Simple abstraction for filtering messages
+
+=head1 SYNOPSIS
+
+    package My::Filter;
+    use Moose;
+    use namespace::autoclean;
+
+    with 'Message::Passing::Role::Filter';
+
+    sub filter {
+        my ($self, $message) = @_;
+        # Do something with $message
+        return $message; # Or return undef to halt message!
+    }
+
+    1;
 
 =head1 DESCRIPTION
 
