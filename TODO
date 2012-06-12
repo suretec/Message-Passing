@@ -3,10 +3,6 @@ Need upload:
     - Message::Passing::AMQP
     - Message::Passing
 
-Slides:
-   - Moar demos
-   - More diagrams
-
 Code core/general:
     - Generic blessed object serialize filter
     - Logstash compatibility filter
@@ -18,11 +14,6 @@ Specific adaptors
     - AMQP needs a lot of work
 
 Docs:
- Message::Passing::Manual::Scripts:
- - Write me!
- - encoders / decoders
- - How to write / override scripts
-
  Message::Passing::Manual::Concepts:
  - Proper script writing (after DSL example)
  - Other links.. in ::Concepts?
