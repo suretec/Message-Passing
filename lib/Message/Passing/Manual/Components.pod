@@ -44,7 +44,7 @@ the default script, then you're better off writing your own script.
 
 See L<Message::Passing:Role::Script>, for a basic role you are likely to want to use to do this.
 You'll also want to use L<Message::Passing::DSL>, as shown in the example documentation for
-the scrpt role..
+the script role..
 
 If you are writing your own script, want some components to be completely configurable
 (as per the default script), then see L<Message::Passing::Role::CLIComponent>, which
@@ -74,9 +74,9 @@ appends C<Encoder::> or C<Decoder::> to the standard filter prefix.
 =head1 Writing Inputs and Outputs
 
 The interface for both inputs and outputs is conceptually very simple, however there are
-some gotchas to watch out for which are decribed below.
+some gotchas to watch out for which are described below.
 
-=heas2 Use common attributes.
+=head2 Use common attributes.
 
 Please try to keep the names of your component's attributes in keeping with the other
 inputs and outputs in the framework.
