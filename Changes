@@ -1,3 +1,4 @@
+0.009
   - Add Message::Passing::Manual::Components.
 
   - Add SYNOPSIS to Message::Passing::Role::Filter.
