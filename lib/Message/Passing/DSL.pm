@@ -229,6 +229,10 @@ The last thing in a chain - produces data which gets consumed.
 Class names will be assumed to prefixed with 'Message::Passing::Output::',
 unless you prefix the class with + e.g. C<< +My::Own::Output::Class >>
 
+=head3 error_log
+
+Setup the error logging output. Takes the same arguments as an C<< input xxx => () >> block, except without a name.
+
 =head3 run_message_server
 
 This enters the event loop and causes log events to be consumed and
