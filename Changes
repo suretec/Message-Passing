@@ -1,3 +1,5 @@
+  - Add Gzip and Bzip2 encoders and decoders.
+
 0.009
   - Add Message::Passing::Manual::Components.
 
