@@ -4,6 +4,7 @@ use Test::More;
 use Try::Tiny;
 use Message::Passing::Input::Null;
 use Message::Passing::Output::Test;
+use Message::Passing::Output::Null;
 
 plan skip_all => "No Crypt::CBC or no Crypt::Blowfish"
     unless try {
@@ -30,6 +31,16 @@ my $cbc = Message::Passing::Input::Null->new(
 $cbc->output_to->consume('test');
 is $cbct->message_count, 1;
 is_deeply [$cbct->messages], ['test'];
+
+# Simulate dropping a message!
+{
+    local $cbc->output_to->{output_to} = Message::Passing::Output::Null->new;
+    $cbc->output_to->consume('fooo');
+}
+
+$cbc->output_to->consume('bar');
+is $cbct->message_count, 2;
+is_deeply [$cbct->messages], ['test', 'bar'];
 
 done_testing;
 
