@@ -204,6 +204,10 @@ Outputs send data to somewhere, i.e. they consume messages.
 
 =over
 
+=item L<Message::Passing::Manual> - The manual (incomplete currently)!
+
+=item L<http://www.slideshare.net/bobtfish/messaging-interoperability-and-log-aggregation-a-new-framework> - Slide deck!
+
 =item L<Log::Message::Structured> - For creating your log messages.
 
 =item L<Log::Dispatch::Message::Passing> - use Message::Passing outputs from L<Log::Dispatch>.
