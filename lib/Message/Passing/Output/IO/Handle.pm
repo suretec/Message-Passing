@@ -1,12 +1,12 @@
 package Message::Passing::Output::IO::Handle;
-use Moose;
-use Moose::Util::TypeConstraints;
-use namespace::autoclean;
+use Moo;
+#use Moose::Util::TypeConstraints;
+use namespace::clean -except => 'meta';
 
 with 'Message::Passing::Role::Output';
 
 has fh => (
-    isa => duck_type([qw/ print /]),
+#    isa => duck_type([qw/ print /]),
     is => 'ro',
     required => 1,
 );
@@ -21,7 +21,7 @@ sub consume {
     $self->fh->print(shift() . $self->append);
 }
 
-__PACKAGE__->meta->make_immutable;
+
 1;
 
 =head1 NAME

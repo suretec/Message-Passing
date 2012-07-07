@@ -1,14 +1,13 @@
 package Message::Passing::Filter::T;
-use Moose;
-use MooseX::Types::Moose qw/ ArrayRef /;
-use Moose::Util::TypeConstraints;
-use namespace::autoclean;
+use Moo;
+use MooX::Types::MooseLike::Base qw/ ArrayRef /;
+use namespace::clean -except => 'meta';
 
 with 'Message::Passing::Role::Input';
 with 'Message::Passing::Role::Output';
 
 has '+output_to' => (
-    isa => ArrayRef[role_type('Message::Passing::Role::Output')],
+#    isa => ArrayRef[role_type('Message::Passing::Role::Output')],
     is => 'ro',
     required => 1,
 );
@@ -20,7 +19,7 @@ sub consume {
     }
 }
 
-__PACKAGE__->meta->make_immutable;
+
 1;
 
 =head1 NAME

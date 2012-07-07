@@ -1,14 +1,15 @@
 package Message::Passing::Input::FileTail;
-use Moose;
+use Moo;
+use MooX::Types::MooseLike::Base qw/ Str Int /;
 use AnyEvent;
 use Scalar::Util qw/ weaken /;
-use namespace::autoclean;
+use namespace::clean -except => 'meta';
 
 with 'Message::Passing::Role::Input';
 
 has filename => (
     is => 'ro',
-    isa => 'Str',
+    isa => Str,
     required => 1,
 );
 
@@ -45,7 +46,7 @@ sub BUILD {
     $self->_tail_handle;
 }
 
-__PACKAGE__->meta->make_immutable;
+
 1;
 
 =head1 NAME

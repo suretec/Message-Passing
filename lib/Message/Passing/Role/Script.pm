@@ -4,7 +4,7 @@ use Getopt::Long qw(:config pass_through);
 use POSIX qw(setuid setgid);
 use Moose::Util::TypeConstraints;
 use Message::Passing::DSL;
-use namespace::autoclean;
+use namespace::clean -except => 'meta';
 
 requires 'build_chain';
 

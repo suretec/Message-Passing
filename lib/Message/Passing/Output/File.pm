@@ -1,11 +1,12 @@
 package Message::Passing::Output::File;
-use Moose;
-use namespace::autoclean;
+use Moo;
+use MooX::Types::MooseLike::Base qw/ Str Bool /;
+use namespace::clean -except => 'meta';
 
 with 'Message::Passing::Role::Output';
 
 has filename => (
-    isa => 'Str',
+    isa => Str,
     is => 'ro',
     predicate => '_has_filename',
 );
@@ -18,8 +19,8 @@ has fh => (
 
 has append => (
     is => 'ro',
-    isa => 'Bool',
-    default => 1,
+    isa => Bool,
+    default => sub { 1 },
 );
 
 sub _build_fh {
@@ -45,7 +46,7 @@ sub consume {
     return 1;
 }
 
-__PACKAGE__->meta->make_immutable;
+
 1;
 
 =head1 NAME

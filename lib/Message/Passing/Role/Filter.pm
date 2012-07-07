@@ -1,6 +1,6 @@
 package Message::Passing::Role::Filter;
-use Moose::Role;
-use namespace::autoclean;
+use Moo::Role;
+use namespace::clean -except => 'meta';
 
 requires 'filter';
 
@@ -25,8 +25,8 @@ Message::Passing::Role::Filter - Simple abstraction for filtering messages
 =head1 SYNOPSIS
 
     package My::Filter;
-    use Moose;
-    use namespace::autoclean;
+    use Moo;
+    use namespace::clean -except => 'meta';
 
     with 'Message::Passing::Role::Filter';
 

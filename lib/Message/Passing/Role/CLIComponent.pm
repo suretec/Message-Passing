@@ -4,7 +4,7 @@ use Moose::Util::TypeConstraints;
 use Message::Passing::Types qw/
     Hash_from_JSON
 /;
-use namespace::autoclean;
+use namespace::clean -except => 'meta';
 
 parameter name => (
     isa      => 'Str',

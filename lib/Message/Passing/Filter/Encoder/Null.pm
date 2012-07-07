@@ -1,10 +1,10 @@
 package Message::Passing::Filter::Encoder::Null;
-use Moose;
-use namespace::autoclean;
+use Moo;
+use namespace::clean -except => 'meta';
 
 extends 'Message::Passing::Filter::Null';
 
-__PACKAGE__->meta->make_immutable;
+
 1;
 
 =head1 NAME

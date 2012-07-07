@@ -120,7 +120,7 @@ Message::Passing::DSL - An easy way to make chains of Message::Passing component
     has socket_bind => (
         is => 'ro',
         isa => 'Str',
-        default => 'tcp://*:5558',
+        default => sub { 'tcp://*:5558' },
     );
 
     sub build_chain {

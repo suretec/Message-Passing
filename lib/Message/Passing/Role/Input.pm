@@ -1,16 +1,16 @@
 package Message::Passing::Role::Input;
-use Moose::Role;
+use Moo::Role;
 use JSON qw/ from_json /;
-use Message::Passing::Types qw/
-    Output_Type
-/;
-use namespace::autoclean;
+#use Message::Passing::Types qw/
+#    Output_Type
+#/;
+use namespace::clean -except => 'meta';
 
 has output_to => (
-    isa => Output_Type,
+#    isa => Output_Type,
     is => 'ro',
     required => 1,
-    coerce => 1,
+#    coerce => 1,
 );
 
 1;

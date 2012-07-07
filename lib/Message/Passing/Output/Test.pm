@@ -1,6 +1,7 @@
 package Message::Passing::Output::Test;
-use Moose;
-use namespace::autoclean;
+use Moo;
+use MooX::Types::MooseLike::Base qw/ ArrayRef /;
+use namespace::clean -except => 'meta';
 
 extends 'Message::Passing::Output::Callback';
 
@@ -8,24 +9,24 @@ has '+cb' => (
     default => sub { sub {} },
 );
 
-has messages => (
-    isa => 'ArrayRef',
+has _messages => (
+    is => 'ro',
+    isa => ArrayRef,
     default => sub { [] },
-    traits => ['Array'],
-    handles => {
-        consume_test => 'push',
-        message_count => 'count',
-        messages => 'elements',
-    },
     clearer => 'clear_messages',
     lazy => 1,
 );
+
+sub messages { @{ $_[0]->_messages } }
+sub consume_test { push(@{$_[0]->_messages }, $_[1]) }
+sub message_count { scalar @{ $_[0]->_messages } }
+
 
 after consume => sub {
     shift()->consume_test(@_);
 };
 
-__PACKAGE__->meta->make_immutable;
+
 1;
 
 =head1 NAME

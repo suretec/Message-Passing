@@ -1,7 +1,7 @@
 package Message::Passing::Filter::Encoder::Bzip2;
-use Moose;
+use Moo;
 use Compress::Bzip2;
-use namespace::autoclean;
+use namespace::clean -except => 'meta';
 
 with 'Message::Passing::Role::Filter';
 
@@ -10,6 +10,6 @@ sub filter {
     Compress::Bzip2::memBzip($message);
 }
 
-__PACKAGE__->meta->make_immutable;
+
 1;
 

@@ -1,12 +1,15 @@
 package Message::Passing::Role::HasUsernameAndPassword;
-use Moose::Role;
-use namespace::autoclean;
+use Moo::Role;
+use MooX::Types::MooseLike::Base qw/ Str /;
+use namespace::clean -except => 'meta';
 
-has [qw/ username password /] => (
-    is => 'ro',
-    isa => 'Str',
-    required => 1,
-);
+foreach my $name (qw/ username password /) {
+    has $name  => (
+        is => 'ro',
+        isa => Str,
+        required => 1,
+    );
+}
 
 1;
 

@@ -6,7 +6,7 @@ use MooseX::Types::Moose qw/ Str HashRef ArrayRef /;
 use MooseX::Types::Common::String qw/ NonEmptySimpleStr /;
 use MooseX::Getopt;
 use Try::Tiny;
-use namespace::autoclean;
+use namespace::clean -except => 'meta';
 
 use MooseX::Types -declare => [qw{
     Output_Type

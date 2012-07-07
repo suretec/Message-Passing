@@ -1,7 +1,7 @@
 package Message::Passing::Filter::Encoder::Crypt::CBC;
-use Moose;
+use Moo;
 use Compress::Zlib;
-use namespace::autoclean;
+use namespace::clean -except => 'meta';
 
 with qw/
     Message::Passing::Role::Filter
@@ -13,6 +13,6 @@ sub filter {
     $self->cbc->encrypt($message);
 }
 
-__PACKAGE__->meta->make_immutable;
+
 1;
 

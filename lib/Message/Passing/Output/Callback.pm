@@ -1,9 +1,10 @@
 package Message::Passing::Output::Callback;
-use Moose;
-use namespace::autoclean;
+use Moo;
+use MooX::Types::MooseLike::Base qw/ CodeRef /;
+use namespace::clean -except => 'meta';
 
 has cb => (
-    isa => 'CodeRef',
+    isa => CodeRef,
     is => 'ro',
 );
 
@@ -14,7 +15,7 @@ sub consume {
 
 with 'Message::Passing::Role::Output';
 
-__PACKAGE__->meta->make_immutable;
+
 1;
 
 =head1 NAME

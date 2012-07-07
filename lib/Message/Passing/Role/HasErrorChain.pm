@@ -1,10 +1,10 @@
 package Message::Passing::Role::HasErrorChain;
-use Moose::Role;
+use Moo::Role;
 use Message::Passing::Output::STDERR;
-use namespace::autoclean;
+use namespace::clean -except => 'meta';
 
 has error => (
-    does => 'Message::Passing::Role::Output',
+#    does => 'Message::Passing::Role::Output',
     is => 'ro',
     default => sub {
         Message::Passing::Output::STDERR->new;
@@ -22,18 +22,18 @@ Message::Passing::Role::HasErrorChain - A role for components which can report e
     # Note this is an example package, and does not really exist!
     package Message::Passing::Output::ErrorAllMessages;
     use Moose;
-    use namespace::autoclean;
-    
+    use namespace::clean -except => 'meta';
+
     with qw/
         Message::Passing::Role::Output
         Message::Passing::Role::HasErrorChain
     /;
-    
+
     sub consume {
         my ($self, $message) = @_;
         $self->error->consume($message);
     }
-    
+
 =head1 DESCRIPTION
 
 Some components can create an error stream in addition to a message stream.

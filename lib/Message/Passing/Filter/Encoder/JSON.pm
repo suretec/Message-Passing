@@ -1,14 +1,15 @@
 package Message::Passing::Filter::Encoder::JSON;
-use Moose;
+use Moo;
+use MooX::Types::MooseLike::Base qw/ Bool /;
 use JSON qw/ to_json /;
 use Scalar::Util qw/ blessed /;
-use namespace::autoclean;
+use namespace::clean -except => 'meta';
 
 with 'Message::Passing::Role::Filter';
 
 has pretty => (
-    isa => 'Bool',
-    default => 0,
+    isa => Bool,
+    default => sub { 0 },
     is => 'ro',
 );
 
@@ -26,7 +27,7 @@ sub filter {
     to_json( $message, { utf8  => 1, $self->pretty ? (pretty => 1) : () } )
 }
 
-__PACKAGE__->meta->make_immutable;
+
 1;
 
 =head1 NAME

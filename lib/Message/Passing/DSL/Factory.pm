@@ -2,7 +2,7 @@ package Message::Passing::DSL::Factory;
 use Moose;
 use String::RewritePrefix;
 use Message::Passing::Output::STDERR;
-use namespace::autoclean;
+use namespace::clean -except => 'meta';
 
 sub expand_class_name {
     my ($self, $type, $name) = @_;
@@ -84,7 +84,7 @@ sub make {
     return $out;
 }
 
-__PACKAGE__->meta->make_immutable;
+
 1;
 
 =head1 NAME

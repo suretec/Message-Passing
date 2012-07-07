@@ -1,9 +1,9 @@
 package Message::Passing::Input::STDIN;
-use Moose;
+use Moo;
 use AnyEvent;
 use Try::Tiny;
 use Scalar::Util qw/ weaken /;
-use namespace::autoclean;
+use namespace::clean -except => 'meta';
 
 with qw/
     Message::Passing::Role::Input
@@ -30,7 +30,7 @@ sub BUILD {
     $self->reader;
 }
 
-__PACKAGE__->meta->make_immutable;
+
 1;
 
 =head1 NAME

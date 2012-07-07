@@ -15,13 +15,14 @@ resources(
 
 requires 'Moo';
 requires 'Moose';
-requires 'namespace::autoclean';
+requires 'namespace::clean';
+requires 'Module::Runtime';
 requires 'AnyEvent';
 requires 'MooseX::ConfigFromFile';
 requires 'Config::Any';
+requires 'MooX::Types::MooseLike';
 requires 'MooseX::Types';
 requires 'MooseX::Types::Common';
-requires 'MooseX::Types::LoadableClass';
 requires 'String::RewritePrefix';
 requires 'JSON' => '2.0';
 requires 'MooseX::Getopt';

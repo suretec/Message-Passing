@@ -2,7 +2,7 @@ package Message::Passing;
 use Moose;
 use Getopt::Long qw(:config pass_through);
 use Config::Any;
-use namespace::autoclean;
+use namespace::clean -except => 'meta';
 use 5.8.4;
 
 use Message::Passing::DSL;
@@ -64,7 +64,7 @@ sub build_chain {
         };
 }
 
-__PACKAGE__->meta->make_immutable;
+
 1;
 
 =head1 NAME

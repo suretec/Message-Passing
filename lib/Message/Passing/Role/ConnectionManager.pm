@@ -1,7 +1,7 @@
 package Message::Passing::Role::ConnectionManager;
 use Moose::Role;
 use Scalar::Util qw/ blessed weaken /;
-use namespace::autoclean;
+use namespace::clean -except => 'meta';
 
 requires '_build_connection';
 
