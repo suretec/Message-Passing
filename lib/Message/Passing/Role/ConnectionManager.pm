@@ -1,5 +1,6 @@
 package Message::Passing::Role::ConnectionManager;
-use Moose::Role;
+use Moo::Role;
+use MooX::Types::MooseLike qw/ Bool /;
 use Scalar::Util qw/ blessed weaken /;
 use namespace::clean -except => 'meta';
 
@@ -21,7 +22,7 @@ has _timeout_timer => (
 
 has connected => (
     is => 'ro',
-    isa => 'Bool',
+    isa => Bool,
     default => sub { 0 },
     writer => '_set_connected',
 );

@@ -1,5 +1,6 @@
 package Message::Passing::DSL::Factory;
-use Moose;
+use Moo;
+use MooX::Types::MooseLike::Base qw/ HashRef /;
 use String::RewritePrefix;
 use Message::Passing::Output::STDERR;
 use namespace::clean -except => 'meta';
@@ -13,7 +14,8 @@ sub expand_class_name {
 }
 
 has registry => (
-    isa => 'HashRef',
+    is => 'ro',
+    isa => HashRef,
     default => sub { {} },
     traits => ['Hash'],
     handles => {
