@@ -13,6 +13,7 @@ resources(
     repository => "git://github.com/suretec/Message-Passing.git",
 );
 
+requires 'Moo';
 requires 'Moose';
 requires 'namespace::autoclean';
 requires 'AnyEvent';

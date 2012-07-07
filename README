@@ -104,6 +104,9 @@ COMPONENTS
     Message::Passing::Output::Test
 
 SEE ALSO
+    Message::Passing::Manual - The manual (incomplete currently)!
+    <http://www.slideshare.net/bobtfish/messaging-interoperability-and-log-a
+    ggregation-a-new-framework> - Slide deck!
     Log::Message::Structured - For creating your log messages.
     Log::Dispatch::Message::Passing - use Message::Passing outputs from
     Log::Dispatch.
