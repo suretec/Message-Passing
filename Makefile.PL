@@ -14,6 +14,7 @@ resources(
 );
 
 requires 'Moo';
+requires 'Package::Variant';
 requires 'Moose';
 requires 'namespace::clean';
 requires 'Module::Runtime';

@@ -1,45 +1,35 @@
 package Message::Passing::Role::CLIComponent;
-use MooseX::Role::Parameterized;
-use Moose::Util::TypeConstraints;
-use Message::Passing::Types qw/
-    Hash_from_JSON
-/;
-use namespace::clean -except => 'meta';
+use strict;
+use warnings;
+use Package::Variant
+    importing => ['Moo::Role'],
+    subs => [ qw(has around before after with) ];
+use MooX::Types::MooseLike::Base qw/ Str /;
+#use namespace::clean -except => 'CLIComponent';
 
-parameter name => (
-    isa      => 'Str',
-    required => 1,
-);
-
-parameter default => (
-    isa => 'Str',
-    predicate => 'has_default',
-);
-
-role {
+sub make_variant {
+    my ($class, $target_package, %arguments) = @_;
     my $p = shift;
 
-    my $name = $p->name;
-    my $has_default = $p->has_default;
-    my $default = $has_default ? $p->default : undef;
+    my $name = $arguments{name};
+    my $has_default = exists $arguments{default};
+    my $default = $has_default ? $arguments{default} : undef;
 
     has $name => (
-        isa => 'Str',
+        isa => Str,
         is => 'ro',
         required => $has_default ? 0 : 1,
-        $has_default ? ( default => $default ) : (),
+        $has_default ? ( default => sub { $default } ) : (),
     );
 
     has "${name}_options" => (
-        isa => Hash_from_JSON,
-        traits    => ['Hash'],
+        is => 'ro',
+        #isa => Hash_from_JSON,
+        #traits    => ['Hash'],
         default => sub { {} },
-        handles => {
-            "${name}_options" => 'elements',
-        },
-        coerce => 1,
+#        coerce => 1,
     );
-};
+}
 
 1;
 

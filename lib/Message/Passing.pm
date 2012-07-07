@@ -2,20 +2,20 @@ package Message::Passing;
 use Moose;
 use Getopt::Long qw(:config pass_through);
 use Config::Any;
+use Message::Passing::Role::CLIComponent;
+use Message::Passing::DSL;
 use namespace::clean -except => 'meta';
 use 5.8.4;
-
-use Message::Passing::DSL;
 
 with
     'MooseX::Getopt',
     'MooseX::ConfigFromFile',
-    'Message::Passing::Role::CLIComponent' => { name => 'input' },
-    'Message::Passing::Role::CLIComponent' => { name => 'output' },
-    'Message::Passing::Role::CLIComponent' => { name => 'filter', default => 'Null' },
-    'Message::Passing::Role::CLIComponent' => { name => 'decoder', default => 'JSON' },
-    'Message::Passing::Role::CLIComponent' => { name => 'encoder', default => 'JSON' },
-    'Message::Passing::Role::CLIComponent' => { name => 'error', default => 'STDERR' },
+    CLIComponent( name => 'input' ),
+    CLIComponent( name => 'output' ),
+    CLIComponent( name => 'filter', default => 'Null' ),
+    CLIComponent( name => 'decoder', default => 'JSON' ),
+    CLIComponent( name => 'encoder', default => 'JSON' ),
+    CLIComponent( name => 'error', default => 'STDERR' ),
     'Message::Passing::Role::Script';
 
 our $VERSION = '0.009';
