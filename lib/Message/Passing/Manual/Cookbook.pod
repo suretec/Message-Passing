@@ -41,7 +41,7 @@ And you've now got a multi-host log aggregation system for your application!
 You don't have to do any of the above, if you don't want to - you can easily reuse the ZeroMQ
 output yourself:
 
-    my $log = essage::Passing::Output::ZeroMQ->new(
+    my $log = Message::Passing::Output::ZeroMQ->new(
         connect => 'tcp://192.168.0.1:5558',
     );
     $log->consume("A log message");

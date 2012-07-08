@@ -1,3 +1,6 @@
+  - Doc fix in Message::Passing::Manual::Cookbook
+    https://github.com/suretec/Message-Passing/pull/2
+
   - Add Gzip and Bzip2 encoders and decoders.
 
 0.009
