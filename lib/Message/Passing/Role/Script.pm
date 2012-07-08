@@ -11,7 +11,7 @@ requires 'build_chain';
 has daemonize => (
     is => 'ro',
     isa => Bool,
-    default => 0,
+    default => sub { 0 },
 );
 
 has io_priority => (
