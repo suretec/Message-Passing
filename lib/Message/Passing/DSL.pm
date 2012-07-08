@@ -1,7 +1,7 @@
 package Message::Passing::DSL;
 use Message::Passing::DSL::Factory;
 use Carp qw/ confess /;
-use Scalar::Util qw/weaken/;
+use Scalar::Util qw/ blessed weaken /;
 use AnyEvent;
 use Moose::Util qw/ does_role /;
 use Exporter qw/ import /;
@@ -24,22 +24,23 @@ sub message_chain (&) {
     $code->();
     my %items = $FACTORY->registry;
     $FACTORY->clear_registry;
-    weaken($items{$_}) for
-        grep { blessed($items{$_}) && $items{$_}->can('consume') }
-        keys %items;
-    foreach my $name (keys %items) {
-        next if $items{$name};
-        warn "Unused output or filter $name in chain\n";
-    }
+#    weaken($items{$_}) for
+#        grep { blessed($items{$_}) && $items{$_}->can('consume') }
+#        keys %items;
+#    foreach my $name (keys %items) {
+#        next if $items{$name};
+#        warn "Unused output or filter $name in chain\n";
+#    }
     return [
-        grep { ! ( blessed($_) && $_->can('consume') ) }
-        grep { blessed($_) && $_->can('output_to') }
+#        grep { ! ( blessed($_) && $_->can('consume') ) }
+#        grep { blessed($_) && $_->can('output_to') }
         values %items
     ];
 }
 
 sub error_log {
     my %opts = @_;
+    use Data::Dumper; warn Dumper(\%opts);
     _check_factory();
     $FACTORY->set_error(
         %opts,

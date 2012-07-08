@@ -12,9 +12,9 @@ my $i = Message::Passing->new(
     output_options => '{"x":"m"}',
 );
 
-is_deeply {$i->input_options}, {"foo" => "bar"};
-is_deeply {$i->filter_options}, {"baz" => "quux"};
-is_deeply {$i->output_options}, {"x" => "m"};
+is_deeply $i->input_options, {"foo" => "bar"};
+is_deeply $i->filter_options, {"baz" => "quux"};
+is_deeply $i->output_options, {"x" => "m"};
 
 my $chain = $i->build_chain;
 my $input = $chain->[0];
@@ -24,7 +24,7 @@ my $encoder = $filter->output_to;
 my $output = $encoder->output_to;
 $filter->consume({ foo => "bar" });
 
-is_deeply [$output->messages], ['{"foo":"bar"}'];
+is_deeply $output->messages, ['{"foo":"bar"}'];
 
 done_testing;
 

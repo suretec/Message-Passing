@@ -3,6 +3,8 @@ use Moo;
 use MooX::Types::MooseLike::Base qw/ HashRef /;
 use String::RewritePrefix;
 use Message::Passing::Output::STDERR;
+use Carp qw/ confess /;
+use Scalar::Util qw/ blessed /;
 use namespace::clean -except => 'meta';
 
 sub expand_class_name {
@@ -17,16 +19,16 @@ has registry => (
     is => 'ro',
     isa => HashRef,
     default => sub { {} },
-    traits => ['Hash'],
-    handles => {
-        registry_get => 'get',
-        registry_has => 'get',
-        registry_set => 'set',
-        registry => 'elements',
-    },
     lazy => 1,
     clearer => 'clear_registry',
 );
+
+sub registry_get { shift->registry->{shift()} }
+sub registry_has { exists shift->registry->{shift()} }
+sub registry_set {
+    my ($self, $name, $val) = @_;
+    $self->registry->{$name} = $val;
+}
 
 sub set_error {
     my ($self, %opts) = @_;

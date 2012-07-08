@@ -15,12 +15,13 @@ sub make_variant {
     my $has_default = exists $arguments{default};
     my $default = $has_default ? $arguments{default} : undef;
 
-    has $name => (
-        isa => Str,
-        is => 'ro',
-        required => $has_default ? 0 : 1,
-        $has_default ? ( default => sub { $default } ) : (),
-    );
+    $arguments{'option'}->("$name" =>
+            format => 's',
+#            isa => Str,
+            is => 'ro',
+#            required => "$has_default" ? 0 : 1,
+            "$has_default" ? ( default => sub { "$default" } ) : (),
+        );
 
     has "${name}_options" => (
         is => 'ro',
@@ -48,7 +49,7 @@ Message::Passing::Role::CLIComponent - Role providing 'foo' and 'foo_options' at
             Message::Passing::Role::Script
             MooseX::Getopt
         /;
-    
+
     sub build_chain {
         my $self = shift;
         message_chain {
