@@ -4,6 +4,11 @@ use Test::More;
 use Test::Spelling;
 
 add_stopwords(qw(
+    decrypt
+    decrypts
+    Decrypts
+    cbc
+    Uncompresses
     namespace
     POSIX
     init
