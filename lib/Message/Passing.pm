@@ -18,7 +18,7 @@ with
     'Message::Passing::Role::CLIComponent' => { name => 'error', default => 'STDERR' },
     'Message::Passing::Role::Script';
 
-our $VERSION = '0.009';
+our $VERSION = '0.010';
 $VERSION = eval $VERSION;
 
 sub get_config_from_file {
