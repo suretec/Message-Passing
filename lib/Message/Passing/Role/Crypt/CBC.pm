@@ -24,3 +24,41 @@ sub cbc {
 
 1;
 
+=head1 NAME
+
+Message::Passing::Role::Crypt::CBC - Common attributes for encoding or decoding encrypted messages
+
+=head1 ATTRIBUTES
+
+=head2 encryption_key
+
+The key for encryption (this is a shared secret key between both sides)
+
+=head2 encryption_cipher
+
+Any cipher supported by L<Crypt::CBC>.
+
+=head1 METHODS
+
+=head2 cbc
+
+Returns a new L<Crypt::CBC> object.
+
+=head1 SEE ALSO
+
+=over
+
+=item L<Message::Passing::Filter::Encoder::Crypt::CBC>
+
+=item L<Message::Passing::Filter::Decoder::Crypt::CBC>
+
+=item L<Crypt::CBC>
+
+=back
+
+=head1 AUTHOR, COPYRIGHT & LICENSE
+
+See L<Message::Passing>.
+
+=cut
+
