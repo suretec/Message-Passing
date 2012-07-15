@@ -19,7 +19,7 @@ sub make_variant {
 
     $arguments{'option'}->("$name" =>
             format => 's',
-#            isa => Str,
+            isa => Str,
             is => 'ro',
 #            required => "$has_default" ? 0 : 1,
             "$has_default" ? ( default => sub { "$default" } ) : (),
@@ -50,7 +50,7 @@ Message::Passing::Role::CLIComponent - Role providing 'foo' and 'foo_options' at
 =head1 SYNOPSIS
 
     package My::Message::Passing::Script;
-    use Moose;
+    use Moo;
 
     with
         'Message::Passing::Role::CLIComponent' => { name => 'input', default => 'STDIN' },
