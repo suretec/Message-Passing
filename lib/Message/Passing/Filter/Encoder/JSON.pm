@@ -56,6 +56,10 @@ should be correctly serialized.
 
 Performs the JSON encoding.
 
+=head2 pretty
+
+Attribute controlling if JSON is pretty printed.
+
 =head1 SEE ALSO
 
 =over
