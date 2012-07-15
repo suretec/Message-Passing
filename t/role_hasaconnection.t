@@ -8,7 +8,7 @@ BEGIN {
 
 {
     package TestConnectionManager;
-    use Moose;
+    use Moo;
     use namespace::clean -except => 'meta';
 
     our @THINGS;
@@ -20,7 +20,7 @@ BEGIN {
 }
 {
     package TestWithConnection;
-    use Moose;
+    use Moo;
     use namespace::clean -except => 'meta';
 
     with 'Message::Passing::Role::HasAConnection';

@@ -5,7 +5,7 @@ use AnyEvent;
 
 {
     package Connection::Subscriber;
-    use Moose;
+    use Moo;
     use namespace::clean -except => 'meta';
 
     has am_connected => ( is => 'rw' );
@@ -20,14 +20,14 @@ use AnyEvent;
 }
 {
     package Some::Shonky::Async::Code;
-    use Moose;
+    use Moo;
     use namespace::clean -except => 'meta';
 
 }
 
 {
     package My::Connection::Wrapper;
-    use Moose;
+    use Moo;
     use Scalar::Util qw/ weaken /;
     use namespace::clean -except => 'meta';
 
@@ -102,8 +102,9 @@ $cv->recv;
 $i->_set_connected(1);
 ok $i->{connection};
 my ($c, $d) = (0,0);
-My::Connection::Wrapper->meta->add_before_method_modifier('_build_timeout_timer', sub { $c++ });
-My::Connection::Wrapper->meta->add_before_method_modifier('_build_reconnect_timer', sub { $d++ });
+no warnings 'redefine';
+*My::Connection::Wrapper::_build_timeout_timer = sub { $c++; shift->next::method(@_) };
+*My::Connection::Wrapper::_build_reconnect_timer = sub { $d++; shift->next::method(@_) };
 $cv = AnyEvent->condvar;
 {
     my $t; $t = AnyEvent->timer(
