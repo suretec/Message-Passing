@@ -1,52 +1,51 @@
 package Message::Passing::Types;
-use MooseX::Types ();
-use Moose::Util::TypeConstraints;
+use strict;
+use warnings;
+use MooX::Types::MooseLike::Base qw/ :all /;
+use Scalar::Util qw/ blessed /;
 use JSON ();
-use MooseX::Types::Moose qw/ Str HashRef ArrayRef /;
-use MooseX::Types::Common::String qw/ NonEmptySimpleStr /;
-use MooseX::Getopt;
-use Try::Tiny;
+use Try::Tiny qw/ try /;
+use Module::Runtime qw/ require_module /;
 use namespace::clean -except => 'meta';
 
-use MooseX::Types -declare => [qw{
-    Output_Type
-    Input_Type
-    Filter_Type
-    Codec_Type
-    Hash_from_JSON
-    JSON_from_Hash
-    ArrayOfStr
-}];
-
-role_type Input_Type, { role => 'Message::Passing::Role::Input' };
-role_type Output_Type, { role => 'Message::Passing::Role::Output' };
-role_type Filter_Type, { role => 'Message::Passing::Role::Filter' };
-
-coerce Output_Type,
-    from HashRef,
-    via {
-        my %stuff = %$_;
-        my $class = delete($stuff{class});
-        Class::MOP::load_class($class);
-        $class->new(%stuff);
-    };
-
-subtype Hash_from_JSON,
-    as HashRef;
-
-coerce Hash_from_JSON,
-  from NonEmptySimpleStr,
-  via { try { JSON->new->relaxed->decode($_) } };
-
-MooseX::Getopt::OptionTypeMap->add_option_type_to_map(
-    Hash_from_JSON, '=s'
-);
-
-subtype ArrayOfStr,
-    as ArrayRef[Str];
-
-coerce ArrayOfStr,
-    from Str,
-    via { [ $_ ] };
+use base qw(Exporter);
+our @EXPORT_OK = ();
+my $defs = [
+    {
+        name => 'Output_Type',
+        test => sub { blessed($_[0]) && $_[0]->can('consume') },
+        coerce => sub {
+            my $val = shift;
+            if (ref($val) eq 'HASH') {
+                my %stuff = %$val;
+                my $class = delete($stuff{class});
+                require_module($class);
+                $val = $class->new(%stuff);
+            }
+            $val;
+        },
+    },
+    {
+        name => 'Input_Type',
+        test => sub { blessed($_[0]) && $_[0]->can('output_to') },
+        message => sub { "$_[0] cannot ->output_to!" }
+    },
+    {
+        name => 'Filter_Type',
+        test => sub { blessed($_[0]) && $_[0]->can('output_to') && $_[0]->can('consume')},
+        message => sub { "$_[0] cannot ->output_to or cannot ->consume!" }
+    },
+    {
+        name => 'Hash_from_JSON',
+        test => sub { ref($_[0]) eq 'HASH' },
+        coerce => sub {
+            my $str = shift;
+            try {
+                JSON->new->relaxed->decode($str)
+            };
+        },
+    },
+];
+MooX::Types::MooseLike::register_types($defs, __PACKAGE__);
 
 1;

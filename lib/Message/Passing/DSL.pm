@@ -22,25 +22,24 @@ sub message_chain (&) {
     }
     local $FACTORY = Message::Passing::DSL::Factory->new;
     $code->();
-    my %items = $FACTORY->registry;
+    my %items = %{ $FACTORY->registry };
     $FACTORY->clear_registry;
-#    weaken($items{$_}) for
-#        grep { blessed($items{$_}) && $items{$_}->can('consume') }
-#        keys %items;
-#    foreach my $name (keys %items) {
-#        next if $items{$name};
-#        warn "Unused output or filter $name in chain\n";
-#    }
+    weaken($items{$_}) for
+        grep { blessed($items{$_}) && $items{$_}->can('consume') }
+        keys %items;
+    foreach my $name (keys %items) {
+        next if $items{$name};
+        warn "Unused output or filter $name in chain\n";
+    }
     return [
-#        grep { ! ( blessed($_) && $_->can('consume') ) }
-#        grep { blessed($_) && $_->can('output_to') }
+        grep { ! ( blessed($_) && $_->can('consume') ) }
+        grep { blessed($_) && $_->can('output_to') }
         values %items
     ];
 }
 
 sub error_log {
     my %opts = @_;
-    use Data::Dumper; warn Dumper(\%opts);
     _check_factory();
     $FACTORY->set_error(
         %opts,

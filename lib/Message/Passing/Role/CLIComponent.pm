@@ -5,6 +5,8 @@ use Package::Variant
     importing => ['Moo::Role'],
     subs => [ qw(has around before after with) ];
 use MooX::Types::MooseLike::Base qw/ Str /;
+use JSON ();
+use Try::Tiny qw/ try /;
 #use namespace::clean -except => 'CLIComponent';
 
 sub make_variant {
@@ -25,10 +27,17 @@ sub make_variant {
 
     has "${name}_options" => (
         is => 'ro',
-        #isa => Hash_from_JSON,
-        #traits    => ['Hash'],
         default => sub { {} },
-#        coerce => 1,
+        isa => sub { ref($_[0]) eq 'HASH' },
+        coerce => sub {
+            my $str = shift;
+            if (! ref $str) {
+                try {
+                    $str = JSON->new->relaxed->decode($str)
+                };
+            }
+            $str;
+        },
     );
 }
 
