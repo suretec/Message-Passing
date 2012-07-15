@@ -7,7 +7,7 @@ use namespace::clean -except => 'meta';
 has output_to => (
     is => 'ro',
     required => 1,
-    ise => sub { blessed($_[0]) && $_[0]->can('consume') },
+    isa => sub { blessed($_[0]) && $_[0]->can('consume') },
     coerce => sub {
         my $val = shift;
         if (ref($val) eq 'HASH') {
