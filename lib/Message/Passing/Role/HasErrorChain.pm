@@ -4,7 +4,6 @@ use Message::Passing::Output::STDERR;
 use namespace::clean -except => 'meta';
 
 has error => (
-#    does => 'Message::Passing::Role::Output',
     is => 'ro',
     default => sub {
         Message::Passing::Output::STDERR->new;
@@ -21,7 +20,7 @@ Message::Passing::Role::HasErrorChain - A role for components which can report e
 
     # Note this is an example package, and does not really exist!
     package Message::Passing::Output::ErrorAllMessages;
-    use Moose;
+    use Moo;
     use namespace::clean -except => 'meta';
 
     with qw/

@@ -3,7 +3,6 @@ use Message::Passing::DSL::Factory;
 use Carp qw/ confess /;
 use Scalar::Util qw/ blessed weaken /;
 use AnyEvent;
-use Moose::Util qw/ does_role /;
 use Exporter qw/ import /;
 
 our @EXPORT = qw/

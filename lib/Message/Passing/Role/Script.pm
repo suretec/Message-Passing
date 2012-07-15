@@ -15,7 +15,8 @@ has daemonize => (
 );
 
 has io_priority => (
-#    isa => enum([qw[ none be rt idle ]]),
+    isa => sub { $_[0] =~ /^(none|be|rt|idle)$/ },
+    coerce => sub { lc $_[0] },
     is => 'ro',
     predicate => "_has_io_priority",
 );

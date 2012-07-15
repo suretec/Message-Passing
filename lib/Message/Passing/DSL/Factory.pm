@@ -5,6 +5,7 @@ use String::RewritePrefix;
 use Message::Passing::Output::STDERR;
 use Carp qw/ confess /;
 use Scalar::Util qw/ blessed /;
+use Module::Runtime qw/ require_module /;
 use namespace::clean -except => 'meta';
 
 sub expand_class_name {
@@ -35,7 +36,7 @@ sub set_error {
     my $class = delete $opts{class}
         || confess("Class name needed");
     $class = $self->expand_class_name('Output', $class);
-    Class::MOP::load_class($class);
+    require_module($class);
     $self->_set_error($class->new(%opts));
 }
 
@@ -82,7 +83,7 @@ sub make {
         $opts{error} = $self->error;
     }
     $class = $self->expand_class_name($type, $class);
-    Class::MOP::load_class($class);
+    require_module($class);
     my $out = $class->new(%opts);
     $self->registry_set($name, $out);
     return $out;

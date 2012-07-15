@@ -15,18 +15,14 @@ resources(
 
 requires 'Moo' => '0.091011';
 requires 'Package::Variant' => '1.001001';
-requires 'Moose';
 requires 'namespace::clean' => '0.23';
 requires 'Module::Runtime' => '0.013';
 requires 'AnyEvent';
-requires 'MooseX::ConfigFromFile';
 requires 'Config::Any';
 requires 'MooX::Types::MooseLike' => '0.08';
-requires 'MooseX::Types';
-requires 'MooseX::Types::Common';
+requires 'MooX::Options' => '1.6';
 requires 'String::RewritePrefix';
 requires 'JSON' => '2.0';
-requires 'MooseX::Getopt';
 requires 'Try::Tiny';
 requires 'Task::Weaken';
 

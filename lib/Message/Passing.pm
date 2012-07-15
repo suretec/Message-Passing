@@ -11,10 +11,7 @@ use 5.8.4;
 sub new_with_config {
     my ($class, %args) = @_;
 
-    warn "NEW WITH CONFIG";
-
     if (my $conf = $args{configfile}) {
-        warn "LOADING config file $conf";
         my $cfg = $class->get_config_from_file($conf);
         foreach my $k (keys %$cfg) {
             if (!exists $args{$k}) {
