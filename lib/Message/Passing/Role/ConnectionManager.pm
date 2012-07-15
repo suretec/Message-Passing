@@ -1,7 +1,9 @@
 package Message::Passing::Role::ConnectionManager;
-use Moose::Role;
+use Moo::Role;
+use MooX::Types::MooseLike::Base qw/ Bool ArrayRef /;
 use Scalar::Util qw/ blessed weaken /;
-use namespace::autoclean;
+use Carp qw/ confess /;
+use namespace::clean -except => 'meta';
 
 requires '_build_connection';
 
@@ -21,7 +23,7 @@ has _timeout_timer => (
 
 has connected => (
     is => 'ro',
-    isa => 'Bool',
+    isa => Bool,
     default => sub { 0 },
     writer => '_set_connected',
 );
@@ -73,7 +75,7 @@ before _clear_connection => sub {
 };
 
 has _connect_subscribers => (
-    isa => 'ArrayRef',
+    isa => ArrayRef,
     is => 'ro',
     default => sub { [] },
     writer => '_set_connect_subscribers',

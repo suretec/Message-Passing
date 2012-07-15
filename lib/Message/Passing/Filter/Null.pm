@@ -1,12 +1,12 @@
 package Message::Passing::Filter::Null;
-use Moose;
-use namespace::autoclean;
+use Moo;
+use namespace::clean -except => 'meta';
 
 with 'Message::Passing::Role::Filter';
 
 sub filter { $_[1] }
 
-__PACKAGE__->meta->make_immutable;
+#
 1;
 
 =head1 NAME

@@ -1,15 +1,16 @@
 package Message::Passing::Role::HasTimeoutAndReconnectAfter;
-use Moose::Role;
-use namespace::autoclean;
+use Moo::Role;
+use MooX::Types::MooseLike::Base qw/ Num /;
+use namespace::clean -except => 'meta';
 
 has timeout => (
-    isa => 'Num',
+    isa => Num,
     is => 'ro',
     default => sub { 30 },
 );
 
 has reconnect_after => (
-    isa => 'Num',
+    isa => Num,
     is => 'ro',
     default => sub { 2 },
 );

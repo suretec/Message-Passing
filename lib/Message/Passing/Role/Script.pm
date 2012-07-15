@@ -1,28 +1,29 @@
 package Message::Passing::Role::Script;
-use Moose::Role;
+use Moo::Role;
+use MooX::Types::MooseLike::Base qw/ Bool Str /;
 use Getopt::Long qw(:config pass_through);
 use POSIX qw(setuid setgid);
-use Moose::Util::TypeConstraints;
 use Message::Passing::DSL;
-use namespace::autoclean;
+use namespace::clean -except => 'meta';
 
 requires 'build_chain';
 
 has daemonize => (
     is => 'ro',
-    isa => 'Bool',
-    default => 0,
+    isa => Bool,
+    default => sub { 0 },
 );
 
 has io_priority => (
-    isa => enum([qw[ none be rt idle ]]),
+    isa => sub { $_[0] =~ /^(none|be|rt|idle)$/ },
+    coerce => sub { lc $_[0] },
     is => 'ro',
     predicate => "_has_io_priority",
 );
 
 foreach my $name (qw/ user pid_file /) {
     has $name => (
-        isa => 'Str',
+        isa => Str,
         is => 'ro',
         predicate => "_has_$name",
     );
@@ -97,7 +98,8 @@ Message::Passing:Role::Script - Handy role for building messaging scripts.
 
     # my_message_passer.pl
     package My::Message::Passer;
-    use Moose;
+    use Moo;
+    use MooX::Types::MooseLike::Base qw/ Bool /;
     use Message::Passing::DSL;
 
     with qw/
@@ -107,7 +109,7 @@ Message::Passing:Role::Script - Handy role for building messaging scripts.
 
     has foo => (
         is => 'ro',
-        isa => 'Bool',
+        isa => Bool,
     );
 
     sub build_chain {

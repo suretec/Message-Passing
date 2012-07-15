@@ -1,16 +1,19 @@
 package Message::Passing::Role::Crypt::CBC;
-use Moose::Role;
+use Moo::Role;
+use MooX::Types::MooseLike::Base qw/ Str /;
 use Crypt::CBC;
-use namespace::autoclean;
+use namespace::clean -except => 'meta';
 
-has [qw/
+foreach my $name (qw/
     encryption_key
     encryption_cipher
-/] => (
-    isa => 'Str',
-    is => 'ro',
-    required => 1,
-);
+/) {
+    has $name => (
+        isa => Str,
+        is => 'ro',
+        required => 1,
+    );
+}
 
 # NOTE - We need a new CBC object per message, otherwise if we _EVER_ drop
 #        messages then we totally screw ourselves!

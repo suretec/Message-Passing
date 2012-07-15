@@ -1,7 +1,7 @@
 package Message::Passing::Filter::Decoder::Gzip;
-use Moose;
+use Moo;
 use Compress::Zlib;
-use namespace::autoclean;
+use namespace::clean -except => 'meta';
 
 with 'Message::Passing::Role::Filter';
 
@@ -10,7 +10,7 @@ sub filter {
     Compress::Zlib::memGunzip($message);
 }
 
-__PACKAGE__->meta->make_immutable;
+
 1;
 
 =head1 NAME

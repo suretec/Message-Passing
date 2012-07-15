@@ -2,9 +2,6 @@ use strict;
 use warnings;
 use Test::More;
 use Try::Tiny;
-use Message::Passing::Input::Null;
-use Message::Passing::Output::Test;
-use Message::Passing::Output::Null;
 
 plan skip_all => "No Crypt::CBC or no Crypt::Blowfish"
     unless try {
@@ -14,6 +11,9 @@ plan skip_all => "No Crypt::CBC or no Crypt::Blowfish"
 
 use_ok 'Message::Passing::Filter::Decoder::Crypt::CBC';
 use_ok 'Message::Passing::Filter::Encoder::Crypt::CBC';
+use_ok 'Message::Passing::Output::Test';
+use_ok 'Message::Passing::Input::Null';
+use_ok 'Message::Passing::Output::Null';
 
 my $cbct = Message::Passing::Output::Test->new;
 my $cbc = Message::Passing::Input::Null->new(

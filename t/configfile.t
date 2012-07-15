@@ -30,7 +30,7 @@ my $i;
 ok $i;
 is $i->input, 'Null';
 is $i->output, 'Test';
-is_deeply {$i->input_options}, {
+is_deeply $i->input_options, {
         foo => 'bar',
     };
 

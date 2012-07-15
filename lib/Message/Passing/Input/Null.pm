@@ -1,12 +1,12 @@
 package Message::Passing::Input::Null;
-use Moose;
+use Moo;
 use AnyEvent;
 use Try::Tiny;
-use namespace::autoclean;
+use namespace::clean -except => 'meta';
 
 with 'Message::Passing::Role::Input';
 
-__PACKAGE__->meta->make_immutable;
+
 1;
 
 =head1 NAME

@@ -1,25 +1,45 @@
 package Message::Passing;
-use Moose;
+use Moo;
 use Getopt::Long qw(:config pass_through);
 use Config::Any;
-use namespace::autoclean;
+use Message::Passing::Role::CLIComponent;
+use Message::Passing::DSL;
+use Carp qw/ confess /;
+use namespace::clean -except => [qw/ meta new_with_options has /];
 use 5.8.4;
 
-use Message::Passing::DSL;
+sub new_with_config {
+    my ($class, %args) = @_;
+
+    if (my $conf = $args{configfile}) {
+        my $cfg = $class->get_config_from_file($conf);
+        foreach my $k (keys %$cfg) {
+            if (!exists $args{$k}) {
+                $args{$k} = $cfg->{$k};
+            }
+        }
+    }
+    $class->new(%args);
+}
+
+use MooX::Options creation_chain_method => 'new_with_config';
 
 with
-    'MooseX::Getopt',
-    'MooseX::ConfigFromFile',
-    'Message::Passing::Role::CLIComponent' => { name => 'input' },
-    'Message::Passing::Role::CLIComponent' => { name => 'output' },
-    'Message::Passing::Role::CLIComponent' => { name => 'filter', default => 'Null' },
-    'Message::Passing::Role::CLIComponent' => { name => 'decoder', default => 'JSON' },
-    'Message::Passing::Role::CLIComponent' => { name => 'encoder', default => 'JSON' },
-    'Message::Passing::Role::CLIComponent' => { name => 'error', default => 'STDERR' },
+    CLIComponent( name => 'input', option => __PACKAGE__->can('option') ),
+    CLIComponent( name => 'output', option => __PACKAGE__->can('option') ),
+    CLIComponent( name => 'filter', default => 'Null', option => __PACKAGE__->can('option') ),
+    CLIComponent( name => 'decoder', default => 'JSON', option => __PACKAGE__->can('option') ),
+    CLIComponent( name => 'encoder', default => 'JSON', option => __PACKAGE__->can('option') ),
+    CLIComponent( name => 'error', default => 'STDERR', option => __PACKAGE__->can('option') ),
     'Message::Passing::Role::Script';
 
 our $VERSION = '0.010';
 $VERSION = eval $VERSION;
+
+option configfile => (
+    is => 'ro',
+    format => 's',
+);
 
 sub get_config_from_file {
     my ($class, $filename) = @_;
@@ -34,37 +54,37 @@ sub build_chain {
     my $self = shift;
         message_chain {
             error_log(
-                $self->error_options,
+                %{ $self->error_options },
                 class => $self->error,
             );
             output output => (
-                $self->output_options,
+                %{ $self->output_options },
                 class => $self->output,
             );
             encoder("encoder",
-                $self->encoder_options,
+                %{ $self->encoder_options },
                 class => $self->encoder,
                 output_to => 'output',
             );
             filter filter => (
-                $self->filter_options,
+                %{ $self->filter_options },
                 class => $self->filter,
                 output_to => 'encoder',
             );
             decoder("decoder",
-                $self->decoder_options,
+                %{ $self->decoder_options },
                 class => $self->decoder,
                 output_to => 'filter',
             );
             input input => (
-                $self->input_options,
+                %{ $self->input_options },
                 class => $self->input,
                 output_to => 'decoder',
             );
         };
 }
 
-__PACKAGE__->meta->make_immutable;
+
 1;
 
 =head1 NAME

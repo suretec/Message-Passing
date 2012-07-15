@@ -13,17 +13,16 @@ resources(
     repository => "git://github.com/suretec/Message-Passing.git",
 );
 
-requires 'Moose';
-requires 'namespace::autoclean';
+requires 'Moo' => '0.091011';
+requires 'Package::Variant' => '1.001001';
+requires 'namespace::clean' => '0.23';
+requires 'Module::Runtime' => '0.013';
 requires 'AnyEvent';
-requires 'MooseX::ConfigFromFile';
 requires 'Config::Any';
-requires 'MooseX::Types';
-requires 'MooseX::Types::Common';
-requires 'MooseX::Types::LoadableClass';
+requires 'MooX::Types::MooseLike' => '0.08';
+requires 'MooX::Options' => '1.6';
 requires 'String::RewritePrefix';
 requires 'JSON' => '2.0';
-requires 'MooseX::Getopt';
 requires 'Try::Tiny';
 requires 'Task::Weaken';
 

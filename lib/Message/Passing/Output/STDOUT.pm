@@ -1,6 +1,6 @@
 package Message::Passing::Output::STDOUT;
-use Moose;
-use namespace::autoclean;
+use Moo;
+use namespace::clean -except => 'meta';
 
 with 'Message::Passing::Role::Output';
 
@@ -10,7 +10,7 @@ sub consume {
     print STDOUT shift() . "\n";
 }
 
-__PACKAGE__->meta->make_immutable;
+
 1;
 
 =head1 NAME

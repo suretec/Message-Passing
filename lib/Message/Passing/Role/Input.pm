@@ -1,16 +1,23 @@
 package Message::Passing::Role::Input;
-use Moose::Role;
-use JSON qw/ from_json /;
-use Message::Passing::Types qw/
-    Output_Type
-/;
-use namespace::autoclean;
+use Moo::Role;
+use Scalar::Util qw/ blessed /;
+use Module::Runtime qw/ require_module /;
+use namespace::clean -except => 'meta';
 
 has output_to => (
-    isa => Output_Type,
     is => 'ro',
     required => 1,
-    coerce => 1,
+    ise => sub { blessed($_[0]) && $_[0]->can('consume') },
+    coerce => sub {
+        my $val = shift;
+        if (ref($val) eq 'HASH') {
+            my %stuff = %$val;
+            my $class = delete($stuff{class});
+            require_module($class);
+            $val = $class->new(%stuff);
+        }
+        $val;
+    },
 );
 
 1;

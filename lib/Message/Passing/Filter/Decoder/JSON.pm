@@ -1,13 +1,13 @@
 package Message::Passing::Filter::Decoder::JSON;
-use Moose;
+use Moo;
 use JSON qw/ from_json /;
-use namespace::autoclean;
+use namespace::clean -except => 'meta';
 
 with 'Message::Passing::Role::Filter';
 
 sub filter { ref($_[1]) ? $_[1] : from_json( $_[1], { utf8  => 1 } ) }
 
-__PACKAGE__->meta->make_immutable;
+
 1;
 
 =head1 NAME

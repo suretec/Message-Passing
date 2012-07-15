@@ -1,16 +1,13 @@
 package Message::Passing::DSL;
-
-use Moose ();
-use Moose::Exporter;
 use Message::Passing::DSL::Factory;
 use Carp qw/ confess /;
-use Scalar::Util qw/weaken/;
+use Scalar::Util qw/ blessed weaken /;
 use AnyEvent;
-use Moose::Util qw/ does_role /;
+use Exporter qw/ import /;
 
-Moose::Exporter->setup_import_methods(
-    as_is     => [qw/ run_message_server message_chain input filter output decoder encoder error_log /],
-);
+our @EXPORT = qw/
+    run_message_server message_chain input filter output decoder encoder error_log
+/;
 
 our $FACTORY;
 sub _check_factory {
@@ -24,18 +21,18 @@ sub message_chain (&) {
     }
     local $FACTORY = Message::Passing::DSL::Factory->new;
     $code->();
-    my %items = $FACTORY->registry;
+    my %items = %{ $FACTORY->registry };
     $FACTORY->clear_registry;
     weaken($items{$_}) for
-        grep { does_role($items{$_}, 'Message::Passing::Role::Output') }
+        grep { blessed($items{$_}) && $items{$_}->can('consume') }
         keys %items;
     foreach my $name (keys %items) {
         next if $items{$name};
         warn "Unused output or filter $name in chain\n";
     }
     return [
-        grep { !does_role($_, 'Message::Passing::Role::Output') }
-        grep { does_role($_, 'Message::Passing::Role::Input') }
+        grep { ! ( blessed($_) && $_->can('consume') ) }
+        grep { blessed($_) && $_->can('output_to') }
         values %items
     ];
 }
@@ -120,7 +117,7 @@ Message::Passing::DSL - An easy way to make chains of Message::Passing component
     has socket_bind => (
         is => 'ro',
         isa => 'Str',
-        default => 'tcp://*:5558',
+        default => sub { 'tcp://*:5558' },
     );
 
     sub build_chain {

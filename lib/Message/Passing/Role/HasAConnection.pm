@@ -1,7 +1,8 @@
 package Message::Passing::Role::HasAConnection;
-use Moose::Role;
-use Moose::Util::TypeConstraints;
-use namespace::autoclean;
+use Moo::Role;
+use Module::Runtime qw/ require_module /;
+use Carp qw/ confess /;
+use namespace::clean -except => 'meta';
 
 with qw/
     Message::Passing::Role::HasTimeoutAndReconnectAfter
@@ -14,7 +15,7 @@ requires 'connected';
 has connection_manager => (
     is => 'ro',
     lazy => 1,
-    isa => duck_type([qw/subscribe_to_connect/]),
+#    isa => duck_type([qw/subscribe_to_connect/]),
     builder => '_build_connection_manager',
 );
 
@@ -25,7 +26,7 @@ sub _build_connection_manager {
             && $self->can('_connection_manager_class');
     my %attrs = map { $_ => $self->$_ } (@{ $self->_connection_manager_attributes }, qw/timeout reconnect_after error/);
     my $class = $self->_connection_manager_class;
-    Class::MOP::load_class($class);
+    require_module($class);
     $class->new(%attrs);
 }
 

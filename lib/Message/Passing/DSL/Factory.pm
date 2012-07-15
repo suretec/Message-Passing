@@ -1,8 +1,12 @@
 package Message::Passing::DSL::Factory;
-use Moose;
+use Moo;
+use MooX::Types::MooseLike::Base qw/ HashRef /;
 use String::RewritePrefix;
 use Message::Passing::Output::STDERR;
-use namespace::autoclean;
+use Carp qw/ confess /;
+use Scalar::Util qw/ blessed /;
+use Module::Runtime qw/ require_module /;
+use namespace::clean -except => 'meta';
 
 sub expand_class_name {
     my ($self, $type, $name) = @_;
@@ -13,25 +17,26 @@ sub expand_class_name {
 }
 
 has registry => (
-    isa => 'HashRef',
+    is => 'ro',
+    isa => HashRef,
     default => sub { {} },
-    traits => ['Hash'],
-    handles => {
-        registry_get => 'get',
-        registry_has => 'get',
-        registry_set => 'set',
-        registry => 'elements',
-    },
     lazy => 1,
     clearer => 'clear_registry',
 );
+
+sub registry_get { shift->registry->{shift()} }
+sub registry_has { exists shift->registry->{shift()} }
+sub registry_set {
+    my ($self, $name, $val) = @_;
+    $self->registry->{$name} = $val;
+}
 
 sub set_error {
     my ($self, %opts) = @_;
     my $class = delete $opts{class}
         || confess("Class name needed");
     $class = $self->expand_class_name('Output', $class);
-    Class::MOP::load_class($class);
+    require_module($class);
     $self->_set_error($class->new(%opts));
 }
 
@@ -78,13 +83,13 @@ sub make {
         $opts{error} = $self->error;
     }
     $class = $self->expand_class_name($type, $class);
-    Class::MOP::load_class($class);
+    require_module($class);
     my $out = $class->new(%opts);
     $self->registry_set($name, $out);
     return $out;
 }
 
-__PACKAGE__->meta->make_immutable;
+
 1;
 
 =head1 NAME

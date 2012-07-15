@@ -1,45 +1,45 @@
 package Message::Passing::Role::CLIComponent;
-use MooseX::Role::Parameterized;
-use Moose::Util::TypeConstraints;
-use Message::Passing::Types qw/
-    Hash_from_JSON
-/;
-use namespace::autoclean;
+use strict;
+use warnings;
+use Package::Variant
+    importing => ['Moo::Role'],
+    subs => [ qw(has around before after with) ];
+use MooX::Types::MooseLike::Base qw/ Str /;
+use JSON ();
+use Try::Tiny qw/ try /;
+#use namespace::clean -except => 'CLIComponent';
 
-parameter name => (
-    isa      => 'Str',
-    required => 1,
-);
-
-parameter default => (
-    isa => 'Str',
-    predicate => 'has_default',
-);
-
-role {
+sub make_variant {
+    my ($class, $target_package, %arguments) = @_;
     my $p = shift;
 
-    my $name = $p->name;
-    my $has_default = $p->has_default;
-    my $default = $has_default ? $p->default : undef;
+    my $name = $arguments{name};
+    my $has_default = exists $arguments{default};
+    my $default = $has_default ? $arguments{default} : undef;
 
-    has $name => (
-        isa => 'Str',
-        is => 'ro',
-        required => $has_default ? 0 : 1,
-        $has_default ? ( default => $default ) : (),
-    );
+    $arguments{'option'}->("$name" =>
+            format => 's',
+#            isa => Str,
+            is => 'ro',
+#            required => "$has_default" ? 0 : 1,
+            "$has_default" ? ( default => sub { "$default" } ) : (),
+        );
 
     has "${name}_options" => (
-        isa => Hash_from_JSON,
-        traits    => ['Hash'],
+        is => 'ro',
         default => sub { {} },
-        handles => {
-            "${name}_options" => 'elements',
+        isa => sub { ref($_[0]) eq 'HASH' },
+        coerce => sub {
+            my $str = shift;
+            if (! ref $str) {
+                try {
+                    $str = JSON->new->relaxed->decode($str)
+                };
+            }
+            $str;
         },
-        coerce => 1,
     );
-};
+}
 
 1;
 
@@ -58,7 +58,7 @@ Message::Passing::Role::CLIComponent - Role providing 'foo' and 'foo_options' at
             Message::Passing::Role::Script
             MooseX::Getopt
         /;
-    
+
     sub build_chain {
         my $self = shift;
         message_chain {
