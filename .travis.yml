@@ -1,10 +1,4 @@
 ---
-language: perl
-perl:
-  - "5.16"
-  - "5.14"
-  - "5.12"
-  - "5.10"
 before_install:
   - sudo apt-get install aspell
   - cpanm Module::Install
@@ -18,9 +12,14 @@ before_install:
   - cpanm Pod::Coverage::TrustPod
   - cpanm Test::Spelling
   - cpanm Compress::Zlib
+  - cpanm Crypt::Blowfish
   - cpanm Compress::Bzip2
   - cpanm Crypt::CBC
-  - cpanm Crypt::Blowfish
+language: perl
 notifications:
-  irc: "irc.perl.org#message-passing"
-
+  irc: irc.perl.org#message-passing
+perl:
+  - 5.16
+  - 5.14
+  - 5.12
+  - 5.10
