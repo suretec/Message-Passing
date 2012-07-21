@@ -4,7 +4,7 @@ perl:
   - "5.14"
   - "5.12"
   - "5.10"
-before_script:
+before_install:
   - apt-get install aspell
   - cpanm Module::Install
   - cpanm Module::Install::AuthorRequires
