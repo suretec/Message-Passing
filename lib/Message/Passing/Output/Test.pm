@@ -44,7 +44,7 @@ Message::Passing::Output::Test - Output for use in unit tests
 
 =head2 consume_test
 
-=head1 message_count
+=head2 message_count
 
 =head1 SEE ALSO
 
