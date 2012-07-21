@@ -1,0 +1,23 @@
+---
+perl:
+  - "5.16"
+  - "5.14"
+  - "5.12"
+  - "5.10"
+before_script:
+  - apt-get install aspell
+  - cpanm Module::Install
+  - cpanm Module::Install::AuthorRequires
+  - cpanm Module::Install::AuthorTests
+  - cpanm Module::Install::Authority
+  - cpanm Test::Pod
+  - cpanm Test::NoTabs
+  - cpanm Test::Pod::Coverage
+  - cpanm Pod::Coverage
+  - cpanm Pod::Coverage::TrustPod
+  - cpanm Test::Spelling
+  - cpanm Compress::Zlib
+  - cpanm Compress::Bzip2
+  - cpanm Crypt::CBC
+  - cpanm Crypt::Blowfish
+
