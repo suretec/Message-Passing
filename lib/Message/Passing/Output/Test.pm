@@ -38,6 +38,14 @@ Message::Passing::Output::Test - Output for use in unit tests
     You only want this if you're writing tests...
     See the current tests for examples..
 
+=head1 METHODS
+
+=head2 messages
+
+=head2 consume_test
+
+=head1 message_count
+
 =head1 SEE ALSO
 
 L<Message::Passing>
