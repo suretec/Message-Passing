@@ -5,18 +5,18 @@ perl:
   - "5.12"
   - "5.10"
 before_install:
-  - sudo apt-get install aspell cpanminus
-  - cpanm Module::Install
-  - cpanm Module::Install::AuthorRequires
-  - cpanm Module::Install::AuthorTests
-  - cpanm Module::Install::Authority
-  - cpanm Test::Pod
-  - cpanm Test::NoTabs
-  - cpanm Test::Pod::Coverage
-  - cpanm Pod::Coverage
-  - cpanm Pod::Coverage::TrustPod
-  - cpanm Test::Spelling
-  - cpanm Compress::Zlib
-  - cpanm Compress::Bzip2
-  - cpanm Crypt::CBC
-  - cpanm Crypt::Blowfish
+  - sudo apt-get install aspell sudo cpanminus
+  - sudo cpanm Module::Install
+  - sudo cpanm Module::Install::AuthorRequires
+  - sudo cpanm Module::Install::AuthorTests
+  - sudo cpanm Module::Install::Authority
+  - sudo cpanm Test::Pod
+  - sudo cpanm Test::NoTabs
+  - sudo cpanm Test::Pod::Coverage
+  - sudo cpanm Pod::Coverage
+  - sudo cpanm Pod::Coverage::TrustPod
+  - sudo cpanm Test::Spelling
+  - sudo cpanm Compress::Zlib
+  - sudo cpanm Compress::Bzip2
+  - sudo cpanm Crypt::CBC
+  - sudo cpanm Crypt::Blowfish
