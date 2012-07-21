@@ -20,4 +20,3 @@ before_script:
   - cpanm Compress::Bzip2
   - cpanm Crypt::CBC
   - cpanm Crypt::Blowfish
-
