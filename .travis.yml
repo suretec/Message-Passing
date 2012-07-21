@@ -5,7 +5,7 @@ perl:
   - "5.12"
   - "5.10"
 before_install:
-  - apt-get install aspell
+  - sudo apt-get install aspell
   - cpanm Module::Install
   - cpanm Module::Install::AuthorRequires
   - cpanm Module::Install::AuthorTests
