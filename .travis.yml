@@ -21,3 +21,6 @@ before_install:
   - cpanm Compress::Bzip2
   - cpanm Crypt::CBC
   - cpanm Crypt::Blowfish
+notifications:
+  irc: "irc.perl.org#message-passing"
+
