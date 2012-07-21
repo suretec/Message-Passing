@@ -4,6 +4,8 @@ use Test::More;
 use Test::Spelling;
 
 add_stopwords(qw(
+    Str
+    username
     decrypt
     decrypts
     Decrypts
