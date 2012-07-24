@@ -18,6 +18,7 @@ requires 'Package::Variant' => '1.001001';
 requires 'namespace::clean' => '0.23';
 requires 'Module::Runtime' => '0.013';
 requires 'AnyEvent';
+requires 'AnyEvent::Handle::UDP';
 requires 'Config::Any';
 requires 'MooX::Types::MooseLike' => '0.08';
 requires 'MooX::Options' => '1.6';

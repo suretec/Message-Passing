@@ -25,6 +25,7 @@ use_ok('Message::Passing::Filter::Decoder::Null');
 use_ok('Message::Passing::Role::HasHostnameAndPort');
 use_ok('Message::Passing::Role::HasUsernameAndPassword');
 use_ok('Message::Passing::Role::HasErrorChain');
+use_ok('Message::Passing::Input::Socket::UDP');
 
 done_testing;
 
