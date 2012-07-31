@@ -8,6 +8,9 @@ use Carp qw/ confess /;
 use namespace::clean -except => [qw/ meta new_with_options has /];
 use 5.8.4;
 
+our $VERSION = '0.100';
+$VERSION = eval $VERSION;
+
 sub new_with_config {
     my ($class, %args) = @_;
 
@@ -32,9 +35,6 @@ with
     CLIComponent( name => 'encoder', default => 'JSON', option => __PACKAGE__->can('option') ),
     CLIComponent( name => 'error', default => 'STDERR', option => __PACKAGE__->can('option') ),
     'Message::Passing::Role::Script';
-
-our $VERSION = '0.010';
-$VERSION = eval $VERSION;
 
 option configfile => (
     is => 'ro',

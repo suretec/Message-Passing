@@ -1,3 +1,4 @@
+0.100
   - Port the dist to Moo, so that the core of Message::Passing
     uses no XS code. Components can still be written using full
     Moose, as Moo supports upgrading classes to full Moose classes.
