@@ -236,8 +236,18 @@ Outputs send data to somewhere, i.e. they consume messages.
 
 =head1 THIS MODULE
 
-This is a simple L<MooseX::Getopt> script, with one input, one filter
-and one output.
+This is a simple L<MooseX::Options> script, with one input, one filter
+and one output. To build your own similar scripts, see:
+
+=over
+
+=item L<Message::Passing::DSL> - To declare your message chains
+
+=item L<Message::Passing::Role::CLIComponent> - To provide C<foo> and C<foo_options> attribute pairs.
+
+=item L<Message::Passing::Role::Script> - To provide daemonization features.
+
+=back
 
 =head2 METHODS
 
@@ -278,7 +288,7 @@ and forks / patches are very welcome.
 This module exists due to the wonderful people at Suretec Systems Ltd.
 <http://www.suretecsystems.com/> who sponsored its development for its
 VoIP division called SureVoIP <http://www.surevoip.co.uk/> for use with
-the SureVoIP API - 
+the SureVoIP API -
 <http://www.surevoip.co.uk/support/wiki/api_documentation>
 
 =head1 COPYRIGHT
