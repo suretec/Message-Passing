@@ -18,24 +18,25 @@ An example of doing this is:
 
     package Message::Passing::Script::WebHooks;
     use Moo;
+    use MooX::Options;
     use namespace::clean -except => 'meta';
 
     extends 'Message::Passing';
 
-    has '+encoder' => (
+    option '+encoder' => (
         init_arg => undef,
         default => '+Message::Passing::Filter::Encoder::Null',
-        traits => ['NoGetopt'],
+        nogetopt => 1,
     );
 
-    has '+output' => (
-        traits => ['NoGetopt'],
+    option '+output' => (
+        nogetopt => 1,
     );
 
     __PACKAGE__->start( output => 'WebHooks' ) unless caller;
 
 This shows overriding the default command line options, as this script is
-dedicated to L<Message::Passing::Output::WebHooks>..
+dedicated to L<Message::Passing::Output::WebHooks>.
 
 =head2 Different scripts
 
@@ -127,3 +128,4 @@ example.
 See L<Message::Passing>.
 
 =cut
+

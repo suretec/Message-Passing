@@ -236,7 +236,7 @@ Outputs send data to somewhere, i.e. they consume messages.
 
 =head1 THIS MODULE
 
-This is a simple L<MooseX::Options> script, with one input, one filter
+This is a simple L<MooX::Options> script, with one input, one filter
 and one output. To build your own similar scripts, see:
 
 =over

@@ -2,9 +2,9 @@
 
 Message::Passing::Manual::Workers
 
-
 =head1 AUTHOR, COPYRIGHT & LICENSE
 
 See L<Message::Passing>.
 
 =cut
+
