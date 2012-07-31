@@ -2,6 +2,17 @@
     uses no XS code. Components can still be written using full
     Moose, as Moo supports upgrading classes to full Moose classes.
 
+    Note however that this implies the following changes to custom scripts:
+
+    - Scripts should use MooX::Options instead of MooseX::Getopt,
+      attributes will need to be updated to use the 'option' keyword
+      rather than 'has'.
+
+    - Message::Passing::Role::CLIComponent is now built on top of
+      Package::Variant rather than MooseX::Role::Parameterized,
+      and so scripts should now import it and use the function
+      provided to generate roles.
+
 0.010
   - Doc fix in Message::Passing::Manual::Cookbook
     https://github.com/suretec/Message-Passing/pull/2
