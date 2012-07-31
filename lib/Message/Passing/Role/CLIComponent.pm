@@ -45,19 +45,20 @@ sub make_variant {
 
 =head1 NAME
 
-Message::Passing::Role::CLIComponent - Role providing 'foo' and 'foo_options' attributes
+Message::Passing::Role::CLIComponent - Package::Variant providing 'foo' and 'foo_options' attributes
 
 =head1 SYNOPSIS
 
     package My::Message::Passing::Script;
     use Moo;
+    use MooX::Options;
+    use Message::Passing::Role::CLIComponent;
+    use Message::Passing::DSL;
+    use namespace::clean -except => 'meta';
 
     with
-        'Message::Passing::Role::CLIComponent' => { name => 'input', default => 'STDIN' },
-        qw/
-            Message::Passing::Role::Script
-            MooseX::Getopt
-        /;
+        CLIComponent( name => 'input', default => 'STDIN' ),
+        'Message::Passing::Role::Script';
 
     sub build_chain {
         my $self = shift;
@@ -72,14 +73,14 @@ Message::Passing::Role::CLIComponent - Role providing 'foo' and 'foo_options' at
 
 =head1 DESCRIPTION
 
-A L<MooseX::Role::Parameterized> role, which is used to provide a pair of attributes for name/options
+A L<Package::Variant> role producer, which is used to provide a pair of attributes for name/options
 as per the L<message-pass> script.
 
 =head1 ROLE PARAMETERS
 
 =head2 name
 
-The name of the main attribute. An additional attribute called "${name}_options" will also be added,
+The name of the main attribute. An additional attribute called C<< "${name}_options" >> will also be added,
 which coerces a hashref from JSON.
 
 =head2 default
@@ -91,7 +92,7 @@ A default value for the main attribute. If this is not supplied, than the attrib
 This module exists due to the wonderful people at Suretec Systems Ltd.
 <http://www.suretecsystems.com/> who sponsored its development for its
 VoIP division called SureVoIP <http://www.surevoip.co.uk/> for use with
-the SureVoIP API - 
+the SureVoIP API -
 <http://www.surevoip.co.uk/support/wiki/api_documentation>
 
 =head1 AUTHOR, COPYRIGHT AND LICENSE
@@ -99,3 +100,4 @@ the SureVoIP API -
 See L<Message::Passing>.
 
 =cut
+

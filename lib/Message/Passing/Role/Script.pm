@@ -99,15 +99,13 @@ Message::Passing:Role::Script - Handy role for building messaging scripts.
     # my_message_passer.pl
     package My::Message::Passer;
     use Moo;
+    use MooX::Options;
     use MooX::Types::MooseLike::Base qw/ Bool /;
     use Message::Passing::DSL;
 
-    with qw/
-        Message::Passing::Role::Script
-        MooseX::Getopt
-    /;
+    with 'Message::Passing::Role::Script';
 
-    has foo => (
+    option foo => (
         is => 'ro',
         isa => Bool,
     );
@@ -127,7 +125,7 @@ Message::Passing:Role::Script - Handy role for building messaging scripts.
 
 This role can be used to make simple message passing scripts.
 
-The user implements a L<MooseX::Getopt> type script class, with a
+The user implements a L<MooX::Options> type script class, with a
 C<build_chain> method, that builds one or more
 L<Message::Passing> chains and returns them.
 
@@ -208,7 +206,7 @@ has been supplied.
 This module exists due to the wonderful people at Suretec Systems Ltd.
 <http://www.suretecsystems.com/> who sponsored its development for its
 VoIP division called SureVoIP <http://www.surevoip.co.uk/> for use with
-the SureVoIP API - 
+the SureVoIP API -
 <http://www.surevoip.co.uk/support/wiki/api_documentation>
 
 =head1 AUTHOR, COPYRIGHT AND LICENSE

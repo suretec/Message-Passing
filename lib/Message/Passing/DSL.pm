@@ -109,15 +109,17 @@ Message::Passing::DSL - An easy way to make chains of Message::Passing component
 =head1 SYNOPSIS
 
     package mylogcollectorscript;
-    use Moose;
+    use Moo;
+    use MooX::Options;
     use Message::Passing::DSL;
+    use MooX::Types::MooseLike::Base qw/ Str /;
+    use namespace::clean -except => 'meta';
 
-    with 'MooseX::Getopt',
-        'Message::Passing::Role::Script';
+    with 'Message::Passing::Role::Script';
 
-    has socket_bind => (
+    option socket_bind => (
         is => 'ro',
-        isa => 'Str',
+        isa => Str,
         default => sub { 'tcp://*:5558' },
     );
 
@@ -245,7 +247,7 @@ loop is entered).
 This module exists due to the wonderful people at Suretec Systems Ltd.
 <http://www.suretecsystems.com/> who sponsored its development for its
 VoIP division called SureVoIP <http://www.surevoip.co.uk/> for use with
-the SureVoIP API - 
+the SureVoIP API -
 <http://www.surevoip.co.uk/support/wiki/api_documentation>
 
 =head1 AUTHOR, COPYRIGHT AND LICENSE
