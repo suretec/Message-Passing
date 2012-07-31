@@ -42,3 +42,23 @@ sub consume {
 
 1;
 
+=head1 NAME
+
+Message::Passing::Output::Socket::UDP
+
+=head1 DESCRIPTION
+
+Outputs messages to a UDP socket.
+
+=head1 METHODS
+
+=head2 consume
+
+Consumes a message by emitting it over UDP.
+
+=head1 AUTHOR, COPYRIGHT AND LICENSE
+
+See L<Message::Passing>.
+
+=cut
+

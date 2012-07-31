@@ -17,3 +17,23 @@ has reconnect_after => (
 
 1;
 
+=head1 NAME
+
+Message::Passing::Role::HasTimeoutAndReconnectAfter
+
+=head1 DESCRIPTION
+
+Adds a C<timeout> and a C<reconnect_after> attributes to your class.
+
+=head1 METHODS
+
+=head2 timeout
+
+=head2 reconnect_after
+
+=head1 AUTHOR, COPYRIGHT AND LICENSE
+
+See L<Message::Passing>.
+
+=cut
+

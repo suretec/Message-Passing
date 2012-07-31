@@ -19,3 +19,24 @@ has port => (
 
 1;
 
+=head1 NAME
+
+Message::Passing::Role::HasHostnameAndPort
+
+=head1 DESCRIPTION
+
+Adds a C<hostname> and a C<port> attributes to your class.
+
+=head1 METHODS
+
+=head2 hostname
+
+=head2 port
+
+=head1 AUTHOR, COPYRIGHT AND LICENSE
+
+See L<Message::Passing>.
+
+=cut
+
+

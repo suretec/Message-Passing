@@ -37,6 +37,12 @@ Message::Passing::Role::HasErrorChain - A role for components which can report e
 
 Some components can create an error stream in addition to a message stream.
 
+=head1 METHODS
+
+=head2 error
+
+An attribute containing the error chain.
+
 =head1 SPONSORSHIP
 
 This module exists due to the wonderful people at Suretec Systems Ltd.

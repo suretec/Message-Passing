@@ -65,6 +65,15 @@ Output messages to File
 
 =head1 METHODS
 
+=head2 append
+
+A boolean attribute for if the output file should be re-created, or
+appended to. Default true.
+
+=head2 filename
+
+An attribute for the file name to write to.
+
 =head2 consume
 
 Consumes a message by JSON encoding it and printing it, followed by \n
