@@ -60,6 +60,16 @@ Message::Passing::Input::FileTail - File tailing input
 
 =head1 DESCRIPTION
 
+=head1 METHODS
+
+=head2 filename
+
+The filename of the file to tail.
+
+=head2 tailer_pid
+
+The PID of the C<< tail -F >> being run.
+
 =head1 SEE ALSO
 
 L<Message::Passing>

@@ -32,6 +32,10 @@ Message::Passing::Output::Callback - Output to call back into your code
 
 =head1 METHODS
 
+=head2 cb
+
+The callback to be called when a message is received.
+
 =head2 consume ($msg)
 
 Calls the callback with the message as it's first parameter

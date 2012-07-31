@@ -112,8 +112,13 @@ SEE ALSO
     Log::Dispatch.
 
 THIS MODULE
-    This is a simple MooseX::Getopt script, with one input, one filter and
-    one output.
+    This is a simple MooX::Options script, with one input, one filter and
+    one output. To build your own similar scripts, see:
+
+    Message::Passing::DSL - To declare your message chains
+    Message::Passing::Role::CLIComponent - To provide "foo" and
+    "foo_options" attribute pairs.
+    Message::Passing::Role::Script - To provide daemonization features.
 
   METHODS
    build_chain
