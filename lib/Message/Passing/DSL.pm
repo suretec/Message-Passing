@@ -109,9 +109,10 @@ Message::Passing::DSL - An easy way to make chains of Message::Passing component
 =head1 SYNOPSIS
 
     package mylogcollectorscript;
+    use Moose;
     use Message::Passing::DSL;
 
-    with 'MooseX::GetOpt',
+    with 'MooseX::Getopt',
         'Message::Passing::Role::Script';
 
     has socket_bind => (
