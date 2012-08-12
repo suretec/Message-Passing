@@ -5,7 +5,7 @@ use Config::Any;
 use Message::Passing::Role::CLIComponent;
 use Message::Passing::DSL;
 use Carp qw/ confess /;
-use namespace::clean -except => [qw/ meta new_with_options has /];
+use namespace::clean -except => [qw/ meta has /];
 use 5.8.4;
 
 our $VERSION = '0.100';
