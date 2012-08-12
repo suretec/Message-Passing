@@ -11,8 +11,9 @@ use 5.8.4;
 our $VERSION = '0.100';
 $VERSION = eval $VERSION;
 
-sub new_with_config {
-    my ($class, %args) = @_;
+sub new_with_options {
+    my $class = shift;
+    my %args = $class->parse_options(@_);
 
     if (my $conf = $args{configfile}) {
         my $cfg = $class->get_config_from_file($conf);
@@ -25,7 +26,7 @@ sub new_with_config {
     $class->new(%args);
 }
 
-use MooX::Options creation_chain_method => 'new_with_config';
+use MooX::Options;
 
 with
     CLIComponent( name => 'input' ),

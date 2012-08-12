@@ -20,7 +20,6 @@ sub make_variant {
 
     my $_options_meta = {};
     has "$name" => (
-            format => 's',
             isa => Str,
             is => 'ro',
 #            required => "$has_default" ? 0 : 1,
