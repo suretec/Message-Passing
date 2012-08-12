@@ -28,12 +28,12 @@ sub new_with_config {
 use MooX::Options creation_chain_method => 'new_with_config';
 
 with
-    CLIComponent( name => 'input', option => __PACKAGE__->can('option') ),
-    CLIComponent( name => 'output', option => __PACKAGE__->can('option') ),
-    CLIComponent( name => 'filter', default => 'Null', option => __PACKAGE__->can('option') ),
-    CLIComponent( name => 'decoder', default => 'JSON', option => __PACKAGE__->can('option') ),
-    CLIComponent( name => 'encoder', default => 'JSON', option => __PACKAGE__->can('option') ),
-    CLIComponent( name => 'error', default => 'STDERR', option => __PACKAGE__->can('option') ),
+    CLIComponent( name => 'input' ),
+    CLIComponent( name => 'output' ),
+    CLIComponent( name => 'filter', default => 'Null' ),
+    CLIComponent( name => 'decoder', default => 'JSON' ),
+    CLIComponent( name => 'encoder', default => 'JSON' ),
+    CLIComponent( name => 'error', default => 'STDERR' ),
     'Message::Passing::Role::Script';
 
 option configfile => (

@@ -21,7 +21,7 @@ requires 'AnyEvent';
 requires 'AnyEvent::Handle::UDP';
 requires 'Config::Any';
 requires 'MooX::Types::MooseLike' => '0.08';
-requires 'MooX::Options' => '1.6';
+requires 'MooX::Options' => '3.2';
 requires 'String::RewritePrefix';
 requires 'JSON' => '2.0';
 requires 'Try::Tiny';

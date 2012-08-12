@@ -7,6 +7,7 @@ use Package::Variant
 use MooX::Types::MooseLike::Base qw/ Str /;
 use JSON ();
 use Try::Tiny qw/ try /;
+use MooX::Options ();
 #use namespace::clean -except => 'CLIComponent';
 
 sub make_variant {
@@ -17,13 +18,18 @@ sub make_variant {
     my $has_default = exists $arguments{default};
     my $default = $has_default ? $arguments{default} : undef;
 
-    $arguments{'option'}->("$name" =>
+    my $_options_meta = {};
+    has "$name" => (
             format => 's',
             isa => Str,
             is => 'ro',
 #            required => "$has_default" ? 0 : 1,
             "$has_default" ? ( default => sub { "$default" } ) : (),
-        );
+    );
+    $_options_meta->{$name} = {  MooX::Options::_validate_and_filter_options(
+        format => 's',
+        "$has_default" ? ( default => sub { "$default" } ) : (),
+    ) };
 
     has "${name}_options" => (
         is => 'ro',
@@ -39,6 +45,13 @@ sub make_variant {
             $str;
         },
     );
+    $_options_meta->{$name} = {  MooX::Options::_validate_and_filter_options(
+        format => 's',
+    ) };
+    around(  _options_meta => sub {
+        my ( $orig, $self ) = ( shift, shift );
+        return ( $self->$orig(@_), %$_options_meta );
+    });
 }
 
 1;
