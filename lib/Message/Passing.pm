@@ -5,7 +5,6 @@ use Config::Any;
 use Message::Passing::Role::CLIComponent;
 use Message::Passing::DSL;
 use Carp qw/ confess /;
-use namespace::clean -except => [qw/ meta has /];
 use 5.8.4;
 
 our $VERSION = '0.100';
@@ -27,6 +26,7 @@ sub new_with_options {
 }
 
 use MooX::Options;
+use namespace::clean -except => [qw/ meta /];
 
 with
     CLIComponent( name => 'input' ),
