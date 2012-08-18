@@ -2,13 +2,12 @@ package Message::Passing::Role::CLIComponent;
 use strict;
 use warnings;
 use Package::Variant
-    importing => ['Moo::Role', 'MooX::Options'],
+    importing => ['Moo::Role'],
     subs => [ qw(has around before after with) ];
 use MooX::Options;
 use MooX::Types::MooseLike::Base qw/ Str /;
 use JSON ();
 use Try::Tiny qw/ try /;
-#use namespace::clean -except => 'CLIComponent';
 
 sub make_variant {
     my ($class, $target_package, %arguments) = @_;
