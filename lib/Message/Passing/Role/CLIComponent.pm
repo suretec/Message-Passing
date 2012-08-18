@@ -2,12 +2,12 @@ package Message::Passing::Role::CLIComponent;
 use strict;
 use warnings;
 use Package::Variant
-    importing => ['Moo::Role'],
+    importing => ['Moo::Role', 'MooX::Options'],
     subs => [ qw(has around before after with) ];
+use MooX::Options;
 use MooX::Types::MooseLike::Base qw/ Str /;
 use JSON ();
 use Try::Tiny qw/ try /;
-use MooX::Options ();
 #use namespace::clean -except => 'CLIComponent';
 
 sub make_variant {
@@ -18,21 +18,10 @@ sub make_variant {
     my $has_default = exists $arguments{default};
     my $default = $has_default ? $arguments{default} : undef;
 
-    my $_options_meta = {};
-    has "$name" => (
-            isa => Str,
-            is => 'ro',
-#            required => "$has_default" ? 0 : 1,
-            "$has_default" ? ( default => sub { "$default" } ) : (),
-    );
-    $_options_meta->{$name} = {  MooX::Options::_validate_and_filter_options(
-        format => 's',
-        "$has_default" ? ( default => sub { "$default" } ) : (),
-    ) };
-
-    has "${name}_options" => (
+    option "$name" => (
         is => 'ro',
-        default => sub { {} },
+#       required => "$has_default" ? 0 : 1,
+        $has_default ? ( default => sub { "$default" } ) : (),
         isa => sub { ref($_[0]) eq 'HASH' },
         coerce => sub {
             my $str = shift;
@@ -43,14 +32,8 @@ sub make_variant {
             }
             $str;
         },
-    );
-    $_options_meta->{$name} = {  MooX::Options::_validate_and_filter_options(
         format => 's',
-    ) };
-    around(  _options_meta => sub {
-        my ( $orig, $self ) = ( shift, shift );
-        return ( $self->$orig(@_), %$_options_meta );
-    });
+    );
 }
 
 1;

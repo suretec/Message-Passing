@@ -1,11 +1,11 @@
 package Message::Passing;
 use Moo;
-use Getopt::Long qw(:config pass_through);
 use Config::Any;
 use Message::Passing::Role::CLIComponent;
 use Message::Passing::DSL;
 use Carp qw/ confess /;
-use namespace::clean -except => [qw/ meta has /];
+use MooX::Options flavour => [qw( pass_through )], protect_argv => 0;
+use namespace::clean -except => [qw/ meta new_with_options parse_options _options_data _options_config/];
 use 5.8.4;
 
 our $VERSION = '0.100';
@@ -25,8 +25,6 @@ sub new_with_options {
     }
     $class->new(%args);
 }
-
-use MooX::Options;
 
 with
     CLIComponent( name => 'input' ),
