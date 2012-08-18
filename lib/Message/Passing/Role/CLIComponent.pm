@@ -19,9 +19,16 @@ sub make_variant {
     my $default = $has_default ? $arguments{default} : undef;
 
     option "$name" => (
+        isa => Str,
         is => 'ro',
 #       required => "$has_default" ? 0 : 1,
-        $has_default ? ( default => sub { "$default" } ) : (),
+        "$has_default" ? ( default => sub { "$default" } ) : (),
+        format => 's',
+    );
+
+    option "${name}_options" => (
+        is => 'ro',
+        default => sub { {} },
         isa => sub { ref($_[0]) eq 'HASH' },
         coerce => sub {
             my $str = shift;
