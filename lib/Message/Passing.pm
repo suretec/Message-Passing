@@ -51,38 +51,37 @@ sub get_config_from_file {
 
 sub build_chain {
     my $self = shift;
-        message_chain {
-            error_log(
-                %{ $self->error_options },
-                class => $self->error,
-            );
-            output output => (
-                %{ $self->output_options },
-                class => $self->output,
-            );
-            encoder("encoder",
-                %{ $self->encoder_options },
-                class => $self->encoder,
-                output_to => 'output',
-            );
-            filter filter => (
-                %{ $self->filter_options },
-                class => $self->filter,
-                output_to => 'encoder',
-            );
-            decoder("decoder",
-                %{ $self->decoder_options },
-                class => $self->decoder,
-                output_to => 'filter',
-            );
-            input input => (
-                %{ $self->input_options },
-                class => $self->input,
-                output_to => 'decoder',
-            );
-        };
+    message_chain {
+        error_log(
+            %{ $self->error_options },
+            class => $self->error,
+        );
+        output output => (
+            %{ $self->output_options },
+            class => $self->output,
+        );
+        encoder("encoder",
+            %{ $self->encoder_options },
+            class => $self->encoder,
+            output_to => 'output',
+        );
+        filter filter => (
+            %{ $self->filter_options },
+            class => $self->filter,
+            output_to => 'encoder',
+        );
+        decoder("decoder",
+            %{ $self->decoder_options },
+            class => $self->decoder,
+            output_to => 'filter',
+        );
+        input input => (
+            %{ $self->input_options },
+            class => $self->input,
+            output_to => 'decoder',
+        );
+    };
 }
-
 
 1;
 
