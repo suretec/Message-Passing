@@ -1,3 +1,4 @@
+\.swp$
 ^Message-Passing
 ^Makefile$
 ^Makefile.old$
