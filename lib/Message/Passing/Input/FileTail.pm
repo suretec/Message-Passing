@@ -3,6 +3,7 @@ use Moo;
 use MooX::Types::MooseLike::Base qw/ Str Int /;
 use AnyEvent;
 use Scalar::Util qw/ weaken /;
+use POSIX ":sys_wait_h";
 use namespace::clean -except => 'meta';
 
 with 'Message::Passing::Role::Input';
@@ -17,12 +18,7 @@ has _tail_handle => (
     is => 'ro',
     lazy => 1,
     builder => '_build_tail_handle',
-);
-
-has tailer_pid => (
-    init_arg => undef,
-    is => 'ro',
-    writer => '_set_tailer_pid',
+    clearer => '_clear_tail_handle',
 );
 
 sub _build_tail_handle {
@@ -36,6 +32,15 @@ sub _build_tail_handle {
         poll => "r",
         cb => sub {
             my $input = scalar <$r>;
+            if (!defined $input) {
+                $self->_clear_tail_handle;
+                my $i; $i = AnyEvent->idle(cb => sub {
+                    undef $i;
+                    close($r);
+                    $self->_tail_handle;
+                });
+                return;
+            }
             $self->output_to->consume($input);
         },
     );
@@ -65,10 +70,6 @@ Message::Passing::Input::FileTail - File tailing input
 =head2 filename
 
 The filename of the file to tail.
-
-=head2 tailer_pid
-
-The PID of the C<< tail -F >> being run.
 
 =head1 SEE ALSO
 
