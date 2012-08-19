@@ -1,8 +1,3 @@
-Need upload:
-    - Message::Passing::STOMP
-    - Message::Passing::AMQP
-    - Message::Passing
-
 Code core/general:
     - Generic blessed object serialize filter
     - Logstash compatibility filter
