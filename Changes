@@ -14,6 +14,11 @@
       and so scripts should now import it and use the function
       provided to generate roles.
 
+  - Add UDP socket Input and Output, allowing transit of arbitrary
+    UDP packets.
+
+  - Add Travis continuous integration to the project.
+
 0.010
   - Doc fix in Message::Passing::Manual::Cookbook
     https://github.com/suretec/Message-Passing/pull/2
