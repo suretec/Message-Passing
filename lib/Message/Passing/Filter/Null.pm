@@ -6,7 +6,7 @@ with 'Message::Passing::Role::Filter';
 
 sub filter { $_[1] }
 
-#
+
 1;
 
 =head1 NAME
@@ -39,6 +39,3 @@ the SureVoIP API -
 See L<Message::Passing>.
 
 =cut
-
-1;
-

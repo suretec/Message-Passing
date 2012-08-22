@@ -305,6 +305,3 @@ please talk to us as we'd be willing to consider re-licensing under
 less restrictive terms.
 
 =cut
-
-1;
-

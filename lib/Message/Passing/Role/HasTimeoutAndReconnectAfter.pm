@@ -36,4 +36,3 @@ Adds a C<timeout> and a C<reconnect_after> attributes to your class.
 See L<Message::Passing>.
 
 =cut
-

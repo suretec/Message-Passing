@@ -40,4 +40,3 @@ The password for a connection. Required, Str.
 See L<Message::Passing>.
 
 =cut
-

@@ -46,4 +46,3 @@ Compresses the message
 See L<Message::Passing>.
 
 =cut
-

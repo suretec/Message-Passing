@@ -40,3 +40,4 @@ Decompresses the message
 
 =back
 
+=cut
