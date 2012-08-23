@@ -61,4 +61,3 @@ Consumes a message by emitting it over UDP.
 See L<Message::Passing>.
 
 =cut
-

@@ -51,4 +51,3 @@ Decrypts the message
 See L<Message::Passing>.
 
 =cut
-

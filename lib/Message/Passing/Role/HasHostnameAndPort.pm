@@ -38,5 +38,3 @@ Adds a C<hostname> and a C<port> attributes to your class.
 See L<Message::Passing>.
 
 =cut
-
-
