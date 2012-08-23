@@ -1,5 +1,6 @@
 package Message::Passing::Role::Script;
 use Moo::Role;
+use MooX::Options;
 use MooX::Types::MooseLike::Base qw/ Bool Str /;
 use Getopt::Long qw(:config pass_through);
 use POSIX qw(setuid setgid);
@@ -8,24 +9,26 @@ use namespace::clean -except => 'meta';
 
 requires 'build_chain';
 
-has daemonize => (
+option daemonize => (
     is => 'ro',
     isa => Bool,
     default => sub { 0 },
 );
 
-has io_priority => (
+option io_priority => (
     isa => sub { $_[0] =~ /^(none|be|rt|idle)$/ },
     coerce => sub { lc $_[0] },
     is => 'ro',
     predicate => "_has_io_priority",
+    format => 's',
 );
 
 foreach my $name (qw/ user pid_file /) {
-    has $name => (
+    option $name => (
         isa => Str,
         is => 'ro',
         predicate => "_has_$name",
+        format => 's',
     );
 }
 

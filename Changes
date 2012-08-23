@@ -1,3 +1,6 @@
+  - Fix daemonization features provided by Message::Passing::Role::Script
+    to work on the command line again by exlicitly using MooX::Options
+
   - Fix Message::Passing::Input::FileTail to not die if the tail process
     is killed for any reason. It is instead re-spawned.. RT#78851
 
