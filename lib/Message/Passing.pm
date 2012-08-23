@@ -8,7 +8,7 @@ use MooX::Options flavour => [qw( pass_through )], protect_argv => 0;
 use namespace::clean -except => [qw/ meta new_with_options parse_options _options_data _options_config/];
 use 5.8.4;
 
-our $VERSION = '0.100';
+our $VERSION = '0.101';
 $VERSION = eval $VERSION;
 
 sub new_with_options {

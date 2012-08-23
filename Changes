@@ -1,3 +1,4 @@
+0.101
   - Fix daemonization features provided by Message::Passing::Role::Script
     to work on the command line again by exlicitly using MooX::Options
 
