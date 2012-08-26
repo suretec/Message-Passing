@@ -17,6 +17,7 @@ is $test->message_count, 0;
 is $test_e->message_count, 1;
 my ($m) = $test_e->messages;
 #{"exception":"encountered object 'Bar=HASH(0x7fab21236f30)', but neither allow_blessed nor convert_blessed settings are enabled at /Users/t0m/perl5/perlbrew/perls/perl-5.16.0/lib/site_perl/5.16.0/JSON.pm line 154.\n","class":"Message::Passing::Exception::Encoding","stringified_data":"$VAR1 = {\n          'foo' => bless( {}, 'Bar' )\n        };\n"}
+$m = $m->as_hash;
 is ref($m), 'HASH';
 is $m->{'class'}, 'Message::Passing::Exception::Encoding';
 ok exists $m->{'exception'};
