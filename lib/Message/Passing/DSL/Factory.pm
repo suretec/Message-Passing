@@ -6,7 +6,7 @@ use Message::Passing::Output::STDERR;
 use Carp qw/ confess /;
 use Scalar::Util qw/ blessed /;
 use Module::Runtime qw/ require_module /;
-use namespace::clean -except => 'meta';
+use namespace::clean -except => [qw/ meta _build_default_error_chain /];
 
 sub expand_class_name {
     my ($self, $type, $name) = @_;
@@ -35,17 +35,17 @@ sub set_error {
     my ($self, %opts) = @_;
     my $class = delete $opts{class}
         || confess("Class name needed");
-    $class = $self->expand_class_name('Output', $class);
     require_module($class);
     $self->_set_error($class->new(%opts));
 }
 
+use Message::Passing::Role::HasErrorChain;
+*_build_default_error_chain = \&Message::Passing::Role::HasErrorChain::_build_default_error_chain;
 has error => (
     is => 'ro',
     writer => '_set_error',
-    default => sub {
-        Message::Passing::Output::STDERR->new;
-    }
+    lazy => 1,
+    builder => '_build_default_error_chain',
 );
 
 sub make {

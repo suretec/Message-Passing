@@ -33,6 +33,7 @@ with
     CLIComponent( name => 'decoder', default => 'JSON' ),
     CLIComponent( name => 'encoder', default => 'JSON' ),
     CLIComponent( name => 'error', default => 'STDERR' ),
+    CLIComponent( name => 'error_encoder', default => 'Message::Passing::Filter::Encoder::JSON' ),
     'Message::Passing::Role::Script';
 
 option configfile => (
@@ -53,8 +54,12 @@ sub build_chain {
     my $self = shift;
     message_chain {
         error_log(
-            %{ $self->error_options },
-            class => $self->error,
+            %{ $self->error_encoder_options },
+            class => $self->error_encoder,
+            output_to => output error => (
+                %{ $self->error_options },
+                class => $self->error,
+            ),
         );
         output output => (
             %{ $self->output_options },

@@ -5,15 +5,17 @@ use namespace::clean -except => 'meta';
 
 has error => (
     is => 'ro',
-    default => sub {
-        require_module 'Message::Passing::Output::STDERR';
-        require_module 'Message::Passing::Filter::Encoder::JSON';
-        Message::Passing::Filter::Encoder::JSON->new(
-            output_to => Message::Passing::Output::STDERR->new,
-        );
-    },
     lazy => 1,
+    builder => '_build_default_error_chain',
 );
+
+sub _build_default_error_chain {
+    require_module 'Message::Passing::Output::STDERR';
+    require_module 'Message::Passing::Filter::Encoder::JSON';
+    Message::Passing::Filter::Encoder::JSON->new(
+        output_to => Message::Passing::Output::STDERR->new,
+    );
+}
 
 1;
 

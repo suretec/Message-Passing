@@ -4,6 +4,7 @@ Code core/general:
     - Global registry and DSL support for connection managers
     - Connection sharing
     - Connect timeout strategies
+    - Better documentation for error chain.
 
 Specific adaptors
     - AMQP needs a lot of work

@@ -4,6 +4,8 @@
   - Make default error chain do JSON encoding on errors so that they're
     readable.
 
+  - Make CLI error chain have options for the error encoder.
+
 0.101
   - Fix daemonization features provided by Message::Passing::Role::Script
     to work on the command line again by exlicitly using MooX::Options
