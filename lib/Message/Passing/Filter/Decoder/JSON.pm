@@ -1,12 +1,28 @@
 package Message::Passing::Filter::Decoder::JSON;
 use Moo;
 use JSON qw/ from_json /;
+use Try::Tiny;
+use Message::Passing::Exception::Decoding;
 use namespace::clean -except => 'meta';
 
-with 'Message::Passing::Role::Filter';
+with qw/
+    Message::Passing::Role::Filter
+    Message::Passing::Role::HasErrorChain
+/;
 
-sub filter { ref($_[1]) ? $_[1] : from_json( $_[1], { utf8  => 1 } ) }
-
+sub filter {
+    my ($self, $message) = @_;
+    try {
+        ref($message) ? $message : from_json( $message, { utf8  => 1 } )
+    }
+    catch {
+        $self->error->consume(Message::Passing::Exception::Decoding->new(
+            exception => $_,
+            packed_data => $message,
+        ));
+        return; # Explicit return undef
+    };
+}
 
 1;
 
@@ -41,7 +57,7 @@ JSON decodes a message supplied as a parameter.
 This module exists due to the wonderful people at Suretec Systems Ltd.
 <http://www.suretecsystems.com/> who sponsored its development for its
 VoIP division called SureVoIP <http://www.surevoip.co.uk/> for use with
-the SureVoIP API - 
+the SureVoIP API -
 <http://www.surevoip.co.uk/support/wiki/api_documentation>
 
 =head1 AUTHOR, COPYRIGHT AND LICENSE
@@ -49,3 +65,4 @@ the SureVoIP API -
 See L<Message::Passing>.
 
 =cut
+

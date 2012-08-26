@@ -1,5 +1,5 @@
-  - Add error chain support to the JSON encoder so that an error is
-    logged if JSON encoding fails.
+  - Add error chain support to the JSON encoder and decoder so that an
+    error is logged if JSON encoding or decoding fails.
 
   - Make default error chain do JSON encoding on errors so that they're
     readable.
