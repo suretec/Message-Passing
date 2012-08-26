@@ -21,3 +21,23 @@ has stringified_data => (
 
 1;
 
+=head1 NAME
+
+Message::Passing::Exception::Encoding - An issue when encoding data
+
+=head1 ATTRIBUTES
+
+=head2 exception
+
+The exception encountered when trying to encode the message
+
+=head2 stringified_data
+
+The original message, dumped using L<Data::Dumper>.
+
+=head1 AUTHOR, COPYRIGHT AND LICENSE
+
+See L<Message::Passing>.
+
+=cut
+
