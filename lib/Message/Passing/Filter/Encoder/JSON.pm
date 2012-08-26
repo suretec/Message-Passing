@@ -3,9 +3,14 @@ use Moo;
 use MooX::Types::MooseLike::Base qw/ Bool /;
 use JSON qw/ to_json /;
 use Scalar::Util qw/ blessed /;
+use Try::Tiny;
+use Data::Dumper ();
 use namespace::clean -except => 'meta';
 
-with 'Message::Passing::Role::Filter';
+with qw/
+    Message::Passing::Role::Filter
+    Message::Passing::Role::HasErrorChain
+/;
 
 has pretty => (
     isa => Bool,
@@ -15,18 +20,27 @@ has pretty => (
 
 sub filter {
     my ($self, $message) = @_;
-    return $message unless ref($message);
-    if (blessed $message) { # FIXME - This should be moved out of here!
-        if ($message->can('pack')) {
-            $message = $message->pack;
+    try {
+        return $message unless ref($message);
+        if (blessed $message) { # FIXME - This should be moved out of here!
+            if ($message->can('pack')) {
+                $message = $message->pack;
+            }
+            elsif ($message->can('to_hash')) {
+                $message = $message->to_hash;
+            }
         }
-        elsif ($message->can('to_hash')) {
-            $message = $message->to_hash;
-        }
+        to_json( $message, { utf8  => 1, $self->pretty ? (pretty => 1) : () } )
     }
-    to_json( $message, { utf8  => 1, $self->pretty ? (pretty => 1) : () } )
+    catch {
+        $self->error->consume({
+            class => 'Message::Passing::Exception::Encoding',
+            exception => $_,
+            stringified_data => Data::Dumper::Dumper($message),
+        });
+        return; # Explicitly drop the message from normal processing
+    }
 }
-
 
 1;
 
@@ -83,3 +97,4 @@ the SureVoIP API -
 See L<Message::Passing>.
 
 =cut
+
