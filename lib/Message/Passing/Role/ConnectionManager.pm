@@ -3,6 +3,8 @@ use Moo::Role;
 use MooX::Types::MooseLike::Base qw/ Bool ArrayRef /;
 use Scalar::Util qw/ blessed weaken /;
 use Carp qw/ confess /;
+use Message::Passing::Exception::ConnectionDisconnected;
+use Message::Passing::Exception::ConnectionTimeout;
 use namespace::clean -except => 'meta';
 
 requires '_build_connection';
@@ -48,7 +50,9 @@ sub _build_timeout_timer {
     AnyEvent->timer(
         after => $self->timeout,
         cb => sub {
-            $self->error->consume("Connection timed out to ...");
+            $self->error->consume(Message::Passing::Exception::ConnectionTimeout->new(
+                after => $self->timeout,
+            ));
             $self->_timeout_timer(undef);
             $self->_set_connected(0); # Use public API, causing reconnect timer to be built
         },
@@ -61,7 +65,7 @@ sub _build_reconnect_timer {
     AnyEvent->timer(
         after => $self->reconnect_after,
         cb => sub {
-            $self->error->consume("Reconnecting to ...");
+#            $self->error->consume("Reconnecting to ...");
             $self->_timeout_timer(undef);
             $self->connection; # Just rebuild the connection object
         },
@@ -108,7 +112,7 @@ after _set_connected => sub {
     }
     $self->_timeout_timer(undef) if $connected;
     if (!$connected && $self->_has_connection) {
-        $self->error->consume("Connection disconnected to ...");
+        $self->error->consume(Message::Passing::Exception::ConnectionDisconnected->new);
         $self->_clear_connection;
     }
 };
