@@ -4,7 +4,7 @@ use MooX::Types::MooseLike::Base qw/ Bool /;
 use JSON qw/ to_json /;
 use Scalar::Util qw/ blessed /;
 use Try::Tiny;
-use Data::Dumper ();
+use Message::Passing::Exception::Encoding;
 use namespace::clean -except => 'meta';
 
 with qw/
@@ -33,11 +33,10 @@ sub filter {
         to_json( $message, { utf8  => 1, $self->pretty ? (pretty => 1) : () } )
     }
     catch {
-        $self->error->consume({
-            class => 'Message::Passing::Exception::Encoding',
+        $self->error->consume(Message::Passing::Exception::Encoding->new(
             exception => $_,
-            stringified_data => Data::Dumper::Dumper($message),
-        });
+            stringified_data => $message,
+        ));
         return; # Explicitly drop the message from normal processing
     }
 }
