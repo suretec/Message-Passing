@@ -9,7 +9,7 @@ with 'Message::Passing::Exception';
 has exception => (
     is => 'ro',
     required => 1,
-    isa => 'Str',
+    isa => Str,
 );
 
 has packed_data => (

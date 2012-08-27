@@ -1,3 +1,5 @@
+  - Fix issue in JSON decoder when processing exceptions.
+
 0.102
   - Add error chain support to the JSON encoder and decoder so that an
     error is logged if JSON encoding or decoding fails.
