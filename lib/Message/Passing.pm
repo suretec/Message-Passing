@@ -102,9 +102,6 @@ Message::Passing - a simple way of doing messaging.
 
 =head1 DESCRIPTION
 
-This implementation is currently a prototype, and as such should be considered
-alpha and subject to change at any point.
-
 A library for building high performance, loosely coupled and reliable/reseliant applications,
 structured as small services which communicate over the network by passing messages.
 
