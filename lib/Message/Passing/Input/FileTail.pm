@@ -4,7 +4,10 @@ use MooX::Types::MooseLike::Base qw/ Str Int /;
 use AnyEvent;
 use Scalar::Util qw/ weaken /;
 use POSIX ":sys_wait_h";
+use Sys::Hostname ();
 use namespace::clean -except => 'meta';
+
+use constant HOSTNAME => Sys::Hostname::hostname();
 
 with 'Message::Passing::Role::Input';
 
@@ -20,6 +23,24 @@ has _tail_handle => (
     builder => '_build_tail_handle',
     clearer => '_clear_tail_handle',
 );
+
+has raw => (
+    is => 'ro',
+    default => sub { 0 },
+);
+
+sub _emit_line {
+    my ($self, $line) = @_;
+
+    my $data = $self->raw ? $line : {
+        filename  => $self->filename,
+        message   => $line,
+        hostname  => HOSTNAME,
+        epochtime => AnyEvent->now,
+        type      => 'log_line',
+    };
+    $self->output_to->consume($data);
+}
 
 sub _build_tail_handle {
     my $self = shift;
@@ -41,7 +62,7 @@ sub _build_tail_handle {
                 });
                 return;
             }
-            $self->output_to->consume($input);
+            $self->_emit_line($input);
         },
     );
 }
@@ -61,15 +82,20 @@ Message::Passing::Input::FileTail - File tailing input
 =head1 SYNOPSIS
 
     message-pass --input FileTail --input_options '{"filename": "/var/log/foo.log"} --output STDOUT
-    {"foo":"bar"}
+    {"filename":"/var/log/foo.log","message":"example line","hostname":"www.example.com","epochtime":"1346705476","type":"log_line"}
 
 =head1 DESCRIPTION
 
-=head1 METHODS
+=head1 ATTRIBUTES
 
 =head2 filename
 
 The filename of the file to tail.
+
+=head2 raw
+
+If the file data should be output raw (as just a line). Normally lines are
+output as a hash of data including the fields showing in the SYNOPSIS.
 
 =head1 SEE ALSO
 
@@ -80,7 +106,7 @@ L<Message::Passing>
 This module exists due to the wonderful people at Suretec Systems Ltd.
 <http://www.suretecsystems.com/> who sponsored its development for its
 VoIP division called SureVoIP <http://www.surevoip.co.uk/> for use with
-the SureVoIP API - 
+the SureVoIP API -
 <http://www.surevoip.co.uk/support/wiki/api_documentation>
 
 =head1 AUTHOR, COPYRIGHT AND LICENSE
@@ -88,3 +114,4 @@ the SureVoIP API -
 See L<Message::Passing>.
 
 =cut
+

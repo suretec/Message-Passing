@@ -26,6 +26,8 @@ requires 'String::RewritePrefix';
 requires 'JSON' => '2.0';
 requires 'Try::Tiny';
 requires 'Task::Weaken';
+requires 'Sys::Hostname';
+requires 'DateTime';
 
 install_script 'script/message-pass';
 

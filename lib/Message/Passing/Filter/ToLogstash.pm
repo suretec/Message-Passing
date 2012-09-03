@@ -1,0 +1,65 @@
+package Message::Passing::Filter::ToLogStash;
+use Moo;
+use MooX::Types::MooseLike::Base qw/ ArrayRef /;
+use List::MoreUtils qw/ uniq /;
+use DateTime;
+use Sys::Hostname ();
+use namespace::clean -except => 'meta';
+
+use constant HOSTNAME => Sys::Hostname::hostname();
+
+with 'Message::Passing::Role::Filter';
+
+has default_tags => (
+    is => 'ro',
+    isa => ArrayRef,
+    default => sub { [] },
+);
+
+has add_tags => (
+    is => 'ro',
+    isa => ArrayRef,
+    default => sub { [] },
+);
+
+my %map = (
+    '__CLASS__' => [ 'perl:Class', 'type' ],
+    hostname    => 'source_host',
+    message     => 'message',
+    filename    => 'source_path',
+    date        => 'timestamp',
+    type        => 'type',
+);
+
+sub filter {
+    my ($self, $message) = @_;
+    if ('HASH' ne ref($message)) {
+        my $line = $message;
+        $message = {
+            message   => $line,
+            hostname  => HOSTNAME,
+            epochtime => AnyEvent->now,
+            type      => 'generic_line',
+        };
+    }
+    $message = { '@fields' => { %$message } };
+    if (exists($message->{'@fields'}{epochtime})) {
+        $message->{'@timestamp'} = DateTime->from_epoch(epoch => delete($message->{'@fields'}{epochtime}))
+    }
+    foreach my $k (keys %map) {
+        my $v = $map{$k};
+        $v = [ '', $v ] if !ref $v;
+        my ($prefix, $field) = @$v;
+        $field = '@' . $field;
+        if (exists($message->{'@fields'}{$field}) && !exists($message->{$field})) {
+            $message->{$field} = $prefix . delete $message->{'@fields'}{$field};
+        }
+    }
+    $message->{'@tags'} ||= $self->default_tags;
+    $message->{'@tags'} = [ uniq @{ $message->{'@tags'} }, @{ $self->add_tags } ];
+
+    $message;
+}
+
+1;
+
