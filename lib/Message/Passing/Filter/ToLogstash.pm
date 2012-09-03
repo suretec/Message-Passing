@@ -23,7 +23,7 @@ has add_tags => (
 );
 
 my %map = (
-    '__CLASS__' => [ 'perl:Class', 'type' ],
+    '__CLASS__' => [ 'perl:Class:', 'type' ],
     hostname    => 'source_host',
     message     => 'message',
     filename    => 'source_path',
@@ -44,15 +44,15 @@ sub filter {
     }
     $message = { '@fields' => { %$message } };
     if (exists($message->{'@fields'}{epochtime})) {
-        $message->{'@timestamp'} = DateTime->from_epoch(epoch => delete($message->{'@fields'}{epochtime}))
+        $message->{'@timestamp'} = DateTime->from_epoch(epoch => delete($message->{'@fields'}{epochtime})) . ''
     }
     foreach my $k (keys %map) {
         my $v = $map{$k};
         $v = [ '', $v ] if !ref $v;
         my ($prefix, $field) = @$v;
         $field = '@' . $field;
-        if (exists($message->{'@fields'}{$field}) && !exists($message->{$field})) {
-            $message->{$field} = $prefix . delete $message->{'@fields'}{$field};
+        if (exists($message->{'@fields'}{$k}) && !exists($message->{$field})) {
+            $message->{$field} = $prefix . delete $message->{'@fields'}{$k};
         }
     }
     $message->{'@tags'} ||= $self->default_tags;
