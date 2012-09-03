@@ -1,5 +1,7 @@
 package Message::Passing::Input::Syslog::UDP;
 use Moo;
+use MRO::Compat;
+use Time::ParseDate;
 use namespace::clean -except => 'meta';
 
 extends 'Message::Passing::Input::Socket::UDP';
@@ -21,19 +23,18 @@ our $SYSLOG_REGEXP = q|
 $
 |;
 
-sub filter {
-    my ( $self, $message ) = @_;
+sub _send_data {
+    my ( $self, $message, $from ) = @_;
     if ( $message =~ s/$SYSLOG_REGEXP//sx ) {
         my $time = $2 && parsedate("$2 $3 $4:$5:$6");
-        return {
+        $self->output_to->consume({
             time     => $time,
             pri      => $1,
             facility => int($1/8),
             severity => int($1%8),
-            msg      => $7,
-        };
+            message      => $7,
+        });
     }
-    return undef;
 }
 
 1;

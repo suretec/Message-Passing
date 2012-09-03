@@ -32,6 +32,11 @@ sub BUILD {
     $self->handle;
 }
 
+sub _send_data {
+    my ($self, $data, $from_addr) = @_;
+    $self->output_to->consume($data);
+}
+
 sub _build_handle {
     my $self = shift;
     weaken($self);
@@ -40,7 +45,8 @@ sub _build_handle {
         on_recv => sub {
             my ($data, $h, $from_addr) = @_;
             # The output can optionally drop from addr.
-            $self->output_to->consume($data, $from_addr);
+            warn "SEND $data";
+            $self->_send_data($data, $from_addr);
         },
         on_error => sub {
             my ($h, $fatal, $msg) = @_;
