@@ -3,7 +3,7 @@ use warnings;
 use Test::More;
 use Data::Dumper;
 
-use Message::Passing::Filter::ToLogStash;
+use Message::Passing::Filter::ToLogstash;
 use Message::Passing::Output::Test;
 use Sys::Hostname;
 
@@ -47,7 +47,7 @@ my @data = (
 foreach my $datum (@data) {
     my ($name, $input, $exp) = @$datum;
     my $out = Message::Passing::Output::Test->new;
-    my $in = Message::Passing::Filter::ToLogStash->new(
+    my $in = Message::Passing::Filter::ToLogstash->new(
         output_to => $out,
     );
     $in->consume($input);

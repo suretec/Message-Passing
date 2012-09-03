@@ -1,4 +1,4 @@
-package Message::Passing::Filter::ToLogStash;
+package Message::Passing::Filter::ToLogstash;
 use Moo;
 use MooX::Types::MooseLike::Base qw/ ArrayRef /;
 use List::MoreUtils qw/ uniq /;
