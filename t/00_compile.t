@@ -27,6 +27,7 @@ use_ok('Message::Passing::Role::HasUsernameAndPassword');
 use_ok('Message::Passing::Role::HasErrorChain');
 use_ok('Message::Passing::Input::Socket::UDP');
 use_ok('Message::Passing::Filter::ToLogstash');
+use_ok('Message::Passing::Input::Syslog::UDP');
 
 done_testing;
 
