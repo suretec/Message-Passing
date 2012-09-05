@@ -1,3 +1,11 @@
+  - Message::Passing::Input::FileTail now defaults to outputting a hash
+    of data which contains additional metadata to the message line,
+    such as the hostname, timestamp, filename. A 'raw => 1' option has
+    been added which can be used to restore the original behaviour.
+
+  - Add an experimental (and undocumented)
+    Message::Passing::Filter::ToLogstash
+
   - Fix issue in JSON decoder when processing exceptions.
 
 0.102
