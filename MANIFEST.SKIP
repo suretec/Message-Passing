@@ -2,6 +2,7 @@
 ^Message-Passing
 ^Makefile$
 ^Makefile.old$
+^Log-Stash-
 ^MANIFEST.bak
 ^MYMETA.json
 ^MYMETA.yml
