@@ -1,3 +1,4 @@
+0.103
   - Message::Passing::Input::FileTail now defaults to outputting a hash
     of data which contains additional metadata to the message line,
     such as the hostname, timestamp, filename. A 'raw => 1' option has
