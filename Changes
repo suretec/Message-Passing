@@ -1,3 +1,5 @@
+  - Fix to work with MooX::Options 3.7
+
 0.103
   - Message::Passing::Input::FileTail now defaults to outputting a hash
     of data which contains additional metadata to the message line,
