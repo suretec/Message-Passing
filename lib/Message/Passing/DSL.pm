@@ -113,7 +113,7 @@ Message::Passing::DSL - An easy way to make chains of Message::Passing component
     use MooX::Options;
     use Message::Passing::DSL;
     use MooX::Types::MooseLike::Base qw/ Str /;
-    use namespace::clean -except => 'meta';
+    use namespace::clean -except => [qw( meta _options_data _options_config )];
 
     with 'Message::Passing::Role::Script';
 
