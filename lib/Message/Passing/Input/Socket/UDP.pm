@@ -45,7 +45,6 @@ sub _build_handle {
         on_recv => sub {
             my ($data, $h, $from_addr) = @_;
             # The output can optionally drop from addr.
-            warn "SEND $data";
             $self->_send_data($data, $from_addr);
         },
         on_error => sub {
