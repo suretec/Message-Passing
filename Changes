@@ -1,3 +1,5 @@
+  - Fix test fail on some machines.
+
 0.107
   - Change Input::FileTail to use Sys::Hostname::Long
 

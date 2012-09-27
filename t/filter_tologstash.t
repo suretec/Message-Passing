@@ -5,7 +5,7 @@ use Data::Dumper;
 
 use Message::Passing::Filter::ToLogstash;
 use Message::Passing::Output::Test;
-use Sys::Hostname;
+use Sys::Hostname::Long;
 
 no warnings 'redefine';
 sub AnyEvent::now { 1346706534 }
