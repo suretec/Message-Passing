@@ -30,7 +30,7 @@ my @data = (
     [
         'raw message',
         'foo',
-        { '@fields' => {}, '@tags' => [], '@message' => 'foo', '@source_host' => hostname(), '@timestamp' => '2012-09-03T21:08:54', '@type' => 'generic_line' },
+        { '@fields' => {}, '@tags' => [], '@message' => 'foo', '@source_host' => hostname_long(), '@timestamp' => '2012-09-03T21:08:54', '@type' => 'generic_line' },
     ],
     [
         'filename',
