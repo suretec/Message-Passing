@@ -1,3 +1,4 @@
+0.107
   - Change Input::FileTail to use Sys::Hostname::Long
 
   - Fix bug causing crash with no helpful error message if PID file
