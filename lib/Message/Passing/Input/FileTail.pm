@@ -4,10 +4,10 @@ use MooX::Types::MooseLike::Base qw/ Str Int /;
 use AnyEvent;
 use Scalar::Util qw/ weaken /;
 use POSIX ":sys_wait_h";
-use Sys::Hostname ();
+use Sys::Hostname::Long;
 use namespace::clean -except => 'meta';
 
-use constant HOSTNAME => Sys::Hostname::hostname();
+use constant HOSTNAME => hostname_long();
 
 with 'Message::Passing::Role::Input';
 

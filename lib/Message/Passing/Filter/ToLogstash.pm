@@ -3,10 +3,10 @@ use Moo;
 use MooX::Types::MooseLike::Base qw/ ArrayRef /;
 use List::MoreUtils qw/ uniq /;
 use DateTime;
-use Sys::Hostname ();
+use Sys::Hostname::Long;
 use namespace::clean -except => 'meta';
 
-use constant HOSTNAME => Sys::Hostname::hostname();
+use constant HOSTNAME => hostname_long();
 
 with 'Message::Passing::Role::Filter';
 
