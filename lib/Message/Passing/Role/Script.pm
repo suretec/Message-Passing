@@ -5,6 +5,7 @@ use MooX::Types::MooseLike::Base qw/ Bool Str /;
 use Getopt::Long qw(:config pass_through);
 use POSIX qw(setuid setgid);
 use Message::Passing::DSL;
+use Carp qw/ confess /;
 use namespace::clean -except => 'meta';
 
 requires 'build_chain';
