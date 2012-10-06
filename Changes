@@ -1,3 +1,5 @@
+  - Fix v-string to work with perl 5.8. RT#80034
+
 0.109
   - Really fix test fail :(
 
