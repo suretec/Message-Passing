@@ -5,6 +5,7 @@ use AnyEvent;
 use Scalar::Util qw/ weaken /;
 use POSIX ":sys_wait_h";
 use Sys::Hostname::Long;
+use AnyEvent::Handle;
 use namespace::clean -except => 'meta';
 
 use constant HOSTNAME => hostname_long();
@@ -48,23 +49,34 @@ sub _build_tail_handle {
     die("Cannot open filename '" . $self->filename . "'") unless -r $self->filename;
     my $child_pid = open(my $r, "-|", "tail", "-F", $self->filename)
        || die "can't fork: $!";
-    AnyEvent->io(
+   my $hdl;
+   my $_handle_error = sub {
+       my $i; $i = AnyEvent->idle(cb => sub {
+           undef $i;
+           $hdl->destroy;
+           undef $hdl;
+           close($r);
+           $self->_tail_handle;
+       });
+    };
+    $hdl = AnyEvent::Handle->new(
         fh => $r,
-        poll => "r",
-        cb => sub {
-            my $input = scalar <$r>;
-            if (!defined $input) {
-                $self->_clear_tail_handle;
-                my $i; $i = AnyEvent->idle(cb => sub {
-                    undef $i;
-                    close($r);
-                    $self->_tail_handle;
-                });
-                return;
-            }
-            $self->_emit_line($input);
-        },
+        on_error => $_handle_error,
+        on_eof => $_handle_error,
     );
+    $hdl->push_read(line => sub {
+        my ($hdl, $input) = @_;
+        if (!defined $input) {
+            $self->_clear_tail_handle;
+            my $i; $i = AnyEvent->idle(cb => sub {
+                undef $i;
+                close($r);
+                $self->_tail_handle;
+            });
+            return;
+        }
+        $self->_emit_line($input);
+    });
 }
 
 sub BUILD {
