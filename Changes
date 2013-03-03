@@ -1,3 +1,4 @@
+0.111
   - Fix STDIN input to exit on EOF.
 
 0.110
