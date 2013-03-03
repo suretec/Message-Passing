@@ -4,6 +4,7 @@ use AnyEvent;
 use Try::Tiny;
 use Scalar::Util qw/ weaken /;
 use namespace::clean -except => 'meta';
+use IO::Handle;
 
 with qw/
     Message::Passing::Role::Input
@@ -16,6 +17,7 @@ has reader => (
         my $self = shift;
         weaken($self);
         AnyEvent->io(fh => \*STDIN, poll => 'r', cb => sub {
+            exit 0 if STDIN->eof;
             my $input = <STDIN>;
             return unless defined $input;
             chomp($input);
@@ -45,6 +47,11 @@ Message::Passing::Input::STDIN - STDIN input
 
 =head1 DESCRIPTION
 
+An input which gets messages from STDIN.
+
+Messages are expected to be c<\n> seperated, and if EOF is encountered
+then this input will call C<exit> to terminate the program.
+
 =head1 SEE ALSO
 
 L<Message::Passing>
@@ -62,3 +69,4 @@ the SureVoIP API -
 See L<Message::Passing>.
 
 =cut
+

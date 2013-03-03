@@ -28,6 +28,7 @@ requires 'Try::Tiny';
 requires 'Task::Weaken';
 requires 'Sys::Hostname::Long';
 requires 'DateTime';
+requires 'IO::Handle';
 
 install_script 'script/message-pass';
 
