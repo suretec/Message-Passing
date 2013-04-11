@@ -49,7 +49,7 @@ Message::Passing::Input::STDIN - STDIN input
 
 An input which gets messages from STDIN.
 
-Messages are expected to be c<\n> seperated, and if EOF is encountered
+Messages are expected to be c<\n> separated, and if EOF is encountered
 then this input will call C<exit> to terminate the program.
 
 =head1 SEE ALSO
