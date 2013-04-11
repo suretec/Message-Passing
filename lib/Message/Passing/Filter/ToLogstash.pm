@@ -63,3 +63,13 @@ sub filter {
 
 1;
 
+=head1 NAME
+
+Method::Passing::Filter::ToLogstash
+
+=head1 METHODS
+
+=head2 filter
+
+Filter the message.
+
