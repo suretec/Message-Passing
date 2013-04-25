@@ -1,3 +1,5 @@
+  - Change to LGPL_2_1.
+
 0.111
   - Fix STDIN input to exit on EOF.
 
