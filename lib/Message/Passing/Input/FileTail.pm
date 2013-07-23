@@ -49,34 +49,59 @@ sub _build_tail_handle {
     die("Cannot open filename '" . $self->filename . "'") unless -r $self->filename;
     my $child_pid = open(my $r, "-|", "tail", "-F", $self->filename)
        || die "can't fork: $!";
-   my $hdl;
-   my $_handle_error = sub {
-       my $i; $i = AnyEvent->idle(cb => sub {
-           undef $i;
-           $hdl->destroy;
-           undef $hdl;
-           close($r);
-           $self->_tail_handle;
-       });
-    };
+
+    my $cv = AnyEvent->condvar;
+
+    my $hdl;
     $hdl = AnyEvent::Handle->new(
         fh => $r,
-        on_error => $_handle_error,
-        on_eof => $_handle_error,
+        on_read => sub {
+          my ($hdl) = @_;
+          $hdl->push_read(
+            line => sub {
+              my ($hdl, $line, $eof) = @_;
+              $self->_emit_line($line);
+            }
+          );
+        },
+        on_eof => sub {
+          # must re-initialize the original handle to continue tailing.
+          # the timer isn't necessary, but just to be a good citizen.
+          my $t;
+          $t = AnyEvent->timer( after => 1, cb => sub {
+            $t = undef;
+            $hdl = init_tailer( $r);
+          });
+        },
+        #on_error => $_handle_error,
     );
-    $hdl->push_read(line => sub {
-        my ($hdl, $input) = @_;
-        if (!defined $input) {
-            $self->_clear_tail_handle;
-            my $i; $i = AnyEvent->idle(cb => sub {
-                undef $i;
-                close($r);
-                $self->_tail_handle;
-            });
-            return;
+}
+
+sub _init_tailer {
+  my ($self, $fh) = @_;
+
+  my $hdl;
+  $hdl = AnyEvent::Handle->new(
+    fh => $fh,
+    on_read => sub {
+      my ($hdl) = @_;
+      $hdl->push_read(
+        line => sub {
+          my ($hdl, $line, $eof) = @_;
+          $self->_emit_line($line);
         }
-        $self->_emit_line($input);
-    });
+      );
+    },
+    on_eof => sub {
+      # must re-initialize the original handle to continue tailing.
+      # the timer isn't necessary, but just to be a good citizen.
+      my $t;
+      $t = AnyEvent->timer( after => 1, cb => sub {
+        $t = undef;
+        $self->_init_tailer($fh);
+      });
+    },
+  );
 }
 
 sub BUILD {
