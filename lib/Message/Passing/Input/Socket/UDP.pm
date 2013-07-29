@@ -56,3 +56,40 @@ sub _build_handle {
 
 1;
 
+=head1 NAME
+
+Message::Passing::Input::Socket::UDP - UDP input
+
+=head1 DESCRIPTION
+
+An input which gets messages from a UDP network socket using
+L<AnyEvent::Handle::UDP>.
+
+=head1 ATTRIBUTES
+
+=head2 hostname
+
+The hostname L<AnyEvent::Handle::UDP/new> will bind to.
+
+=head2 port
+
+The port L<AnyEvent::Handle::UDP/new> will bind to.
+
+=head1 SEE ALSO
+
+L<Message::Passing>
+
+=head1 SPONSORSHIP
+
+This module exists due to the wonderful people at Suretec Systems Ltd.
+<http://www.suretecsystems.com/> who sponsored its development for its
+VoIP division called SureVoIP <http://www.surevoip.co.uk/> for use with
+the SureVoIP API -
+<http://www.surevoip.co.uk/support/wiki/api_documentation>
+
+=head1 AUTHOR, COPYRIGHT AND LICENSE
+
+See L<Message::Passing>.
+
+=cut
+
