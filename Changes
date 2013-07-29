@@ -1,3 +1,6 @@
+  - Add Message::Passing::Filter::Mangle for use with Message::Passing::DSL
+    when you don't want to write a named filter.
+
 0.112
   - Change to LGPL_2_1.
 
