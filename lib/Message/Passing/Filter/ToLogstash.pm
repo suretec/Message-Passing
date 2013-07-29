@@ -67,6 +67,23 @@ sub filter {
 
 Method::Passing::Filter::ToLogstash
 
+=head1 DESCRIPTION
+
+This filter changes the message format to comply with LogStash.
+Duplicate tags will be removed.
+
+=head1 ATTRIBUTES
+
+=head2 default_tags
+
+This is the list of tags which get added to the messages' @tags field in case
+none have been included already.
+
+=head2 add_tags
+
+This is the list of tags which get added to the messages' @tags field in all
+cases.
+
 =head1 METHODS
 
 =head2 filter
