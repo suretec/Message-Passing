@@ -9,18 +9,14 @@ use Message::Passing::Output::Test;
 my @data = (
     [   'Passthrough filter of scalar messages',
         sub {
-            my ( $self, $message ) = @_;
-
-            return $message;
+            return shift;
         },
         'test message',
         'test message',
     ],
     [   'Passthrough filter of hashref message',
         sub {
-            my ( $self, $message ) = @_;
-
-            return $message;
+            return shift;
         },
         { message => 'test message' },
         { message => 'test message' },
@@ -41,7 +37,7 @@ my @data = (
     ],
     [   'Mangle filter of scalar messages',
         sub {
-            my ( $self, $message ) = @_;
+            my $message = shift;
 
             return $message . ' from me';
         },
@@ -50,7 +46,7 @@ my @data = (
     ],
     [   'Mangle filter of hashref message',
         sub {
-            my ( $self, $message ) = @_;
+            my $message = shift;
 
             $message->{from} = 'me';
 

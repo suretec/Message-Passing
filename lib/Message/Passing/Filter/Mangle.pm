@@ -12,7 +12,9 @@ has filter_function => (
 );
 
 sub filter {
-    return shift->filter_function->(@_);
+    my $self = shift;
+
+    return $self->filter_function->(@_);
 }
 
 1;
@@ -25,7 +27,7 @@ want.
 =head1 DESCRIPTION
 
 This filter takes a sub which is called with the same arguments as
-L<Message::Passing::Role::Filter/filter>.
+L<Message::Passing::Role::Filter/filter> minus $self.
 
 It's intended for use with L<Message::Passing::DSL> when you don't want to write
 a named filter.
@@ -38,7 +40,7 @@ a named filter.
 
 =head2 filter
 
-Calls filter_function passing on all received arguments.
+Calls filter_function passing on all received arguments but $self.
 
 =head1 SPONSORSHIP
 
