@@ -3,14 +3,17 @@ use Moo;
 use MooX::Types::MooseLike::Base qw/ CodeRef /;
 use namespace::clean -except => 'meta';
 
+with 'Message::Passing::Role::Filter';
+
 has filter_function => (
     isa      => CodeRef,
     is       => 'ro',
     required => 1,
-    handles  => { 'filter' => '' },
 );
 
-with 'Message::Passing::Role::Filter';
+sub filter {
+    return shift->filter_function->(@_);
+}
 
 1;
 
