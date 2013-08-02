@@ -36,6 +36,7 @@ author_requires(
     'Test::Pod' => '1.14',
     'Test::NoTabs' => '0',
     'Test::Pod::Coverage' => '1.04',
+    'Test::CPAN::Changes' => '0.22',
     'Pod::Coverage' => '0.19',
     'Pod::Coverage::TrustPod' => '0',
     'Test::Spelling' => '0',
