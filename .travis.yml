@@ -8,12 +8,13 @@ before_install:
   - cpanm Test::Pod
   - cpanm Test::NoTabs
   - cpanm Test::Pod::Coverage
+  - cpanm Test::CPAN::Changes
   - cpanm Pod::Coverage
   - cpanm Pod::Coverage::TrustPod
   - cpanm Test::Spelling
   - cpanm Compress::Zlib
-  - cpanm Crypt::Blowfish
   - cpanm Compress::Bzip2
+  - cpanm Crypt::Blowfish
   - cpanm Crypt::CBC
 language: perl
 notifications:
