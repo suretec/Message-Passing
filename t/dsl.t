@@ -46,11 +46,12 @@ $c = message_chain {
 
 is ref($c), 'ARRAY';
 is scalar(@$c), 2;
-isa_ok $c->[0], 'Message::Passing::Input::Null';
-isa_ok $c->[1], 'Message::Passing::Input::STDIN';
-isa_ok $c->[0]->output_to, 'Message::Passing::Output::STDOUT';
-isa_ok $c->[1]->output_to, 'Message::Passing::Output::STDOUT';
-is $c->[0]->output_to, $c->[1]->output_to;
+my @chain = sort @$c;
+isa_ok $chain[0], 'Message::Passing::Input::Null';
+isa_ok $chain[1], 'Message::Passing::Input::STDIN';
+isa_ok $chain[0]->output_to, 'Message::Passing::Output::STDOUT';
+isa_ok $chain[1]->output_to, 'Message::Passing::Output::STDOUT';
+is $chain[0]->output_to, $chain[1]->output_to;
 
 done_testing;
 

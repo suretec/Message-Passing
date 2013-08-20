@@ -1,3 +1,5 @@
+  - Fix test failures under Perl 5.18
+
 0.113 2013-08-02T09:25:00+02:00
   - Add Message::Passing::Filter::Mangle for use with Message::Passing::DSL
     when you don't want to write a named filter.
