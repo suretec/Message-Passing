@@ -8,7 +8,7 @@ SYNOPSIS
 
 DESCRIPTION
     A library for building high performance, loosely coupled and
-    reliable/reseliant applications, structured as small services which
+    reliable/resilient applications, structured as small services which
     communicate over the network by passing messages.
 
   BASIC PREMISE
@@ -95,13 +95,13 @@ COMPONENTS
     Message::Passing::Output::STOMP
     Message::Passing::Output::ZeroMQ
     Message::Passing::Output::WebHooks
-    Message::Passing::Output::ElasticSearch - COMING SOON
+    Message::Passing::Output::ElasticSearch -
     (<https://github.com/suretec/Message-Passing-Output-ElasticSearch>)
     Message::Passing::Output::Redis
     Message::Passing::Output::Test
 
 SEE ALSO
-    Message::Passing::Manual - The manual (incomplete currently)!
+    Message::Passing::Manual - The manual (contributions cherished)
     <http://www.slideshare.net/bobtfish/messaging-interoperability-and-log-a
     ggregation-a-new-framework> - Slide deck!
     Log::Message::Structured - For creating your log messages.

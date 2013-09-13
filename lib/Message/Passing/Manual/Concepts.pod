@@ -31,7 +31,7 @@ method on it's output, like this:
 
     $self->output_to->consume($message);
 
-Outputs are expected to compose L<Message::Passing::Role::Input> which provides this attribute, and
+Inputs are expected to compose L<Message::Passing::Role::Input> which provides this attribute, and
 use the C<BUILD> method from L<Moo> to do any work needed to start listening for events.
 
 =head2 FILTER
@@ -49,7 +49,8 @@ method:
         return $message; # Or return undef to drop it
     }
 
-However, if you want or need to, you can however write a filter manually, as:
+
+However, you can write a filter manually as:
 
     with qw/
         Message::Passing::Role::Input

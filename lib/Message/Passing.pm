@@ -105,7 +105,7 @@ Message::Passing - a simple way of doing messaging.
 
 =head1 DESCRIPTION
 
-A library for building high performance, loosely coupled and reliable/reseliant applications,
+A library for building high performance, loosely coupled and reliable/resilient applications,
 structured as small services which communicate over the network by passing messages.
 
 =head2 BASIC PREMISE
@@ -215,7 +215,7 @@ Outputs send data to somewhere, i.e. they consume messages.
 
 =item L<Message::Passing::Output::WebHooks>
 
-=item L<Message::Passing::Output::ElasticSearch> - COMING SOON (L<https://github.com/suretec/Message-Passing-Output-ElasticSearch>)
+=item L<Message::Passing::Output::ElasticSearch> - (L<https://github.com/suretec/Message-Passing-Output-ElasticSearch>)
 
 =item L<Message::Passing::Output::Redis>
 
@@ -227,7 +227,7 @@ Outputs send data to somewhere, i.e. they consume messages.
 
 =over
 
-=item L<Message::Passing::Manual> - The manual (incomplete currently)!
+=item L<Message::Passing::Manual> - The manual (contributions cherished)
 
 =item L<http://www.slideshare.net/bobtfish/messaging-interoperability-and-log-aggregation-a-new-framework> - Slide deck!
 
