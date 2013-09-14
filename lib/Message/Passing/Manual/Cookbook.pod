@@ -43,13 +43,14 @@ output yourself:
 
     my $log = Message::Passing::Output::ZeroMQ->new(
         connect => 'tcp://192.168.0.1:5558',
+        linger  => 1,  # make sure message is sent (flushed) before thread dies
     );
     $log->consume("A log message");
 
 =head2 A note about outputs
 
-Outputting messages from within your application using L<Message::Passing> outputs B<except>
-the ZeroMQ output is not recommended. This is as ZeroMQ uses a different (POSIX) thread with which to send
+ZeroMQ is the recommended B<output> for sending messages from within your application.
+This is because ZeroMQ uses a different (POSIX) thread to send
 messages - meaning that it transports messages independently to whatever
 your perl code is doing.
 
