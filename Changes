@@ -1,3 +1,4 @@
+0.114 2013-09-17T10:30:00+02:00
   - Fix test failures under Perl 5.18
   - Improve documentation
 
@@ -8,7 +9,7 @@
 0.112 2013-04-25T23:45:39+0100
   - Change to LGPL_2_1.
 
-0.111  2013-03-03T15:54:12+0000
+0.111 2013-03-03T15:54:12+0000
   - Fix STDIN input to exit on EOF.
 
 0.110 2012-10-08T16:51:49+0100
