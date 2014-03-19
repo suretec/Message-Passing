@@ -1,5 +1,7 @@
 0.114 2013-09-17T10:30:00+02:00
   - Fix test failures under Perl 5.18
+  - Fix internal and therefore undocumented type parameter swallows
+    Output::Search::Elasticsearches type parameter
   - Improve documentation
 
 0.113 2013-08-02T09:25:00+02:00

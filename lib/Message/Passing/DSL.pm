@@ -51,7 +51,7 @@ sub input {
     $FACTORY->make(
         %opts,
         name => $name,
-        type => 'Input',
+        _type => 'Input',
     );
 }
 
@@ -61,7 +61,7 @@ sub filter {
     $FACTORY->make(
         %opts,
         name => $name,
-        type => 'Filter',
+        _type => 'Filter',
     );
 }
 
@@ -71,7 +71,7 @@ sub output {
     $FACTORY->make(
         %opts,
         name => $name,
-        type => 'Output',
+        _type => 'Output',
     );
 }
 
@@ -81,7 +81,7 @@ sub decoder {
     $FACTORY->make(
         %opts,
         name => $name,
-        type => 'Filter::Decoder',
+        _type => 'Filter::Decoder',
     );
 }
 
@@ -91,7 +91,7 @@ sub encoder {
     $FACTORY->make(
         %opts,
         name => $name,
-        type => 'Filter::Encoder',
+        _type => 'Filter::Encoder',
     );
 }
 
