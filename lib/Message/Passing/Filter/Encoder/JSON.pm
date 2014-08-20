@@ -1,7 +1,7 @@
 package Message::Passing::Filter::Encoder::JSON;
 use Moo;
-use MooX::Types::MooseLike::Base qw/ Bool /;
-use JSON qw/ to_json /;
+use MooX::Types::MooseLike::Base qw( Bool HasMethods );
+use JSON::MaybeXS qw ();
 use Scalar::Util qw/ blessed /;
 use Try::Tiny;
 use Message::Passing::Exception::Encoding;
@@ -18,6 +18,15 @@ has pretty => (
     is => 'ro',
 );
 
+has _json => (
+    is      => 'lazy',
+    isa     => HasMethods [qw( encode )],
+    default => sub {
+        my $self = shift;
+        return JSON::MaybeXS->new( utf8 => 1, pretty => $self->pretty );
+    },
+);
+
 sub filter {
     my ($self, $message) = @_;
     try {
@@ -30,7 +39,7 @@ sub filter {
                 $message = $message->to_hash;
             }
         }
-        to_json( $message, { utf8  => 1, $self->pretty ? (pretty => 1) : () } )
+        $self->_json->encode( $message );
     }
     catch {
         $self->error->consume(Message::Passing::Exception::Encoding->new(

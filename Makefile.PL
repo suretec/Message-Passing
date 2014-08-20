@@ -23,7 +23,7 @@ requires 'Config::Any';
 requires 'MooX::Types::MooseLike' => '0.08';
 requires 'MooX::Options' => '3.71';
 requires 'String::RewritePrefix';
-requires 'JSON' => '2.0';
+requires 'JSON::MaybeXS' => '1.002002';
 requires 'Try::Tiny';
 requires 'Task::Weaken';
 requires 'Sys::Hostname::Long';

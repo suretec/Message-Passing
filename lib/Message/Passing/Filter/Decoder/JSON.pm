@@ -1,6 +1,6 @@
 package Message::Passing::Filter::Decoder::JSON;
 use Moo;
-use JSON qw/ from_json /;
+use JSON::MaybeXS qw( decode_json );
 use Try::Tiny;
 use Message::Passing::Exception::Decoding;
 use namespace::clean -except => 'meta';
@@ -13,7 +13,7 @@ with qw/
 sub filter {
     my ($self, $message) = @_;
     try {
-        ref($message) ? $message : from_json( $message, { utf8  => 1 } )
+        ref($message) ? $message : decode_json( $message )
     }
     catch {
         $self->error->consume(Message::Passing::Exception::Decoding->new(
