@@ -30,7 +30,7 @@ DESCRIPTION
     For a practical example, You generate events from a source (e.g. ZeroMQ
     output of logs and performance metrics from your Catalyst FCGI or
     Starman workers) and run one script that will give you a central
-    application log file, or push the logs into ElasticSearch.
+    application log file, or push the logs into Elasticsearch.
 
     There are a growing set of components you can plug together to make your
     solution.
@@ -95,8 +95,7 @@ COMPONENTS
     Message::Passing::Output::STOMP
     Message::Passing::Output::ZeroMQ
     Message::Passing::Output::WebHooks
-    Message::Passing::Output::ElasticSearch -
-    (<https://github.com/suretec/Message-Passing-Output-ElasticSearch>)
+    Message::Passing::Output::Search::Elasticsearch
     Message::Passing::Output::Redis
     Message::Passing::Output::Test
 

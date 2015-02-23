@@ -127,7 +127,7 @@ manor.
 For a practical example, You generate events from a source (e.g.
 L<ZeroMQ> output of logs and performance metrics from your L<Catalyst> FCGI
 or L<Starman> workers) and run one script that will give you a central
-application log file, or push the logs into L<ElasticSearch>.
+application log file, or push the logs into Elasticsearch.
 
 There are a growing set of components you can plug together
 to make your solution.
@@ -215,7 +215,7 @@ Outputs send data to somewhere, i.e. they consume messages.
 
 =item L<Message::Passing::Output::WebHooks>
 
-=item L<Message::Passing::Output::ElasticSearch> - (L<https://github.com/suretec/Message-Passing-Output-ElasticSearch>)
+=item L<Message::Passing::Output::Search::Elasticsearch>
 
 =item L<Message::Passing::Output::Redis>
 

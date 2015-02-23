@@ -2,6 +2,7 @@
     Message::Passing::Manual::Components
   - Fix daemonize_if_needed spelling
   - Add documentation for all command line options
+  - Recommend newer Message::Passing::Output::Search::Elasticsearch in docs
 
 0.115 2014-08-23T09:55:00+03:00 YAPC::EU 2014 release
   - Fix internal and therefore undocumented type parameter swallows
