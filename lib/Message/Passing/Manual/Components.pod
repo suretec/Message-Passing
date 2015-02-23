@@ -57,7 +57,7 @@ C<thing>, and C<thing_options>).
 A filter is just a class which consumes both L<Message::Passing::Role::Input> and
 L<Message::Passing::Role::Output>.
 
-Simple filters can just consume L<Log::Stash::Role::Filter>, and implement
+Simple filters can just consume L<Message::Passing::Role::Filter>, and implement
 a C<filter> method. Please see the documentation for that Role for more
 information.
 

@@ -1,3 +1,6 @@
+  - Fix link in 'Writing Filters' section of
+    Message::Passing::Manual::Components
+
 0.115 2014-08-23T09:55:00+03:00 YAPC::EU 2014 release
   - Fix internal and therefore undocumented type parameter swallows
     Output::Search::Elasticsearches type parameter
