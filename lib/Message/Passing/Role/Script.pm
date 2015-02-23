@@ -14,6 +14,7 @@ option daemonize => (
     is => 'ro',
     isa => Bool,
     default => sub { 0 },
+    doc => 'pass 1 to daemonize',
 );
 
 option io_priority => (
@@ -22,16 +23,24 @@ option io_priority => (
     is => 'ro',
     predicate => "_has_io_priority",
     format => 's',
+    doc => 'the IO priority to run the script at: none, be, rt, idle',
 );
 
-foreach my $name (qw/ user pid_file /) {
-    option $name => (
-        isa => Str,
-        is => 'ro',
-        predicate => "_has_$name",
-        format => 's',
-    );
-}
+option user => (
+    isa => Str,
+    is => 'ro',
+    predicate => "_has_user",
+    format => 's',
+    doc => 'changes the user the script is running as',
+);
+
+option pid_file => (
+    isa => Str,
+    is => 'ro',
+    predicate => "_has_pid_file",
+    format => 's',
+    doc => 'the name of the pid file including the directory',
+);
 
 sub deamonize_if_needed {
     my ($self) = @_;
