@@ -1,3 +1,4 @@
+0.116 2015-02-23T18:00:00+01:00
   - Fix link in 'Writing Filters' section of
     Message::Passing::Manual::Components
   - Fix daemonize_if_needed spelling
