@@ -30,6 +30,8 @@ requires 'Sys::Hostname::Long';
 requires 'DateTime';
 requires 'IO::Handle';
 
+recommends 'Linux::IO_Prio' => 0.03;
+
 install_script 'script/message-pass';
 
 author_requires(
