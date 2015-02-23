@@ -42,7 +42,7 @@ option pid_file => (
     doc => 'the name of the pid file including the directory',
 );
 
-sub deamonize_if_needed {
+sub daemonize_if_needed {
     my ($self) = @_;
     my $fh;
     if ($self->_has_pid_file) {
@@ -97,7 +97,7 @@ sub start {
     my $instance = $class->new_with_options(@_);
     $instance->set_io_priority_if_needed;
     $instance->change_uid_if_needed;
-    $instance->deamonize_if_needed;
+    $instance->daemonize_if_needed;
     run_message_server $instance->build_chain;
 }
 
@@ -205,7 +205,7 @@ Then enters the event loop and never returns.
 
 Tries to change uid if the --user option has been supplied
 
-=head2 deamonize_if_needed
+=head2 daemonize_if_needed
 
 Tires to daemonize if the --daemonize option has been supplied
 
