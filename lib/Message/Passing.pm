@@ -139,7 +139,7 @@ which does something more flexible than the normal script allows,
 then see L<Message::Passing::DSL>.
 
 To dive straight in, see the documentation for the command line utility
-L<message-passing>, and see the examples in L<Message::Passing::Manual::Cookbook>.
+L<message-pass>, and see the examples in L<Message::Passing::Manual::Cookbook>.
 
 For more about how the system works, see L<Message::Passing::Manual::Concepts>.
 

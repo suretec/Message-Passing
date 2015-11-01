@@ -43,7 +43,7 @@ dedicated to L<Message::Passing::Output::WebHooks>.
 If you want a more complex example, rather than just overriding some of the functionality from
 the default script, then you're better off writing your own script.
 
-See L<Message::Passing:Role::Script>, for a basic role you are likely to want to use to do this.
+See L<Message::Passing::Role::Script>, for a basic role you are likely to want to use to do this.
 You'll also want to use L<Message::Passing::DSL>, as shown in the example documentation for
 the script role..
 
