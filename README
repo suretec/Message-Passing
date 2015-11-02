@@ -100,7 +100,7 @@ COMPONENTS
     Message::Passing::Output::Test
 
 SEE ALSO
-    Message::Passing::Manual - The manual (contributions cherished)
+    Message::Passing::Manual - The manual (contributions cherished).
     <http://www.slideshare.net/bobtfish/messaging-interoperability-and-log-a
     ggregation-a-new-framework> - Slide deck!
     Log::Message::Structured - For creating your log messages.
@@ -133,7 +133,7 @@ AUTHOR
 SUPPORT
   Bugs
     Please log bugs at rt.cpan.org. Each distribution has a bug tracker link
-    in it's metacpan.org page.
+    in its metacpan.org page.
 
   Discussion
     #message-passing on irc.perl.org.

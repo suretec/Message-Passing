@@ -160,7 +160,7 @@
 
   - Make JSON decoder pass refs straight through, to
     act as a no-op if the input has already decoded
-    it's data into a hash.
+    its data into a hash.
 
   - Remove spurious warnings from reconnect code.
 
