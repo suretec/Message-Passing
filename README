@@ -42,7 +42,7 @@ DESCRIPTION
     Message::Passing::DSL.
 
     To dive straight in, see the documentation for the command line utility
-    message-passing, and see the examples in
+    message-pass, and see the examples in
     Message::Passing::Manual::Cookbook.
 
     For more about how the system works, see
@@ -111,14 +111,14 @@ THIS MODULE
     This is a simple MooX::Options script, with one input, one filter and
     one output. To build your own similar scripts, see:
 
-    Message::Passing::DSL - To declare your message chains
+    Message::Passing::DSL - To declare your message chains.
     Message::Passing::Role::CLIComponent - To provide "foo" and
     "foo_options" attribute pairs.
     Message::Passing::Role::Script - To provide daemonization features.
 
   METHODS
    build_chain
-    Builds and returns the configured chain of input => filter => output
+    Builds and returns the configured chain of input => filter => output.
 
    start
     Class method to call the run_message_server function with the results of
@@ -140,7 +140,7 @@ SUPPORT
 
   Source code
     Source code for all modules is available at <http://github.com/suretec>
-    and forks / patches are very welcome.
+    and forks/patches are very welcome.
 
 SPONSORSHIP
     This module exists due to the wonderful people at Suretec Systems Ltd.
@@ -152,8 +152,8 @@ SPONSORSHIP
 COPYRIGHT
     Copyright Suretec Systems Ltd. 2012.
 
-    Logstash (upon which many ideas for this project is based, but which we
-    do not reuse any code from) is copyright 2010 Jorden Sissel.
+    Logstash (upon which many ideas for this project are based, but from
+    which we do not reuse any code) is copyright 2010 Jorden Sissel.
 
 LICENSE
     GNU Library General Public License, Version 2.1

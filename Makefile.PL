@@ -46,6 +46,9 @@ author_requires(
     'Compress::Bzip2' => '0',
     'Crypt::CBC' => '0',
     'Crypt::Blowfish' => '0',
+    'Sys::Hostname::Long' => '0',
+    'AnyEvent::Handle::UDP' => '0',
+    'JSON' => '0',
 );
 
 author_tests 't/author';
