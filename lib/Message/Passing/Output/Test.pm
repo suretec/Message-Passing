@@ -42,6 +42,11 @@ Message::Passing::Output::Test - Output for use in unit tests
 
 =head2 messages
 
+=head2 clear_messages
+
+Clears all stores messages. Useful to speed up tests by resetting the
+instance instead of reinstantiating it.
+
 =head2 consume_test
 
 =head2 message_count
