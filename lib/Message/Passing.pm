@@ -132,7 +132,7 @@ application log file, or push the logs into Elasticsearch.
 There are a growing set of components you can plug together
 to make your solution.
 
-Getting started is really easy - you can just use the C<message-passing>
+Getting started is really easy - you can just use the C<message-pass>
 command installed by the distribution. If you have a common config
 that you want to repeat, or you want to write your own server
 which does something more flexible than the normal script allows,
