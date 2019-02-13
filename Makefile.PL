@@ -29,6 +29,7 @@ requires 'Task::Weaken';
 requires 'Sys::Hostname::Long';
 requires 'DateTime';
 requires 'IO::Handle';
+requires 'List::MoreUtils';
 
 recommends 'Linux::IO_Prio' => 0.03;
 
