@@ -45,7 +45,7 @@ Message::Passing::Output::Test - Output for use in unit tests
 =head2 clear_messages
 
 Clears all stores messages. Useful to speed up tests by resetting the
-instance instead of reinstantiating it.
+instance instead of re-instantiating it.
 
 =head2 consume_test
 
@@ -60,7 +60,7 @@ L<Message::Passing>
 This module exists due to the wonderful people at Suretec Systems Ltd.
 <http://www.suretecsystems.com/> who sponsored its development for its
 VoIP division called SureVoIP <http://www.surevoip.co.uk/> for use with
-the SureVoIP API - 
+the SureVoIP API -
 <http://www.surevoip.co.uk/support/wiki/api_documentation>
 
 =head1 AUTHOR, COPYRIGHT AND LICENSE
