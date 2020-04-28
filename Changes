@@ -1,3 +1,4 @@
+  - Add missing List::MoreUtils dep
   - Document Output::Test clear_messages method
 
 0.116 2015-02-23T18:00:00+01:00
