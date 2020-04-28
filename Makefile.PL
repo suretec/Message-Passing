@@ -10,7 +10,7 @@ all_from 'lib/Message/Passing.pm';
 license 'LGPL_2_1';
 authority('cpan:GHENRY');
 resources(
-    repository => "git://github.com/suretec/Message-Passing.git",
+    repository => "https://github.com/suretec/Message-Passing/",
 );
 
 requires 'Moo' => '0.091011';
