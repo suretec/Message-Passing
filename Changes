@@ -1,4 +1,6 @@
   - Add missing List::MoreUtils dep
+  - Fix missing JSON dependency
+    by using JSON::MaybeXS also for tests
   - Document Output::Test clear_messages method
 
 0.116 2015-02-23T18:00:00+01:00
@@ -225,4 +227,3 @@
 
 0.001 2012-03-21T22:26:21+0000
     - Initial version.
-

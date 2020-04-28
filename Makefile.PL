@@ -49,7 +49,6 @@ author_requires(
     'Crypt::Blowfish' => '0',
     'Sys::Hostname::Long' => '0',
     'AnyEvent::Handle::UDP' => '0',
-    'JSON' => '0',
 );
 
 author_tests 't/author';
@@ -60,4 +59,3 @@ if ($Module::Install::AUTHOR) {
 }
 
 WriteAll;
-
