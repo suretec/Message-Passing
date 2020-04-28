@@ -1,4 +1,5 @@
-  - Add missing List::MoreUtils dep
+  - Fix missing List::MoreUtils dependency
+    by using uniq from List::Util 1.45
   - Fix missing JSON dependency
     by using JSON::MaybeXS also for tests
   - Document Output::Test clear_messages method
